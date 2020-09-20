@@ -5,7 +5,7 @@ import ContactSection from '../components/about/contactSection'
 const About = () => (
   <PageWrapper
     title='About Us'
-    description='Learn how Flossbank works to help you support Open Source maintainers based on your dependency tree.'
+    description='Learn how Flossbank works to help you ensure ongoing support for your open source packages.'
   >
     <AboutUsSection />
     <ContactSection hideHeading />

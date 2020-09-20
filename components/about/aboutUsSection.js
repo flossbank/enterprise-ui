@@ -36,63 +36,34 @@ const AboutUsSection = () => (
     </Box>
     <Box gridColumn={{ base: 1, lg: 2 }} maxW={{ base: '80ch', lg: '55ch' }}>
       <Subheading align={{ base: 'center', lg: 'left' }}>
-        Revolutionizing Open Source pay
+        Who are we?
       </Subheading>
       <Box marginBottom='3rem'>
-        <Box marginBottom='1rem'>
-          We believe the Open Source ecosystem suffers from three problems:
-          <List as='ol' styleType='decimal'>
-            <ListItem margin='1rem 0'>
-              Lack of funding. There isn’t enough money coming in to compensate
-              maintainers for their labor. Open Source is the backbone of almost
-              every Fortune 500 company, but maintainers see little of that
-              success.
-            </ListItem>
-            <ListItem margin='1rem 0'>
-              Disproportionate distribution of funding. If I donate to an Open
-              Source project, I’m generally ignoring the dependencies of that
-              project. We believe this funding paradigm is dysfunctional and
-              unfair.
-            </ListItem>
-            <ListItem margin='1rem 0'>
-              Lack of accessibility. If maintainers want funding, they must
-              spend time and energy on self-promotion. If developers want to
-              help the Open Source ecosystem, they need the financial means to
-              do so.
-            </ListItem>
-          </List>
-        </Box>
         <Text marginBottom='1rem'>
-          These are huge problems. We wanted a solution that allows us to easily
-          and freely give back to all the maintainers we rely on. More than
-          that, we wanted a solution that would compensate the dependencies of
-          our dependencies -- all the way down the tree.
+          We're a group of developers who believe Open Source code begets technological progress.
         </Text>
         <Text marginBottom='1rem'>
-          That’s why we built a package manager wrapper. The wrapper takes
-          complete dependency tree snapshots when you install Open Source
-          packages. The wrapper will show ads (if you want) while Open Source
-          packages are downloading/installing. We distribute the ad revenue
-          across the entire dependency tree of the packages that you installed.
+          Every fortune 500 company utilizes Open Source code, yet less than 1% of fortune 500 companies
+          give back to the authors and maintainers writing the Open Source code. 
         </Text>
         <Text marginBottom='1rem'>
-          You might think "Ads suck, why ads?" We hate ads as much as you do,
-          but we realized we primarily hate them when they're forced on us, or
-          when they become a requirement to use a product. That's why ads
-          through Flossbank are completely opt-in; never a requirement. We view
-          ads as an accessible way to give back to the Open Source community. If
-          you're someone who wants to give back, now there's a free option, if
-          you so choose.
+          Are we trying to make money? No. Our goal is to normalize giving back to authors and maintainers. That's why
+          we take a meazly 1% of donations to keep the lights on. If, over time this seems like too much, we'll drop the 
+          fee even lower. We want to take just enough to power our servers that distribute and process donations.
+        </Text>
+        <Text>
+          What's more, we subscribe to the belief that <Text fontStyle='italic'>good software can come from anywhere</Text>. 
+          Right now, most Open Source engineers are capable of working on Open Source because they have another full time job
+          that pays the bills. Because most full time engineering jobs employ both locale and background homogonous groups, 
+          opportunity is ample for Open Source to become more diverse. A more diverse Open Source contributing pool means more
+          diverse software, and because functions are opinions baked into code, the software world is better for it.
         </Text>
         <Text marginBottom='1rem'>
-          If you prefer donating, we also distribute your donation to every
-          package installed, not only the top level packages. What’s more, your
-          contribution to the Open Source community reflects your usage each
-          month. Your donation goes to the packages you used the most each month
-          (and to their dependencies).
+          At Flossbank's core, we believe that if we can normalize giving back to the authors and maintainers 
+          writing Open Source code, the tech community will be safer, more inclusive, and overall better for it.
         </Text>
         <Text marginBottom='1rem'>
-          We’re super excited about this product and think it’s a small step in
+          We’re super excited about this product and truly believe whatever the size of the step, it's a step in
           the right direction.
         </Text>
         <Text>Want to help us on our mission to fund Open Source?</Text>
