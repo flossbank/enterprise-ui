@@ -1,11 +1,10 @@
 import { List, ListItem, Icon, Box, Text } from '@chakra-ui/core'
-import UnderlinedHeading from '../../common/underlinedHeading'
 
 const cardData = [
   {
-    heading: 'Maximum impact',
+    heading: 'Fortify your code base',
     icon: 'stack',
-    text: '99% of your donation goes to maintainers. 1% is to keep Flossbank\'s engines running.'
+    text: 'Your company relies on the maintenace and integrity of Open Source. Make sure the maintainers have the resources needed to not only maintain, but improve the code your company relies on.'
   },
   {
     heading: 'Easy',
@@ -14,15 +13,14 @@ const cardData = [
       'Set up a monthly donation that can be cancelled at any time in less than 2 minutes.'
   },
   {
-    heading: 'Equitable',
-    icon: 'cycle',
-    text: 'Flossbank compensates every open source dependency you have, not just those with name recognition.'
-  },
-
-  {
     heading: 'Build your brand',
     icon: 'bullseye',
     text: 'Based on your donation, you will receive a Flossbank badge to show that you value the work open source maintainers provide.'
+  },
+  {
+    heading: 'Equitable',
+    icon: 'cycle',
+    text: 'Flossbank compensates every open source dependency you have, not just those with name recognition.'
   }
 ]
 
