@@ -1,4 +1,4 @@
-import { Text, Box, Image } from '@chakra-ui/core'
+import { Text, Box, List, ListItem, Link } from '@chakra-ui/core'
 
 import PageWrapper from '../components/common/pageWrapper'
 import Section from '../components/common/section'
@@ -6,7 +6,6 @@ import Card from '../components/common/card'
 import UnderlinedHeading from '../components/common/underlinedHeading'
 import TextLink from '../components/common/textLink'
 import FAQHeading from '../components/common/faqHeading'
-import Divider from '../components/common/divider'
 
 const HowItWorks = () => (
   <PageWrapper title='How It Works'>
@@ -25,10 +24,12 @@ const HowItWorks = () => (
           Right now, every fortune 500 company pulls in Open Source code for two main reasons:
           <List as='ol' styleType='decimal'>
             <ListItem margin='1rem 0'>
-              According to a 
-              <a href='https://thenewstack.io/theres-one-thing-stopping-developers-from-using-open-source-even-more/'>
-                recent survey
-              </a>, Open Source is overwhelmingly better than proprietary solutions.
+              {'According to a '}
+              <TextLink 
+                external 
+                href='https://thenewstack.io/theres-one-thing-stopping-developers-from-using-open-source-even-more/'
+                text='recent survey' />
+              , Open Source is overwhelmingly better than proprietary solutions.
             </ListItem>
             <ListItem margin='1rem 0'>
               Open Source is overwhelmingly cheaper than building a proprietary solution
@@ -42,13 +43,34 @@ const HowItWorks = () => (
           build any desired system.
         </Text>
         <Text marginBottom='1rem'>
-          Of course, this comes with risks.
+          Of course, this comes with the risk of relying on code not internally maintained. The risk is 
+          exasperated by the fact that the maintainers maintaining the external code are nine times out of ten
+          working for free. 
         </Text>
         <Text marginBottom='1rem'>
-          How to companies currently mitigate risks associated with pulling in Open Source code?
+          If, at any point in a companies internal operations a team was a linch pin of success and had a risk of folding,
+          the company would hire another engineer or give the current engineers raises to ensure the future viability
+          of the company as a whole. 
         </Text>
         <Text marginBottom='1rem'>
-          
+          <b>That's why at Flossbank we recommend donating one full engineers salary back to the Open Source code 
+          you as a company rely on</b>. This ensures the code is not only well maintained, but will continue improving
+          in the background. Not only that, but enable the birth of the next 10 Open Source packages that could take
+          your company to the next level. 
+        </Text>
+        <Text marginBottom='1rem'>
+          Flossbank distributes the monthly donation down the entire dependency tree of the Open Source packages you rely
+          on, meaning every aspect of the code you rely on is supported with one easy monthly donation. 
+        </Text>
+        <Text marginBottom='1rem'>
+          No maintenance, no
+          questions asked, know that the code you use is supported, just as you'd want it to be supported if it were an
+          internal team working on business critical operations.
+        </Text>
+        <Text marginBottom='1rem'>
+          In addition to knowing your code base is fortified, we give you a badge to show the world that you support open
+          source. You'd be surprised how many talented engineers will come knocking to work at your company if you 
+          acknowledge the value of Open Source.
         </Text>
         <Text color='boulder' textAlign='center' fontWeight='500'>
           Have more questions? Visit our{' '}

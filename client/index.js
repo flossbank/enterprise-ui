@@ -21,7 +21,7 @@ export const deleteDonation = async () => {
 }
 
 export const sendSupportFeedback = async ({ email, name, topic, body }) => {
-  return fetchThenJson('api/support/feedback', optionsWithPostBody({ email, topic, name, body }))
+  return fetchThenJson('api/support/feedback', optionsWithPostBody({ email, topic: `ENTERPRISE- ${topic}`, name, body }))
 }
 
 export const fetchDonationInfo = async () => {

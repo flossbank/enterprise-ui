@@ -6,7 +6,7 @@ import { Box } from '@chakra-ui/core'
 
 import ErrorMessage from '../common/errorMessage'
 
-import styles from '../select/donateForm.module.scss'
+import styles from './billingForm.module.scss'
 
 const BillingForm = () => {
   const [error, setError] = useState('')
