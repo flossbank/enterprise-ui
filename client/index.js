@@ -1,5 +1,9 @@
 import fetch from 'isomorphic-fetch'
 
+export const fetchOrgDeps = async () => {
+  return { blah: 'true '}
+}
+
 export const completeGHLogin = async ({ code, state }) => {
   return fetchThenJson('api/organization/github-auth', optionsWithPostBody({ code, state }))
 }
