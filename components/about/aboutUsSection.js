@@ -52,7 +52,7 @@ const AboutUsSection = () => (
           fee even lower. We want to take just enough to power our servers that distribute and process donations.
         </Text>
         <Text>
-          What's more, we subscribe to the belief that <Text fontStyle='italic'>good software can come from anywhere</Text>. 
+          What's more, we subscribe to the belief that <i>good software can come from anywhere</i>. 
           Right now, most Open Source engineers are capable of working on Open Source because they have another full time job
           that pays the bills. Because most full time engineering jobs employ both locale and background homogonous groups, 
           opportunity is ample for Open Source to become more diverse. A more diverse Open Source contributing pool means more
