@@ -26,7 +26,7 @@ const SplashHero = () => (
         textAlign='left'
         marginBottom={{ base: '1.5rem', md: '.5rem' }}
       >
-        Improve your companies brand by supporting the open source authors and maintainers serving as the backbone of the tech industry.  
+        Improve your companies brand by supporting the open source authors and maintainers serving as the backbone of your code base.  
       </Text>
       <LinkBtn
         href='/signup'

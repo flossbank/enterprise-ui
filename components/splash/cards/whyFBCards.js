@@ -10,12 +10,12 @@ const cardData = [
     heading: 'Easy',
     icon: 'heart',
     text:
-      'Set up a monthly donation that can be cancelled at any time in less than 2 minutes.'
+      'Set up a monthly donation that can be cancelled at any time in less than 1 minute.'
   },
   {
     heading: 'Build your brand',
     icon: 'bullseye',
-    text: 'Based on your donation, you will receive a Flossbank badge to show that you value the work open source maintainers provide.'
+    text: 'Based on your donation amount, you will receive a Flossbank badge to show that you value the work open source maintainers provide.'
   },
   {
     heading: 'Equitable',
