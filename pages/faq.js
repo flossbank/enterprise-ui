@@ -7,7 +7,6 @@ import UnderlinedHeading from '../components/common/underlinedHeading'
 import TextLink from '../components/common/textLink'
 import FAQHeading from '../components/common/faqHeading'
 import Divider from '../components/common/divider'
-import UninstallCommandBlock from '../components/common/uninstallCommandBlock'
 
 const FAQ = () => (
   <PageWrapper title='FAQs'>
@@ -21,60 +20,54 @@ const FAQ = () => (
     >
       <UnderlinedHeading as='h1' text='FAQs' align='center' />
       <Card shadowSz='lg' maxW='60rem'>
-        <FAQHeading>What do the ads look like?</FAQHeading>
-        <Box marginBottom='1.5rem'>
-          <Image src='/images/flossbank_ads_demo.gif' margin='1.5rem auto 0' alt='GIF showing the process of installing packages when the Flossbank wrapper is installed.' />
-        </Box>
-        <Divider />
-        <FAQHeading>What package managers do you wrap?</FAQHeading>
+        <FAQHeading>Who does my donation go to?</FAQHeading>
         <Text marginBottom='1.5rem'>
-          We are currently wrapping{' '}
-          <TextLink href='https://www.npmjs.com/' external text='npm' /> and{' '}
-          <TextLink href='https://yarnpkg.com/' external text='Yarn' />. We plan
-          on wrapping more package managers in the future.
+          Your donation is distributed to each package your organization uses. The list is retrieved fresh from
+          your GitHub each month, meaning your donation is never going to packages you've stopped using.
         </Text>
         <Divider />
-        <FAQHeading>How is revenue I generate distributed?</FAQHeading>
+        <FAQHeading>What do the recipients do with our donation?</FAQHeading>
         <Text marginBottom='1.5rem'>
-          See our <TextLink text='how it works' href='/how-it-works' /> page for
-          a detailed breakdown of how revenue is distributed to the packages you
-          use.
+          The package maintainers and authors can do whatever they'd like with the money! Just as you pay an
+          employee and don't dictate how they use the funds, this is how we view paying the Open Source
+          maintainers you rely on. As with any infusion of capital, progress is inevitible.
+        </Text>
+        <Divider />
+        <FAQHeading>Can I cancel my donation at any time?</FAQHeading>
+        <Text marginBottom='1.5rem'>
+          Of course. Be sure to remove your badge from display however, as
+          your badge links to your public profile on Flossbank, so if you keep
+          your badge displayed and viewers click on it, they might see your profile has no donation
+          and yet you display your badge, doing more damage to your brand than good.
         </Text>
         <Divider />
         <FAQHeading>
-          Why can't I see the amount of ad revenue I've generated for Open
-          Source in the user portal?
+          How do you know if I donate 1% of our profits?
         </FAQHeading>
         <Text marginBottom='1.5rem'>
-          We only display the previous month's impact in the user portal. This
-          may change in the future.
+          We trust you! That's right, the relationship is built on trust, just like Open Source is built on trust
+          and integrity. Donating the 1% of profits badge does mean more upkeep for your donation, as you'll have to
+          manually adjust your donation amount anually. Don't let this disaude you from purchasing the most prestigious
+          badge though.
         </Text>
         <Divider />
-        <FAQHeading>What data do you collect and why?</FAQHeading>
+        <FAQHeading>What data do you collect?</FAQHeading>
         <Text marginBottom='1.5rem'>
-          The package manager wrapper reports which top-level packages were
-          installed. This is used for determining which packages should receive
-          the revenue generated. Additionally, the version of the package
-          manager used is recorded for debugging purposes. Our package manager
-          wrapper is open source, so feel free to{' '}
-          <TextLink
-            text='inspect the code on GitHub.'
-            external
-            href='https://github.com/flossbank/cli'
-          />
+          None. We simply faciliate payments to Open Source maintainers and authors with the underlying 
+          motivation being Open Source development begets technological progress. We don't store anything about
+          your organization except your donation info.
         </Text>
         <Divider />
-        <FAQHeading>Which operating systems are supported?</FAQHeading>
-        <Text marginBottom='1.5rem'>Windows, Mac, and Linux.</Text>
-        <Divider />
-        <FAQHeading>How can I uninstall Flossbank?</FAQHeading>
+        <FAQHeading>Can I ask maintainers for a deliverable, such as a blog post?</FAQHeading>
         <Text marginBottom='1.5rem'>
-          At any point, you can run the following command to uninstall:
+          No, maintaing Open Source software is a job enough, and by not demanding more deliverables the code
+          you depend on will actually be better off. You wouldn't ask your lead data science engineer to write a blog
+          post because they have more important priorities. For the same reason, we don't allow asking or expecting
+          Open Source maintainers to do anything more than to continue building.
         </Text>
-        <UninstallCommandBlock />
         <Divider />
-        <FAQHeading>I still have a question</FAQHeading>
-        <Text marginBottom='1.5rem'>
+        <FAQHeading textAlign='center'>I still have a question</FAQHeading>
+        <Text marginBottom='1.5rem' textAlign='center'>
           <TextLink text='Contact us' href='contact' /> and we'll address it
           ASAP!
         </Text>

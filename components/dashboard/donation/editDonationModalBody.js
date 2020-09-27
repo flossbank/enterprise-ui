@@ -22,7 +22,7 @@ import RemoveDonation from './removeDonationModalBody'
 import FBButton from '../../common/fbButton'
 import ErrorMessage from '../../common/errorMessage'
 
-import styles from '../../select/donateForm.module.scss'
+import styles from '../billingForm.module.scss'
 
 const EditDonationModalBody = ({ donationAmount, isNewDonor, onClose }) => {
   const [submitError, setSubmitError] = useState('')

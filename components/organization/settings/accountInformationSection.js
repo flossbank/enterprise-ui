@@ -23,7 +23,6 @@ import SettingsCard from './settingsCard'
 import UnderlinedHeading from '../../common/underlinedHeading'
 import LinkBtn from '../../common/linkBtn'
 import FBButton from '../../common/fbButton'
-import UninstallCommandBlock from '../../common/uninstallCommandBlock'
 import ErrorMessage from '../../common/errorMessage'
 
 import { deleteDonation } from '../../../client'
@@ -142,12 +141,6 @@ const AccountInformationSection = ({ user }) => {
               <strong>You can reinstate your account at any time</strong> by
               simply logging in and reinstalling Flossbank.
             </Text>
-            <Text marginBottom='1.5rem'>
-              <strong>Before you deactivate your account</strong>, remember to
-              uninstall Flossbank by running the following command from the
-              terminal:
-            </Text>
-            <UninstallCommandBlock />
             <Text marginBottom='1.5rem'>
               <strong>
                 Are you sure you want to deactivate your Flossbank account?

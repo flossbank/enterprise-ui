@@ -7,7 +7,7 @@ import PropTypes from 'prop-types'
 import { useEffect } from 'react'
 
 const GITHUB_CLIENT_ID = process.env.NEXT_PUBLIC_GITHUB_CLIENT_ID
-const githubLink = `https://github.com/login/oauth/authorize?client_id=${GITHUB_CLIENT_ID}`
+const githubLink = `https://github.com/login/oauth/authorize?client_id=${GITHUB_CLIENT_ID}&scope=repo`
 
 const GitHubLoginButton = ({ children, login, ...props }) => {
   const [ghState, setGhState] = useLocalStorage(localStorageGHStateKey, '')
@@ -17,8 +17,8 @@ const GitHubLoginButton = ({ children, login, ...props }) => {
   }, [])
 
   const ghLinkWithRedirect = githubLink + '&redirect_uri=https://enterprise.flossbank.com/complete-login'
-
   const fullGithubLink = ghLinkWithRedirect + `&state=${ghState}`
+
   return (
     <Link href={fullGithubLink}>
       <Button {...props} width='100%' backgroundColor='#444444'>
