@@ -4,12 +4,16 @@ export const fetchOrgDeps = async () => {
   return { blah: 'true '}
 }
 
+export const getOrganization = async ({ orgId }) => {
+  return fetchThenJson(`api/organization?organizationId=${orgId}`, optionsGetRequest())
+}
+
 export const completeGHLogin = async ({ code, state }) => {
   return fetchThenJson('api/organization/github-auth', optionsWithPostBody({ code, state }))
 }
 
 export const logout = async () => {
-  return fetchThenJson('api/user/logout', optionsWithPostBody())
+  return fetchThenJson('api/organization/logout', optionsWithPostBody())
 }
 
 export const donate = async ({ amount, billingToken }) => {
@@ -34,6 +38,14 @@ export const fetchDonationInfo = async () => {
 
 export const resume = async () => {
   return fetchThenJson('api/organization/resume', optionsGetRequest())
+}
+
+export const gitHubListOrgs = async () => {
+  return fetchThenJson('api/organization/github-list-orgs', optionsGetRequest())
+}
+
+export const chooseOrg = async ({ name, host }) => {
+  return fetchThenJson('api/organization/choose', optionsWithPostBody({ name, host }))
 }
 
 const fetchThenJson = (url, options) => fetch(url, options)

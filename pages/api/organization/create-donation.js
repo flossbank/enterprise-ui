@@ -7,7 +7,7 @@ export default async (req, reply) => {
       'x-requested-with': req.headers['x-requested-with'],
       cookie: req.headers.cookie
     }
-    const response = await got.post('user/donation', {
+    const response = await got.post('organization/donation', {
       json: { amount, billingToken, last4 },
       headers: reqHeaders
     })

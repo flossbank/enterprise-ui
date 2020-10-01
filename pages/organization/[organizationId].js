@@ -2,8 +2,9 @@ import { useState, useEffect } from 'react'
 
 import {
   fetchOrgDeps,
+  getOrganization,
   fetchDonationInfo,
-} from '../client'
+} from '../../client'
 
 import {
   Text,
@@ -15,23 +16,26 @@ import {
   Icon
 } from '@chakra-ui/core'
 
-import { downloadData } from '../utils/downloader'
-import { useLocalStorage } from '../utils/useLocalStorage'
+import { downloadData } from '../../utils/downloader'
+import { useLocalStorage } from '../../utils/useLocalStorage'
 import {
   localStorageDashboardWelcomeTourKey
-} from '../utils/constants'
-import { useAuth } from '../utils/useAuth'
+} from '../../utils/constants'
+import { useAuth } from '../../utils/useAuth'
 
-import Banner from '../components/common/banner'
-import PageWrapper from '../components/common/pageWrapper'
-import Section from '../components/common/section'
-import DashboardDataCard from '../components/dashboard/dashboardDataCard'
-import DonationCard from '../components/dashboard/donationCard'
-import FBButton from '../components/common/fbButton'
-import TopTenPackagesView from '../components/dashboard/topTenPackagesView'
+import Banner from '../../components/common/banner'
+import PageWrapper from '../../components/common/pageWrapper'
+import Section from '../../components/common/section'
+import DashboardDataCard from '../../components/dashboard/dashboardDataCard'
+import DonationCard from '../../components/dashboard/donationCard'
+import FBButton from '../../components/common/fbButton'
+import TopTenPackagesView from '../../components/dashboard/topTenPackagesView'
+import { useRouter } from 'next/router'
 
 const Dashboard = () => {
   const { resume } = useAuth()
+  const router = useRouter()
+  let org
   const [showWelcomeMessage, setShowWelcomeMessage] = useLocalStorage(
     localStorageDashboardWelcomeTourKey,
     true
@@ -45,9 +49,7 @@ const Dashboard = () => {
   const [orgDepCount, setOrgDepCount] = useState(0)
   
   const [donationLoading, setDonationLoading] = useState(true)
-  const [donation, setDonation] = useState(
-    user.billingInfo.monthlyDonation || 0
-  )
+  const [donation, setDonation] = useState(0)
 
   function resetLoaders () {
     setTopLevelPackagesLoading(true)
@@ -55,8 +57,17 @@ const Dashboard = () => {
     setOrgDepCountLoading(true)
   }
 
+  /**
+   * Fetch data will first try to get the org that is being viewed. Based on the headers,
+   * the api will either return public or private org data and functionality will be
+   * allowed as such.
+   */
   async function fetchData () {
     try {
+      org = await getOrganization({ orgId: router.query.organizationId })
+      setDonation(org.donationAmount || 0)
+      // TODO: Branch logic here if private data is returned or public
+
       const orgDepsRes = await fetchOrgDeps()
       if (orgDepsRes && orgDepsRes.success) {
         setOrgDepCount(orgDepsRes.totalDeps.length)

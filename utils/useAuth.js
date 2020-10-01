@@ -83,7 +83,6 @@ export const useAuth = () => {
 function useProvideAuth () {
   const [user, setUser] = useState(null)
   const [_, setAuthedFlag] = useLocalStorage('flossbank_auth', false) // eslint-disable-line
-  const [userReferrer, __] = useLocalStorage('flossbank_rc', '') // eslint-disable-line
 
   const setSessionUser = (u) => {
     setUser(u || null)
