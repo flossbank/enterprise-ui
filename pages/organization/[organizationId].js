@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'react'
 
 import {
-  fetchOrgDeps,
   getOrganization,
   fetchDonationInfo,
 } from '../../client'
@@ -35,7 +34,6 @@ import { useRouter } from 'next/router'
 const Dashboard = () => {
   const { resume } = useAuth()
   const router = useRouter()
-  let org
   const [showWelcomeMessage, setShowWelcomeMessage] = useLocalStorage(
     localStorageDashboardWelcomeTourKey,
     true
@@ -51,6 +49,8 @@ const Dashboard = () => {
   const [donationLoading, setDonationLoading] = useState(true)
   const [donation, setDonation] = useState(0)
 
+  const [org, setOrg] = useState({})
+
   function resetLoaders () {
     setTopLevelPackagesLoading(true)
     setDonationLoading(true)
@@ -63,34 +63,13 @@ const Dashboard = () => {
    * allowed as such.
    */
   async function fetchData () {
+    if (!router.query || !router.query.organizationId) return 
+
     try {
-      org = await getOrganization({ orgId: router.query.organizationId })
-      setDonation(org.donationAmount || 0)
+      const orgRes = await getOrganization({ orgId: router.query.organizationId })
+      setOrg(orgRes.organization)
+      setDonation(orgRes.organization.donationAmount || 0)
       // TODO: Branch logic here if private data is returned or public
-
-      const orgDepsRes = await fetchOrgDeps()
-      if (orgDepsRes && orgDepsRes.success) {
-        setOrgDepCount(orgDepsRes.totalDeps.length)
-        setTopLevelPackages(orgDepsRes.topLevelDepsCount)
-
-        const topTen = orgDepsRes.totalDeps
-          .sort((a, b) => b.installCount - a.installCount)
-          .slice(0, 10)
-          .sort((a, b) => {
-            if (a.installCount === b.installCount) {
-              if (a.name < b.name) return -1
-              if (a.name > b.name) return 1
-              return 0
-            }
-            return b.installCount - a.installCount
-          })
-          .map((packs) => ({
-            name: packs.name,
-            count: packs.installCount,
-            amt: packs.installCount
-          }))
-        setTopUsedPackages(topTen)
-      }
     } catch (e) {
       setTopLevelPackages('N/A')
       setOrgDepCount('N/A')
@@ -100,7 +79,7 @@ const Dashboard = () => {
     }
 
     try {
-      const donationInfoRes = await fetchDonationInfo()
+      const donationInfoRes = await fetchDonationInfo({ orgId: router.query.organizationId })
       if (donationInfoRes && donationInfoRes.success) {
         setDonation(donationInfoRes.donationInfo.amount / 100)
       }
@@ -119,7 +98,7 @@ const Dashboard = () => {
 
   useEffect(() => {
     fetchData()
-  }, [0]) // only run on mount
+  }, [router.query]) // only run on mount
 
   return (
     <PageWrapper title='Dashboard'>
@@ -150,7 +129,7 @@ const Dashboard = () => {
             textAlign={{ base: 'center', md: 'left' }}
             marginBottom='1.5rem'
           >
-            Impact overview
+            {org && org.name}'s impact overview
           </Heading>
           <Box>
             <List

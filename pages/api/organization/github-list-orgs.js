@@ -7,6 +7,7 @@ export default async (req, reply) => {
       cookie: req.headers.cookie
     }
     const response = await got.post('organization/github-list-orgs', {
+      json: {},
       headers: reqHeaders
     })
     reply.status(response.statusCode).json(response.body)
