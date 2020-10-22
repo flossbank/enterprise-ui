@@ -29,13 +29,11 @@ const CompleteLoginPage = () => {
   }
 
   async function redirectUser ({ organizations }) {
-    console.log('here', organizations)
     setOrgs(organizations)
     if (organizations.length >= 1) {
-      console.log('showing modal', orgs)
       setShowChooseModal(true)
     } else {
-      // TODO: If no orgs are returned, auto redirect them to install Flossbank on new org
+      window.location.href = 'https://github.com/apps/flossbank/installations/new'
     }
   } 
 
