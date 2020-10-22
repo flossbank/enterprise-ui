@@ -33,7 +33,7 @@ const CompleteLoginPage = () => {
     if (organizations.length >= 1) {
       setShowChooseModal(true)
     } else {
-      window.location.href = 'https://github.com/apps/flossbank/installations/new'
+      window.location.href = 'https://github.com/apps/flossbank/installations/new?redirect_uri=https://enterprise.flossbank.com/complete-install'
     }
   } 
 
@@ -71,7 +71,7 @@ const CompleteLoginPage = () => {
 
   useEffect(() => {
     attemptCompleteLogin()
-  }, [router.query]) // only run on mount
+  }, [router.query]) 
 
   return (
     <PageWrapper title='Log In'>
