@@ -5,9 +5,9 @@ import { Heading, Text, Icon } from '@chakra-ui/core'
 import { useLocalStorage } from '../utils/useLocalStorage'
 import PageWrapper from '../components/common/pageWrapper'
 import Section from '../components/common/section'
+import ChooseOrgModal from '../components/completeLogin/chooseOrgModal'
 import BouncyLoader from '../components/common/bouncyLoader'
 
-import { gitHubListOrgs } from '../client/index'
 import { localStorageGHStateKey } from '../utils/constants'
 import { useAuth } from '../utils/useAuth'
 
@@ -15,8 +15,9 @@ const CompleteLoginPage = () => {
   const router = useRouter()
   const auth = useAuth()
   const [status, setStatus] = useState('Verifying…')
+  const [orgs, setOrgs] = useState([])
+  const [showChooseModal, setShowChooseModal] = useState(false)
   const [isLoading, setIsLoading] = useState(false)
-  const [verified, setVerified] = useState(false)
   const [subHeader, setSubHeader] = useState('')
   const [loginAttempted, setLoginAttempted] = useState(false)
   const [ghState, _] = useLocalStorage(localStorageGHStateKey, '') // eslint-disable-line
@@ -27,12 +28,14 @@ const CompleteLoginPage = () => {
     setSubHeader(`It looks like our GitHub communication was lost in translation.`)
   }
 
-  async function redirectUser ({ orgs }) {
-    if (orgs.length === 1) {
-      // If only one org was auth'd, auto redirect them to that org
-      router.push(`/organization/${orgs[0].id}`)
+  async function redirectUser ({ organizations }) {
+    console.log('here', organizations)
+    setOrgs(organizations)
+    if (organizations.length >= 1) {
+      console.log('showing modal', orgs)
+      setShowChooseModal(true)
     } else {
-      // TODO: If more than one org is auth'd for flossbank, show picker popup
+      // TODO: If no orgs are returned, auto redirect them to install Flossbank on new org
     }
   } 
 
@@ -53,25 +56,15 @@ const CompleteLoginPage = () => {
       // If code and state are passed in, then it as a GH auth redirect
       // Before processing GH redirect, we need to make sure the state we passed in
       // is the state returned
-      let orgs = []
       if (state === ghState) {
-        await auth.completeGHLogin({ code, state })
-        const { organizations } = await gitHubListOrgs()
-        orgs = organizations
+        const { organizations } = await auth.completeGHLogin({ code, state })
+        redirectUser({ organizations })
       } else {
         showError()
         return
       }
-
-      setTimeout(() => {
-        setStatus('Authenticating…')
-        setVerified(true)
-        setIsLoading(false)
-      }, 1000)
-      
-      setTimeout(() => {
-        redirectUser({ orgs })
-      }, 2000)
+      setIsLoading(false)
+      setVerified(true)
     } catch (e) {
       showError()
       setIsLoading(false)
@@ -101,17 +94,8 @@ const CompleteLoginPage = () => {
           {status}
         </Heading>
         {isLoading && <BouncyLoader />}
-        {verified && (
-          <Icon
-            name='check'
-            size='4rem'
-            color='puddle'
-            backgroundColor='lake'
-            borderRadius='50%'
-            padding='1rem'
-          />
-        )}
         {subHeader && <Text>{subHeader}</Text>}
+        {showChooseModal && orgs.length && <ChooseOrgModal orgs={orgs} />}
       </Section>
     </PageWrapper>
   )

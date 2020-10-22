@@ -16,15 +16,12 @@ import {
 } from '@chakra-ui/core'
 
 import { downloadData } from '../../utils/downloader'
-import { useLocalStorage } from '../../utils/useLocalStorage'
-import {
-  localStorageDashboardWelcomeTourKey
-} from '../../utils/constants'
 import { useAuth } from '../../utils/useAuth'
 
-import Banner from '../../components/common/banner'
 import PageWrapper from '../../components/common/pageWrapper'
 import Section from '../../components/common/section'
+import Card from '../../components/common/card'
+import Subheading from '../../components/common/subheading'
 import DashboardDataCard from '../../components/dashboard/dashboardDataCard'
 import DonationCard from '../../components/dashboard/donationCard'
 import FBButton from '../../components/common/fbButton'
@@ -34,10 +31,7 @@ import { useRouter } from 'next/router'
 const Dashboard = () => {
   const { resume } = useAuth()
   const router = useRouter()
-  const [showWelcomeMessage, setShowWelcomeMessage] = useLocalStorage(
-    localStorageDashboardWelcomeTourKey,
-    true
-  )
+
   const [topLevelPackagesLoading, setTopLevelPackagesLoading] = useState(true)
   const [topLevelPackages, setTopLevelPackages] = useState(0)
 
@@ -103,23 +97,16 @@ const Dashboard = () => {
   return (
     <PageWrapper title='Dashboard'>
       <h1 className='sr-only'>Organization dashboard</h1>
-      {showWelcomeMessage && (
-        <Banner icon='hooray' onCloseClick={() => setShowWelcomeMessage(false)}>
-          <Text color='rock'>
-            Thanks for using Flossbank! Take a quick tour of your organization dashboard
-          </Text>
-        </Banner>
-      )}
       <Section
         backgroundColor='lightRock'
         display={{ md: 'grid' }}
-        gridTemplateColumns={{ lg: 'minmax(16rem, 20rem) minmax(auto, 70rem)' }}
+        gridTemplateColumns={{ lg: 'repeat(4, minmax(16rem, 20rem))' }}
         justifyContent='center'
         gridColumnGap={{ md: '3rem' }}
         gridRowGap={{ base: '3rem', lg: '1.5rem' }}
-        gridTemplateRows={{ lg: 'auto 3rem 3rem' }}
+        gridTemplateRows={{ lg: '15rem auto auto auto auto' }}
       >
-        <Box gridRow='1 / span 3' gridColumn='1'>
+        <Box gridRow='1' gridColumn='1 / span 4'>
           <Heading
             textTransform='uppercase'
             letterSpacing='1px'
@@ -191,6 +178,25 @@ const Dashboard = () => {
                 </DashboardDataCard>
               </ListItem>
               <ListItem>
+                <DashboardDataCard>
+                  <Text
+                    aria-describedby='org-total-donations'
+                    fontSize='2.25rem'
+                    color='ocean'
+                  >
+                    $ 0
+                  </Text>
+                  <Heading
+                    as='h3'
+                    fontSize='1rem'
+                    fontWeight='400'
+                    id='org-total-donations'
+                  >
+                    Total donations supporting Open Source
+                  </Heading>
+                </DashboardDataCard>
+              </ListItem>
+              <ListItem>
                 <DonationCard
                   donationLoading={donationLoading}
                   hasDonation={!!donation}
@@ -201,13 +207,25 @@ const Dashboard = () => {
             </List>
           </Box>
         </Box>
-        <Box width='100%' display={['none', 'grid']}>
+        <Box width='100%' gridRow='2 / span 4' gridColumn='1 / span 3' display={['none', 'grid']}>
           <TopTenPackagesView topTenPackages={topUsedPackages} />
         </Box>
+        <Card
+          marginTop={{ base: '3rem', lg: '0' }}
+          gridRow='2 / span 3'
+          gridColumn='4'
+          height='100%'
+          width='100%'
+          justifySelf='end'
+          alignSelf='end'
+          textAlign={{ base: 'center', md: 'right' }}
+        >
+          <Subheading>Need help?</Subheading>
+        </Card>
         <Box
           marginTop={{ base: '3rem', lg: '0' }}
-          gridRow='2 / span 1'
-          gridColumn='2'
+          gridRow='5'
+          gridColumn='4'
           justifySelf='end'
           alignSelf='end'
           textAlign={{ base: 'center', md: 'right' }}

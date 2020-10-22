@@ -8,6 +8,10 @@ export const getOrganization = async ({ orgId }) => {
   return fetchThenJson(`api/organization/get?organizationId=${orgId}`, optionsGetRequest())
 }
 
+export const installOrg = async ({ installationId }) => {
+  return fetchThenJson(`api/organization/github-create`, optionsWithPostBody({ installationId }))
+}
+
 export const completeGHLogin = async ({ code, state }) => {
   return fetchThenJson('api/organization/github-auth', optionsWithPostBody({ code, state }))
 }

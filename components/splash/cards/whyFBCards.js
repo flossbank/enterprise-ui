@@ -4,7 +4,7 @@ const cardData = [
   {
     heading: 'Fortify your code base',
     icon: 'stack',
-    text: 'Your company relies on the maintenace and integrity of Open Source. Make sure the maintainers have the resources needed to not only maintain, but improve the code your company relies on.'
+    text: 'Your company relies on the maintenance and integrity of Open Source. Make sure the maintainers have the resources needed to not only maintain, but improve the code your company relies on.'
   },
   {
     heading: 'Easy',
