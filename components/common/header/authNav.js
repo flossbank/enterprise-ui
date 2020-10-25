@@ -14,8 +14,12 @@ import {
   MenuItem
 } from '@chakra-ui/core'
 
+import { useLocalStorage } from '../../../utils/useLocalStorage'
+import { localStorageOrgKey } from '../../../utils/constants'
+
 const AuthNav = ({ user, onLogout }) => {
   const router = useRouter()
+  const [currentOrgId, _] = useLocalStorage(localStorageOrgKey, '') // eslint-disable-line
 
   const [isExpanded, setIsExpanded] = useState(false)
   const { colors } = useTheme()
@@ -86,9 +90,9 @@ const AuthNav = ({ user, onLogout }) => {
             <MenuItem
               _focus={itemFocusStyles}
               _active={itemActiveStyles}
-              onClick={() => handleNav('/dashboard')}
+              onClick={() => handleNav(`/organization/${currentOrgId}`)}
             >
-              <Link href='/dashboard'>
+              <Link href={`/organization/${currentOrgId}`}>
                 <a>
                   <Box as='span' display='flex' alignItems='center'>
                     <Icon name='home' marginRight='.5rem' />

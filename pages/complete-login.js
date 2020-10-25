@@ -1,6 +1,6 @@
 import { useRouter } from 'next/router'
 import { useState, useEffect } from 'react'
-import { Heading, Text, Icon } from '@chakra-ui/core'
+import { Heading, Text } from '@chakra-ui/core'
 
 import { useLocalStorage } from '../utils/useLocalStorage'
 import PageWrapper from '../components/common/pageWrapper'
@@ -29,8 +29,9 @@ const CompleteLoginPage = () => {
   }
 
   async function redirectUser ({ organizations }) {
-    setOrgs(organizations)
+    console.log('here', organizations)
     if (organizations.length >= 1) {
+      setOrgs(organizations)
       setShowChooseModal(true)
     } else {
       window.location.href = 'https://github.com/apps/flossbank/installations/new?redirect_uri=https://enterprise.flossbank.com/complete-install'
@@ -62,7 +63,6 @@ const CompleteLoginPage = () => {
         return
       }
       setIsLoading(false)
-      setVerified(true)
     } catch (e) {
       showError()
       setIsLoading(false)

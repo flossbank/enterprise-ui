@@ -1,3 +1,4 @@
+import { useEffect } from 'react'
 import {
   Modal,
   ModalOverlay,
@@ -15,16 +16,19 @@ import {
 import { useRouter } from 'next/router'
 
 import FBButton from '../common/fbButton'
+import FBDivider from '../common/divider'
 import UnderlinedHeading from '../common/underlinedHeading'
-import { useEffect } from 'react'
+import { useLocalStorage } from '../../utils/useLocalStorage'
+import { localStorageOrgKey } from '../../utils/constants'
 
 const ChooseOrgModal = ({ orgs }) => {
-  console.log('wtf', orgs)
   const router = useRouter()
   const { isOpen, onOpen, onClose } = useDisclosure(true)
+  const [_, setCurrentOrgState] = useLocalStorage(localStorageOrgKey, '') // eslint-disable-line
   const subheadingExistingOrgs = 'Sign in with an existing Flossbank installation or create a new one for a new org?'
 
   const goToOrg = ({ id }) => {
+    setCurrentOrgState(id)
     router.push(`/organization/${id}`)
   }
 
@@ -53,21 +57,24 @@ const ChooseOrgModal = ({ orgs }) => {
         </ModalHeader>
         <ModalCloseButton />
         <List spacing={3} marginBottom='1rem'>
+          <FBDivider />
           {orgs.map((org) => (
-            <ListItem
-              _hover={{ backgroundColor: 'puddle', cursor: 'pointer' }}
-              key={org.id} 
-              onClick={() => goToOrg({ id: org.id })}
-              borderRadius='5px'
-              width='100%'
-              border='solid 1px black'>
-              <Flex flexDirection='row'>
-                <Image width='5rem' height='5rem' borderRadius='2rem' src={org.avatarUrl} />
-                <Flex marginLeft='1rem' flexDirection='column' justifyContent='center'>
-                  <Text textTransform='uppercase' fontWeight='bold'>{org.name}</Text>
+            <>
+              <ListItem
+                _hover={{ backgroundColor: 'puddle', cursor: 'pointer' }}
+                key={org.id} 
+                onClick={() => goToOrg({ id: org.id })}
+                borderRadius='5px'
+                width='100%'>
+                <Flex flexDirection='row'>
+                  <Image width='5rem' height='5rem' borderRadius='2rem' src={org.avatarUrl} />
+                  <Flex marginLeft='1rem' flexDirection='column' justifyContent='center'>
+                    <Text textTransform='uppercase' fontWeight='bold'>{org.name}</Text>
+                  </Flex>
                 </Flex>
-              </Flex>
-            </ListItem>
+              </ListItem>
+              <FBDivider />
+            </>
           ))}
         </List>
         <FBButton>
