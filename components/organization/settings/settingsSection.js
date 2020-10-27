@@ -1,13 +1,9 @@
 import Section from '../../common/section'
 import UnderlinedHeading from '../../common/underlinedHeading'
 
-import { useAuth } from '../../../utils/useAuth'
 import BillingInformationSection from './billingInformationSection'
-import AccountInformationSection from './accountInformationSection'
 
-const UserSettingsSection = () => {
-  const { user } = useAuth()
-
+const OrgSettingsSection = () => {
   return (
     <Section
       display='flex'
@@ -23,10 +19,9 @@ const UserSettingsSection = () => {
         align='center'
         marginBottom='3rem'
       />
-      <BillingInformationSection user={user} />
-      <AccountInformationSection user={user} />
+      <BillingInformationSection org={undefined} />
     </Section>
   )
 }
 
-export default UserSettingsSection
+export default OrgSettingsSection

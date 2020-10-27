@@ -11,6 +11,7 @@ import {
   Image,
   Text,
   Flex,
+  Link,
 } from '@chakra-ui/core'
 
 import { useRouter } from 'next/router'
@@ -26,6 +27,8 @@ const ChooseOrgModal = ({ orgs }) => {
   const { isOpen, onOpen, onClose } = useDisclosure(true)
   const [_, setCurrentOrgState] = useLocalStorage(localStorageOrgKey, '') // eslint-disable-line
   const subheadingExistingOrgs = 'Sign in with an existing Flossbank installation or create a new one for a new org?'
+
+  const githubInstallLink = 'https://github.com/apps/flossbank/installations/new?redirect_uri=https://enterprise.flossbank.com/complete-install'
 
   const goToOrg = ({ id }) => {
     setCurrentOrgState(id)
@@ -77,9 +80,11 @@ const ChooseOrgModal = ({ orgs }) => {
             </>
           ))}
         </List>
-        <FBButton>
-          Install Flossbank On New Organization
-        </FBButton>
+        <Link href={githubInstallLink} width='100%'>
+          <FBButton>
+            Install Flossbank On New Organization
+          </FBButton>
+        </Link>
       </ModalContent>
     </Modal>
   )

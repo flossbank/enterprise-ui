@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react'
 import {
   getOrganization,
   fetchDonationInfo,
-} from '../../client'
+} from '../../../client'
 
 import {
   Text,
@@ -15,17 +15,17 @@ import {
   Icon
 } from '@chakra-ui/core'
 
-import { downloadData } from '../../utils/downloader'
-import { useAuth } from '../../utils/useAuth'
+import { downloadData } from '../../../utils/downloader'
+import { useAuth } from '../../../utils/useAuth'
 
-import PageWrapper from '../../components/common/pageWrapper'
-import Section from '../../components/common/section'
-import Card from '../../components/common/card'
-import Subheading from '../../components/common/subheading'
-import DashboardDataCard from '../../components/dashboard/dashboardDataCard'
-import DonationCard from '../../components/dashboard/donationCard'
-import FBButton from '../../components/common/fbButton'
-import TopTenPackagesView from '../../components/dashboard/topTenPackagesView'
+import PageWrapper from '../../../components/common/pageWrapper'
+import Section from '../../../components/common/section'
+import Card from '../../../components/common/card'
+import Subheading from '../../../components/common/subheading'
+import DashboardDataCard from '../../../components/dashboard/dashboardDataCard'
+import DonationCard from '../../../components/dashboard/donationCard'
+import FBButton from '../../../components/common/fbButton'
+import TopTenPackagesView from '../../../components/dashboard/topTenPackagesView'
 import { useRouter } from 'next/router'
 
 const Dashboard = () => {
@@ -34,8 +34,6 @@ const Dashboard = () => {
 
   const [topLevelPackagesLoading, setTopLevelPackagesLoading] = useState(true)
   const [topLevelPackages, setTopLevelPackages] = useState(0)
-
-  const [topUsedPackages, setTopUsedPackages] = useState([])
 
   const [orgDepCountLoading, setOrgDepCountLoading] = useState(true)
   const [orgDepCount, setOrgDepCount] = useState(0)
@@ -104,9 +102,16 @@ const Dashboard = () => {
         justifyContent='center'
         gridColumnGap={{ md: '3rem' }}
         gridRowGap={{ base: '3rem', lg: '1.5rem' }}
-        gridTemplateRows={{ lg: '15rem auto auto auto auto' }}
+        gridTemplateRows={{ lg: '15rem auto' }}
       >
         <Box gridRow='1' gridColumn='1 / span 4'>
+          <Box padding={['0','0 3rem 0 3rem']}>
+            <Text>Flossbank does x to try and accomplish y, thanks for using Flossbank, and if you're looking to sign
+              up another organization, click here.
+            </Text>
+          </Box>
+        </Box>
+        <Box gridRow='2' gridColumn='1 / span 4'>
           <Heading
             textTransform='uppercase'
             letterSpacing='1px'
@@ -149,7 +154,7 @@ const Dashboard = () => {
                     fontWeight='normal'
                     id='user-session-count'
                   >
-                    Top level dependencies
+                    Top Level Dependencies
                   </Heading>
                 </DashboardDataCard>
               </ListItem>
@@ -173,7 +178,7 @@ const Dashboard = () => {
                     fontWeight='400'
                     id='user-session-count'
                   >
-                    Total package dependencies
+                    Total Current Package Dependencies
                   </Heading>
                 </DashboardDataCard>
               </ListItem>
@@ -192,7 +197,7 @@ const Dashboard = () => {
                     fontWeight='400'
                     id='org-total-donations'
                   >
-                    Total donations supporting Open Source
+                    Total Donations to Open Source
                   </Heading>
                 </DashboardDataCard>
               </ListItem>
@@ -207,24 +212,9 @@ const Dashboard = () => {
             </List>
           </Box>
         </Box>
-        <Box width='100%' gridRow='2 / span 4' gridColumn='1 / span 3' display={['none', 'grid']}>
-          <TopTenPackagesView topTenPackages={topUsedPackages} />
-        </Box>
-        <Card
-          marginTop={{ base: '3rem', lg: '0' }}
-          gridRow='2 / span 3'
-          gridColumn='4'
-          height='100%'
-          width='100%'
-          justifySelf='end'
-          alignSelf='end'
-          textAlign={{ base: 'center', md: 'right' }}
-        >
-          <Subheading>Need help?</Subheading>
-        </Card>
         <Box
           marginTop={{ base: '3rem', lg: '0' }}
-          gridRow='5'
+          gridRow='3'
           gridColumn='4'
           justifySelf='end'
           alignSelf='end'
