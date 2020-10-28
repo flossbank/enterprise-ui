@@ -1,11 +1,11 @@
 import { useRouter } from 'next/router'
 import { useState, useEffect } from 'react'
-import { decode } from 'b36'
-import { Heading, Text, Icon } from '@chakra-ui/core'
+import { Heading, Text } from '@chakra-ui/core'
 
 import { useLocalStorage } from '../utils/useLocalStorage'
 import PageWrapper from '../components/common/pageWrapper'
 import Section from '../components/common/section'
+import ChooseOrgModal from '../components/completeLogin/chooseOrgModal'
 import BouncyLoader from '../components/common/bouncyLoader'
 
 import { localStorageGHStateKey } from '../utils/constants'
@@ -14,12 +14,12 @@ import { useAuth } from '../utils/useAuth'
 const CompleteLoginPage = () => {
   const router = useRouter()
   const auth = useAuth()
-  const [status, setStatus] = useState('Verifying email')
+  const [status, setStatus] = useState('Verifying…')
+  const [orgs, setOrgs] = useState([])
+  const [showChooseModal, setShowChooseModal] = useState(false)
   const [isLoading, setIsLoading] = useState(false)
-  const [verified, setVerified] = useState(false)
   const [subHeader, setSubHeader] = useState('')
   const [loginAttempted, setLoginAttempted] = useState(false)
-  const [flossbankDest, setFlossbankDest] = useLocalStorage('flossbank_dest', '')
   const [ghState, _] = useLocalStorage(localStorageGHStateKey, '') // eslint-disable-line
 
   function showError () {
@@ -27,6 +27,16 @@ const CompleteLoginPage = () => {
     setStatus('Authentication Failed')
     setSubHeader(`It looks like our GitHub communication was lost in translation.`)
   }
+
+  async function redirectUser ({ organizations }) {
+    console.log('here', organizations)
+    if (organizations.length >= 1) {
+      setOrgs(organizations)
+      setShowChooseModal(true)
+    } else {
+      window.location.href = 'https://github.com/apps/flossbank/installations/new?redirect_uri=https://enterprise.flossbank.com/complete-install'
+    }
+  } 
 
   async function attemptCompleteLogin () {
     setIsLoading(true)
@@ -46,25 +56,13 @@ const CompleteLoginPage = () => {
       // Before processing GH redirect, we need to make sure the state we passed in
       // is the state returned
       if (state === ghState) {
-        await auth.completeGHLogin({ code, state })
+        const { organizations } = await auth.completeGHLogin({ code, state })
+        redirectUser({ organizations })
       } else {
         showError()
         return
       }
-
-      setTimeout(() => {
-        setStatus('Logging in…')
-        setVerified(true)
-        setIsLoading(false)
-      }, 1000)
-      
-      setTimeout(() => {
-        // Set cached dest no matter what and redirect to one if it existed
-        const flossbankDestTemp = flossbankDest
-        setFlossbankDest('')
-        if (flossbankDest) router.push(flossbankDestTemp)
-        else router.push('/dashboard')
-      }, 2000)
+      setIsLoading(false)
     } catch (e) {
       showError()
       setIsLoading(false)
@@ -73,7 +71,7 @@ const CompleteLoginPage = () => {
 
   useEffect(() => {
     attemptCompleteLogin()
-  }, [router.query]) // only run on mount
+  }, [router.query]) 
 
   return (
     <PageWrapper title='Log In'>
@@ -94,17 +92,8 @@ const CompleteLoginPage = () => {
           {status}
         </Heading>
         {isLoading && <BouncyLoader />}
-        {verified && (
-          <Icon
-            name='check'
-            size='4rem'
-            color='puddle'
-            backgroundColor='lake'
-            borderRadius='50%'
-            padding='1rem'
-          />
-        )}
         {subHeader && <Text>{subHeader}</Text>}
+        {showChooseModal && orgs.length && <ChooseOrgModal orgs={orgs} />}
       </Section>
     </PageWrapper>
   )

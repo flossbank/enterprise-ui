@@ -6,7 +6,7 @@ export default async (req, reply) => {
       'x-requested-with': req.headers['x-requested-with'],
       cookie: req.headers.cookie
     }
-    const response = await got.delete('user/donation', {
+    const response = await got.delete('organization/donation', {
       headers: reqHeaders
     })
     reply.status(response.statusCode).json(response.body)

@@ -6,7 +6,7 @@ export default async (req, reply) => {
       'x-requested-with': req.headers['x-requested-with'],
       cookie: req.headers.cookie
     }
-    const response = await got('organization/resume', {
+    const response = await got('user/resume', {
       headers: reqHeaders
     })
     const headers = response.headers

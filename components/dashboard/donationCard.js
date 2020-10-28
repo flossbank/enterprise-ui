@@ -74,10 +74,6 @@ const DonationCard = ({ donationAmount, donationLoading, hasDonation, optOutOfAd
           lineColor='white'
           marginBottom='0.5rem'
         />
-        <Text textAlign='left' display='flex' alignItems='center'>
-          <Icon name={optOutOfAds ? 'view-off' : 'view'} marginRight='.75rem' />
-          {optOutOfAds ? 'Ads hidden' : 'Ads shown'}
-        </Text>
         {donationLoading && <CircularProgress isIndeterminate color='ocean' />}
       </DashboardDataCard>
       <Modal

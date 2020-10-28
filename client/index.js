@@ -4,12 +4,20 @@ export const fetchOrgDeps = async () => {
   return { blah: 'true '}
 }
 
+export const getOrganization = async ({ orgId }) => {
+  return fetchThenJson(`api/organization/get?organizationId=${orgId}`, optionsGetRequest())
+}
+
+export const installOrg = async ({ installationId }) => {
+  return fetchThenJson(`api/organization/github-create`, optionsWithPostBody({ installationId }))
+}
+
 export const completeGHLogin = async ({ code, state }) => {
   return fetchThenJson('api/organization/github-auth', optionsWithPostBody({ code, state }))
 }
 
 export const logout = async () => {
-  return fetchThenJson('api/user/logout', optionsWithPostBody())
+  return fetchThenJson('api/organization/logout', optionsWithPostBody())
 }
 
 export const donate = async ({ amount, billingToken }) => {
@@ -28,15 +36,23 @@ export const sendSupportFeedback = async ({ email, name, topic, body }) => {
   return fetchThenJson('api/support/feedback', optionsWithPostBody({ email, topic: `ENTERPRISE- ${topic}`, name, body }))
 }
 
-export const fetchDonationInfo = async () => {
-  return fetchThenJson('api/organization/get-donation-info', optionsGetRequest())
+export const fetchDonationInfo = async ({ orgId }) => {
+  return fetchThenJson(`api/organization/get-donation-info?organiztionId=${orgId}`, optionsGetRequest())
 }
 
 export const resume = async () => {
   return fetchThenJson('api/organization/resume', optionsGetRequest())
 }
 
-const fetchThenJson = (url, options) => fetch(url, options)
+export const gitHubListOrgs = async () => {
+  return fetchThenJson('api/organization/github-list-orgs', optionsWithPostBody({}))
+}
+
+export const chooseOrg = async ({ name, host }) => {
+  return fetchThenJson('api/organization/choose', optionsWithPostBody({ name, host }))
+}
+
+const fetchThenJson = (url, options) => fetch(`${window.location.origin}/${url}`, options)
   .then(res => {
     if (!res.ok) {
       throw res

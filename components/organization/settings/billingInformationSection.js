@@ -29,9 +29,9 @@ const BillingInfo = ({ last4CardDigits }) => (
   </Box>
 )
 
-const BillingInformationSection = ({ user }) => {
+const BillingInformationSection = ({ org }) => {
   const [last4CardDigits, setLast4CardDigits] = useState(
-    user.billingInfo.last4
+    org && org.billingInfo.last4 || '****'
   )
   const { isOpen, onOpen, onClose } = useDisclosure()
   const finalRef = useRef()

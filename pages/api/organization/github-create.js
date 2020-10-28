@@ -1,12 +1,14 @@
 import got from '../../../client/fetch'
 
 export default async (req, reply) => {
+  const { installationId } = req.body
   try {
     const reqHeaders = {
       'x-requested-with': req.headers['x-requested-with'],
       cookie: req.headers.cookie
     }
-    const response = await got('organization/get-donation-info', {
+    const response = await got.post('organization/github-create', {
+      json: { installationId },
       headers: reqHeaders
     })
     reply.status(response.statusCode).json(response.body)
