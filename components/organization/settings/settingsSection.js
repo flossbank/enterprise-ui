@@ -1,9 +1,30 @@
+import { useEffect } from 'react'
+import { CircularProgress } from '@chakra-ui/core'
+
 import Section from '../../common/section'
 import UnderlinedHeading from '../../common/underlinedHeading'
 
 import BillingInformationSection from './billingInformationSection'
+import { getOrganization } from '../../../client'
+
+import { useLocalStorage } from '../../utils/useLocalStorage'
+import { localStorageOrgKey } from '../../utils/constants'
 
 const OrgSettingsSection = () => {
+  let [orgLoading, setOrgLoading] = useState(true)
+  let [org, setOrg] = useState(undefined)
+
+  const [currentOrgId, _] = useLocalStorage(localStorageOrgKey, '') // eslint-disable-line  
+
+  async function fetchOrg() {
+    const o = await getOrganization({ orgId: currentOrgId })
+    setOrg(o)
+    setOrgLoading(false)
+  }
+
+  useEffect(() => {
+    fetchOrg()
+  }, [])
   return (
     <Section
       display='flex'
@@ -19,7 +40,8 @@ const OrgSettingsSection = () => {
         align='center'
         marginBottom='3rem'
       />
-      <BillingInformationSection org={undefined} />
+      {orgLoading && <CircularProgress isIndeterminate color='ocean' />}
+      {org && <BillingInformationSection org={org} />}
     </Section>
   )
 }

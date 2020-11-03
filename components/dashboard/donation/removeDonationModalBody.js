@@ -10,7 +10,7 @@ const RemoveDonation = ({ updateDonorStatus, onClose }) => {
   const [isDeleting, setIsDeleting] = useState(false)
   const [error, setError] = useState('')
 
-  const handleDonorDowngrade = async () => {
+  const handleRemoveDonation = async () => {
     setIsDeleting(true)
     try {
       const response = await deleteDonation()
@@ -20,12 +20,12 @@ const RemoveDonation = ({ updateDonorStatus, onClose }) => {
         onClose()
       } else {
         setError(
-          'There was an error attemping to remove your donation. Please try again.'
+          'There was an error attemping to discontinue your support. Please try again.'
         )
       }
     } catch (e) {
       setError(
-        'There was an error attemping to remove your donation. Please try again.'
+        'There was an error attemping to discontinue your support. Please try again.'
       )
     } finally {
       setIsDeleting(false)
@@ -40,13 +40,13 @@ const RemoveDonation = ({ updateDonorStatus, onClose }) => {
     <>
       <ModalBody marginBottom='1.5rem'>
         <Text marginBottom='1.5rem'>
-          Removing your monthly donation will mean you will see ads in your
-          terminal when installing Open Source packages. You can become a donor
-          again at any time.
+          discontinuing your monthly contribution will mean your badge will no longer be valid. 
+          Remember to remove it from any social media's or domains you may have placed it.
+          You can become a monthly contributor again at any time.
         </Text>
         <Text marginBottom='1.5rem'>
           <strong>
-            Are you sure you want to delete your monthly donation?
+            Are you sure you want to discontinue your monthly support?
           </strong>
         </Text>
       </ModalBody>
@@ -68,11 +68,11 @@ const RemoveDonation = ({ updateDonorStatus, onClose }) => {
         >
           <Box as='span' display='flex' alignItems='center'>
             <Icon name='close' fontSize='1rem' marginRight='1rem' />
-            Keep my donation
+            Keep contributing
           </Box>
         </FBButton>
         <FBButton
-          onClick={handleDonorDowngrade}
+          onClick={handleRemoveDonation}
           isLoading={isDeleting}
           loadingText='Submitting...'
           className='u-box-shadow'
@@ -82,7 +82,7 @@ const RemoveDonation = ({ updateDonorStatus, onClose }) => {
         >
           <Box as='span' display='flex' alignItems='center'>
             <Icon name='delete' fontSize='1rem' marginRight='1rem' />
-            Delete my donation
+            Discontinue contributing
           </Box>
         </FBButton>
       </ModalFooter>

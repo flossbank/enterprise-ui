@@ -1,7 +1,7 @@
 import fetch from 'isomorphic-fetch'
 
-export const fetchOrgDeps = async () => {
-  return { blah: 'true '}
+export const fetchOrgOssUsage = async ({ orgId }) => {
+  return fetchThenJson(`api/organization/get-oss-usage?organizationId=${orgId}`, optionsGetRequest())
 }
 
 export const getOrganization = async ({ orgId }) => {

@@ -17,15 +17,13 @@ import {
 
 import { downloadData } from '../../../utils/downloader'
 import { useAuth } from '../../../utils/useAuth'
+import { fetchOrgOssUsage } from '../../../client'
 
 import PageWrapper from '../../../components/common/pageWrapper'
 import Section from '../../../components/common/section'
-import Card from '../../../components/common/card'
-import Subheading from '../../../components/common/subheading'
 import DashboardDataCard from '../../../components/dashboard/dashboardDataCard'
 import DonationCard from '../../../components/dashboard/donationCard'
 import FBButton from '../../../components/common/fbButton'
-import TopTenPackagesView from '../../../components/dashboard/topTenPackagesView'
 import { useRouter } from 'next/router'
 
 const Dashboard = () => {
@@ -49,19 +47,18 @@ const Dashboard = () => {
     setOrgDepCountLoading(true)
   }
 
-  /**
-   * Fetch data will first try to get the org that is being viewed. Based on the headers,
-   * the api will either return public or private org data and functionality will be
-   * allowed as such.
-   */
   async function fetchData () {
     if (!router.query || !router.query.organizationId) return 
 
+    const orgId = router.query.organizationId
+
     try {
-      const orgRes = await getOrganization({ orgId: router.query.organizationId })
+      const orgRes = await getOrganization({ orgId })
       setOrg(orgRes.organization)
       setDonation(orgRes.organization.donationAmount || 0)
-      // TODO: Branch logic here if private data is returned or public
+      const orgOssUsage = await fetchOrgOssUsage({ orgId })
+      setTopLevelPackages(orgOssUsage.topLevelDependencies)
+      setOrgDepCount(orgOssUsage.totalDependencies)
     } catch (e) {
       setTopLevelPackages('N/A')
       setOrgDepCount('N/A')
@@ -71,7 +68,7 @@ const Dashboard = () => {
     }
 
     try {
-      const donationInfoRes = await fetchDonationInfo({ orgId: router.query.organizationId })
+      const donationInfoRes = await fetchDonationInfo({ orgId })
       if (donationInfoRes && donationInfoRes.success) {
         setDonation(donationInfoRes.donationInfo.amount / 100)
       }

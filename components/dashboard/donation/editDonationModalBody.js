@@ -28,7 +28,6 @@ const EditDonationModalBody = ({ donationAmount, isNewDonor, onClose }) => {
   const [submitError, setSubmitError] = useState('')
   const [submitLoading, setSubmitLoading] = useState(false)
   const [amountError, setAmountError] = useState('')
-  const [showAds, setShowAds] = useState(donationAmount < 5)
   const [newAmount, setNewAmount] = useState(donationAmount || 5)
   const [donorStatus, setDonorStatus] = useState(true); // eslint-disable-line
   const [updatingDonorStatus, setUpdatingDonorStatus] = useState(false)
@@ -44,11 +43,6 @@ const EditDonationModalBody = ({ donationAmount, isNewDonor, onClose }) => {
 
     setAmountError('')
     setNewAmount(amount)
-  }
-
-  const handleSelectToSeeAds = (val) => {
-    const showAds = val === 'view'
-    setShowAds(showAds)
   }
 
   const handleDonorStatus = (status) => {
@@ -74,8 +68,7 @@ const EditDonationModalBody = ({ donationAmount, isNewDonor, onClose }) => {
       const response = await donate({
         billingToken: token.id,
         amount: newAmount * 100,
-        last4: token.card.last4,
-        seeAds: showAds
+        last4: token.card.last4
       })
       if (!response.success) {
         throw new Error('Donation failed')
@@ -84,6 +77,8 @@ const EditDonationModalBody = ({ donationAmount, isNewDonor, onClose }) => {
       switch (e.status) {
         case 409:
           return updateDonationLocal()
+        case 401:
+          throw new Error('Looks like you aren\'t an organization Admin according to GitHub. You must be an admin of this organization to edit it\'s monthly contribution')
         default:
           throw new Error('Donation failed')
       }
@@ -92,8 +87,7 @@ const EditDonationModalBody = ({ donationAmount, isNewDonor, onClose }) => {
 
   const updateDonationLocal = async () => {
     await updateDonation({
-      amount: newAmount * 100,
-      seeAds: showAds
+      amount: newAmount * 100
     })
   }
 
@@ -164,7 +158,7 @@ const EditDonationModalBody = ({ donationAmount, isNewDonor, onClose }) => {
                 color='boulder'
                 marginBottom='1.5rem'
               >
-                Set new donation amount (<em>$5 USD minimum</em>)
+                Set new monthly contribution amount (<em>$5 USD minimum</em>)
                 <Box
                   display='flex'
                   alignItems='center'
@@ -186,7 +180,6 @@ const EditDonationModalBody = ({ donationAmount, isNewDonor, onClose }) => {
                   <NumberInput
                     defaultValue={donationAmount}
                     min={5}
-                    max={10000}
                     onChange={handleNewAmount}
                     clampValueOnBlur={false}
                     color='boulder'
@@ -219,39 +212,11 @@ const EditDonationModalBody = ({ donationAmount, isNewDonor, onClose }) => {
                   >
                     <Box as='span' display='flex' alignItems='center'>
                       <Icon name='delete' fontSize='1rem' marginRight='1rem' />
-                      Delete my donation
+                      Discontinue monthly contribution
                     </Box>
                   </FBButton>
                 </Box>
               )}
-              <Box as='fieldset' fontWeight='500' htmlFor='ad-opts'>
-                <Box
-                  as='legend'
-                  display='flex'
-                  alignItems='center'
-                  fontWeight='500'
-                  marginBottom='.75rem'
-                >
-                  Ads in the terminal{' '}
-                  <Icon
-                    name={showAds ? 'view' : 'view-off'}
-                    marginLeft='.5rem'
-                  />
-                </Box>
-                <RadioButtonGroup
-                  id='ad-opts'
-                  defaultValue={showAds ? 'view' : 'hide'}
-                  onChange={(val) => handleSelectToSeeAds(val)}
-                  isInline
-                >
-                  <AdsRadio value='view' borderRadius='6px 0 0 6px'>
-                    View
-                  </AdsRadio>
-                  <AdsRadio value='hide' borderRadius='0 6px 6px 0'>
-                    Hide
-                  </AdsRadio>
-                </RadioButtonGroup>
-              </Box>
             </Box>
           </ModalBody>
           {submitError && <ErrorMessage msg={submitError} marginTop='1rem' />}
