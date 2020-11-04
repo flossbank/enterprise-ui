@@ -2,7 +2,7 @@ import { Box, Icon, Text, ModalFooter, ModalBody } from '@chakra-ui/core'
 
 import FBButton from '../../common/fbButton'
 
-const DonationInfoModalBody = ({ upgradeToDonor, onClose }) => {
+const DonationInfoModalBody = ({ upgradeToDonor }) => {
   const handleDonorUpgrade = () => {
     upgradeToDonor(true)
   }
@@ -11,17 +11,13 @@ const DonationInfoModalBody = ({ upgradeToDonor, onClose }) => {
     <>
       <ModalBody marginBottom='1.5rem'>
         <Text marginBottom='1.5rem'>
-          Currently you're on the free tier, which allows you to support the
-          Open Source community through ads in your terminal.
+          By becoming a monthly contributor and donating at least
+          <strong> $100 a month</strong>, you're supporting the OSS maintainers 
+          of the packages your company relies on, making them not only better maintainer, but 
+          more secure.
         </Text>
         <Text marginBottom='1.5rem'>
-          By becoming a monthly donor and donating at least
-          <strong> $5 a month</strong>, you can opt out of ads and offer even
-          more support to the maintainers of the packages you use.
-        </Text>
-        <Text marginBottom='1.5rem'>
-          Monthly donations are split up among the packages you install each month,
-          identical to how ad revenue is split up.
+          Monthly donations are split up amongst the packages we detect in your GitHub repositories.
         </Text>
       </ModalBody>
       <ModalFooter display='flex' flexDirection='column' alignItems='center'>
@@ -33,19 +29,7 @@ const DonationInfoModalBody = ({ upgradeToDonor, onClose }) => {
         >
           <Box as='span' display='flex' alignItems='center'>
             <Icon name='check' fontSize='1rem' marginRight='1rem' />
-            Become a monthly donor
-          </Box>
-        </FBButton>
-        <FBButton
-          onClick={onClose}
-          className='u-box-shadow'
-          backgroundColor='lightRock'
-          color='ocean'
-          fontWeight='600'
-        >
-          <Box as='span' display='flex' alignItems='center'>
-            <Icon name='close' fontSize='1rem' marginRight='1rem' />
-            Stay on the free tier with ads
+            Become a monthly supporter
           </Box>
         </FBButton>
       </ModalFooter>

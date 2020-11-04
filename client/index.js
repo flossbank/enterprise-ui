@@ -1,7 +1,7 @@
 import fetch from 'isomorphic-fetch'
 
-export const fetchOrgDeps = async () => {
-  return { blah: 'true '}
+export const fetchOrgOssUsage = async ({ orgId }) => {
+  return fetchThenJson(`api/organization/get-oss-usage?organizationId=${orgId}`, optionsGetRequest())
 }
 
 export const getOrganization = async ({ orgId }) => {
@@ -20,12 +20,12 @@ export const logout = async () => {
   return fetchThenJson('api/organization/logout', optionsWithPostBody())
 }
 
-export const donate = async ({ amount, billingToken }) => {
-  return fetchThenJson('api/organization/create-donation', optionsWithPostBody({ amount, billingToken }))
+export const donate = async ({ amount, billingToken, organizationId }) => {
+  return fetchThenJson('api/organization/create-donation', optionsWithPostBody({ amount, billingToken, organizationId }))
 }
 
-export const updateDonation = async ({ amount }) => {
-  return fetchThenJson('api/organization/update-donation', optionsWithPutBody({ amount }))
+export const updateDonation = async ({ amount, organizationId, globalDonation }) => {
+  return fetchThenJson('api/organization/update-donation', optionsWithPutBody({ amount, organizationId, globalDonation }))
 }
 
 export const deleteDonation = async () => {
@@ -37,7 +37,7 @@ export const sendSupportFeedback = async ({ email, name, topic, body }) => {
 }
 
 export const fetchDonationInfo = async ({ orgId }) => {
-  return fetchThenJson(`api/organization/get-donation-info?organiztionId=${orgId}`, optionsGetRequest())
+  return fetchThenJson(`api/organization/get-donation-info?organizationId=${orgId}`, optionsGetRequest())
 }
 
 export const resume = async () => {

@@ -21,7 +21,7 @@ import EditDonationModalBody from './donation/editDonationModalBody'
 import StripeWrapper from '../common/stripe/stripeWrapper'
 import DonationInfoModalBody from './donation/donationInfoModalBody'
 
-const DonationCard = ({ donationAmount, donationLoading, hasDonation, optOutOfAds, refreshDashboard }) => {
+const DonationCard = ({ donationAmount, donationLoading, hasDonation, refreshDashboard }) => {
   const [createNewDonation, setCreateNewDonation] = useState(false)
   const { isOpen, onOpen, onClose } = useDisclosure()
   const finalRef = useRef()
@@ -90,8 +90,8 @@ const DonationCard = ({ donationAmount, donationLoading, hasDonation, optOutOfAd
             <UnderlinedHeading
               text={
                 hasDonation
-                  ? 'Edit your donation'
-                  : 'Become a monthly donor'
+                  ? 'Edit your contribution'
+                  : 'Become a monthly supporter'
               }
               align='left'
               marginBottom='0'

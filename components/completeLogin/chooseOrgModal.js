@@ -1,4 +1,4 @@
-import { useEffect } from 'react'
+import { useEffect, Fragment } from 'react'
 import {
   Modal,
   ModalOverlay,
@@ -62,22 +62,21 @@ const ChooseOrgModal = ({ orgs }) => {
         <List spacing={3} marginBottom='1rem'>
           <FBDivider />
           {orgs.map((org) => (
-            <>
+            <Fragment key={org.id}>
               <ListItem
                 _hover={{ backgroundColor: 'puddle', cursor: 'pointer' }}
-                key={org.id} 
                 onClick={() => goToOrg({ id: org.id })}
                 borderRadius='5px'
                 width='100%'>
                 <Flex flexDirection='row'>
-                  <Image width='5rem' height='5rem' borderRadius='2rem' src={org.avatarUrl} />
+                  <Image width='5rem' height='5rem' borderRadius='1rem' src={org.avatarUrl} />
                   <Flex marginLeft='1rem' flexDirection='column' justifyContent='center'>
                     <Text textTransform='uppercase' fontWeight='bold'>{org.name}</Text>
                   </Flex>
                 </Flex>
               </ListItem>
               <FBDivider />
-            </>
+            </Fragment>
           ))}
         </List>
         <Link href={githubInstallLink} width='100%'>
