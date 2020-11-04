@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { useRouter } from 'next/router'
 import { CardElement, useElements, useStripe } from '@stripe/react-stripe-js'
 
 import { updateDonation, donate } from '../../../client'
@@ -11,11 +12,9 @@ import {
   NumberInput,
   NumberInputField,
   ModalFooter,
-  ModalBody,
-  RadioButtonGroup
+  ModalBody
 } from '@chakra-ui/core'
 
-import AdsRadio from '../adsRadio'
 import BillingForm from '../billingForm'
 import RemoveDonation from './removeDonationModalBody'
 
@@ -28,16 +27,17 @@ const EditDonationModalBody = ({ donationAmount, isNewDonor, onClose }) => {
   const [submitError, setSubmitError] = useState('')
   const [submitLoading, setSubmitLoading] = useState(false)
   const [amountError, setAmountError] = useState('')
-  const [newAmount, setNewAmount] = useState(donationAmount || 5)
+  const [newAmount, setNewAmount] = useState(donationAmount || 100)
   const [donorStatus, setDonorStatus] = useState(true); // eslint-disable-line
   const [updatingDonorStatus, setUpdatingDonorStatus] = useState(false)
+  const router = useRouter()
 
   const stripe = useStripe()
   const elements = useElements()
 
   const handleNewAmount = (amount) => {
-    if (amount < 5) {
-      setAmountError('Donation must be at least $5')
+    if (amount < 100) {
+      setAmountError('Donation must be at least $100')
       return
     }
 
@@ -65,7 +65,9 @@ const EditDonationModalBody = ({ donationAmount, isNewDonor, onClose }) => {
     }
 
     try {
+      const { organizationId } = router.query
       const response = await donate({
+        organizationId,
         billingToken: token.id,
         amount: newAmount * 100,
         last4: token.card.last4
@@ -86,8 +88,11 @@ const EditDonationModalBody = ({ donationAmount, isNewDonor, onClose }) => {
   }
 
   const updateDonationLocal = async () => {
+    const { organizationId } = router.query
     await updateDonation({
-      amount: newAmount * 100
+      amount: newAmount * 100,
+      organizationId, 
+      globalDonation: false
     })
   }
 
@@ -137,7 +142,7 @@ const EditDonationModalBody = ({ donationAmount, isNewDonor, onClose }) => {
                   marginBottom='.5rem'
                   id='current-amt-modal'
                 >
-                  Current monthly donation
+                  Current monthly contribution
                 </Heading>
                 <Text
                   color='ocean'
@@ -158,7 +163,7 @@ const EditDonationModalBody = ({ donationAmount, isNewDonor, onClose }) => {
                 color='boulder'
                 marginBottom='1.5rem'
               >
-                Set new monthly contribution amount (<em>$5 USD minimum</em>)
+                Set new monthly contribution amount (<em>$100 USD minimum</em>)
                 <Box
                   display='flex'
                   alignItems='center'
@@ -179,7 +184,7 @@ const EditDonationModalBody = ({ donationAmount, isNewDonor, onClose }) => {
                   </Box>
                   <NumberInput
                     defaultValue={donationAmount}
-                    min={5}
+                    min={100}
                     onChange={handleNewAmount}
                     clampValueOnBlur={false}
                     color='boulder'

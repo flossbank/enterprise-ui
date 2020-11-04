@@ -1,14 +1,14 @@
 import got from '../../../client/fetch'
 
 export default async (req, reply) => {
-  const { amount, billingToken, last4 } = req.body
+  const { amount, billingToken, last4, organizationId } = req.body
   try {
     const reqHeaders = {
       'x-requested-with': req.headers['x-requested-with'],
       cookie: req.headers.cookie
     }
     const response = await got.post('organization/donation', {
-      json: { amount, billingToken, last4 },
+      json: { amount, billingToken, last4, organizationId },
       headers: reqHeaders
     })
     reply.status(response.statusCode).json(response.body)

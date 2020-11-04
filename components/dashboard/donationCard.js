@@ -91,7 +91,7 @@ const DonationCard = ({ donationAmount, donationLoading, hasDonation, refreshDas
               text={
                 hasDonation
                   ? 'Edit your contribution'
-                  : 'Become a monthly contributor'
+                  : 'Become a monthly supporter'
               }
               align='left'
               marginBottom='0'

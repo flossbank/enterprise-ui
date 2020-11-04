@@ -6,7 +6,10 @@ export default async (req, reply) => {
       'x-requested-with': req.headers['x-requested-with'],
       cookie: req.headers.cookie
     }
-    const response = await got(`organization/get-oss-usage?organizationId=${req.query.organizationId}`, {
+    const response = await got(`organization/get-oss-usage`, {
+      searchParams: {
+        organizationId: req.query.organizationId
+      },
       headers: reqHeaders
     })
     reply.status(response.statusCode).json(response.body)

@@ -29,7 +29,6 @@ const CompleteLoginPage = () => {
   }
 
   async function redirectUser ({ organizations }) {
-    console.log('here', organizations)
     if (organizations.length >= 1) {
       setOrgs(organizations)
       setShowChooseModal(true)

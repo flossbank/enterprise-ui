@@ -7,6 +7,9 @@ export default async (req, reply) => {
       cookie: req.headers.cookie
     }
     const response = await got('organization/get-donation-info', {
+      searchParams: {
+        organizationId: req.query.organizationId
+      },
       headers: reqHeaders
     })
     reply.status(response.statusCode).json(response.body)
