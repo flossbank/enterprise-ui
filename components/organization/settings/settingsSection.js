@@ -7,8 +7,8 @@ import UnderlinedHeading from '../../common/underlinedHeading'
 import BillingInformationSection from './billingInformationSection'
 import { getOrganization } from '../../../client'
 
-import { useLocalStorage } from '../../utils/useLocalStorage'
-import { localStorageOrgKey } from '../../utils/constants'
+import { useLocalStorage } from '../../../utils/useLocalStorage'
+import { localStorageOrgKey } from '../../../utils/constants'
 
 const OrgSettingsSection = () => {
   let [orgLoading, setOrgLoading] = useState(true)
