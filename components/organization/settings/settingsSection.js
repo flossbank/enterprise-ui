@@ -1,4 +1,4 @@
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { CircularProgress } from '@chakra-ui/core'
 
 import Section from '../../common/section'
