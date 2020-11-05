@@ -33,6 +33,9 @@ const Dashboard = () => {
   const [topLevelPackagesLoading, setTopLevelPackagesLoading] = useState(true)
   const [topLevelPackages, setTopLevelPackages] = useState(0)
 
+  const [totalContributionsAmountLoading, setTotalContributionsAmountLoading] = useState(true)
+  const [totalContributionsAmount, setTotalContributionsAmount] = useState(0)
+
   const [orgDepCountLoading, setOrgDepCountLoading] = useState(true)
   const [orgDepCount, setOrgDepCount] = useState(0)
   
@@ -71,10 +74,12 @@ const Dashboard = () => {
       const donationInfoRes = await fetchDonationInfo({ orgId })
       if (donationInfoRes && donationInfoRes.success) {
         setDonation(donationInfoRes.donationInfo.amount / 100)
+        setTotalContributionsAmount(donationInfoRes.donationInfo.totalDonationsMade / 100)
       }
     } catch (e) {
       setDonation(0)
     } finally {
+      setTotalContributionsAmountLoading(false)
       setDonationLoading(false)
     }
   }
@@ -181,13 +186,18 @@ const Dashboard = () => {
               </ListItem>
               <ListItem>
                 <DashboardDataCard>
-                  <Text
-                    aria-describedby='org-total-donations'
-                    fontSize='2.25rem'
-                    color='ocean'
-                  >
-                    $ 0
-                  </Text>
+                  {totalContributionsAmountLoading && (
+                    <CircularProgress isIndeterminate color='ocean' />
+                  )}
+                  {!totalContributionsAmountLoading && (
+                    <Text
+                      aria-describedby='org-total-donations'
+                      fontSize='2.25rem'
+                      color='ocean'
+                    >
+                      $ {totalContributionsAmount}
+                    </Text>
+                  )}
                   <Heading
                     as='h3'
                     fontSize='1rem'

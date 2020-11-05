@@ -28,8 +28,8 @@ export const updateDonation = async ({ amount, organizationId, globalDonation })
   return fetchThenJson('api/organization/update-donation', optionsWithPutBody({ amount, organizationId, globalDonation }))
 }
 
-export const deleteDonation = async () => {
-  return fetchThenJson('api/organization/delete-donation', optionsDeleteRequest())
+export const deleteDonation = async ({ organizationId }) => {
+  return fetchThenJson(`api/organization/delete-donation?organizationId=${organizationId}`, optionsDeleteRequest())
 }
 
 export const sendSupportFeedback = async ({ email, name, topic, body }) => {
