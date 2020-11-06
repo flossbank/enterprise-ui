@@ -74,7 +74,7 @@ const Dashboard = () => {
       const donationInfoRes = await fetchDonationInfo({ orgId })
       if (donationInfoRes && donationInfoRes.success) {
         setDonation(donationInfoRes.donationInfo.amount / 100)
-        setTotalContributionsAmount(donationInfoRes.donationInfo.totalDonationsMade / 100)
+        setTotalContributionsAmount(donationInfoRes.donationInfo.totalDonated / 100)
       }
     } catch (e) {
       setDonation(0)
