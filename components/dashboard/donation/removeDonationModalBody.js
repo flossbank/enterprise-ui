@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { useRouter } from 'next/router'
 import { Box, Icon, Text, ModalFooter, ModalBody } from '@chakra-ui/core'
 
 import FBButton from '../../common/fbButton'
@@ -8,13 +9,14 @@ import { deleteDonation } from '../../../client'
 
 const RemoveDonation = ({ updateDonorStatus, onClose }) => {
   const [isDeleting, setIsDeleting] = useState(false)
+  const router = useRouter()
   const [error, setError] = useState('')
 
   const handleRemoveDonation = async () => {
     setIsDeleting(true)
     try {
-      const response = await deleteDonation()
-
+      const organizationId = router.query.organizationId
+      const response = await deleteDonation({ organizationId })
       if (response.success) {
         updateDonorStatus(false)
         onClose()
