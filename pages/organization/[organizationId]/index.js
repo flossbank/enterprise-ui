@@ -241,7 +241,7 @@ const Dashboard = () => {
             onClick={() =>
               downloadData('poopy badge', 'flossbank_org_badge.svg')}
           >
-            Download your badge
+            Download support badge
             <Icon marginLeft='1rem' name='download' size='1.75rem' />
           </FBButton>
         </Box>
