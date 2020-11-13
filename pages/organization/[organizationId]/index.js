@@ -16,7 +16,6 @@ import {
 } from '@chakra-ui/core'
 
 import { downloadData } from '../../../utils/downloader'
-import { useAuth } from '../../../utils/useAuth'
 import { fetchOrgOssUsage } from '../../../client'
 
 import PageWrapper from '../../../components/common/pageWrapper'
@@ -27,7 +26,6 @@ import FBButton from '../../../components/common/fbButton'
 import { useRouter } from 'next/router'
 
 const Dashboard = () => {
-  const { resume } = useAuth()
   const router = useRouter()
 
   const [topLevelPackagesLoading, setTopLevelPackagesLoading] = useState(true)
@@ -44,39 +42,25 @@ const Dashboard = () => {
 
   const [org, setOrg] = useState({})
 
-  function resetLoaders () {
-    setTopLevelPackagesLoading(true)
+  function resetDonationLoaders () {
     setDonationLoading(true)
-    setOrgDepCountLoading(true)
+    setTotalContributionsAmountLoading(true)
   }
 
-  async function fetchData () {
+  async function fetchAllData () {
+    await Promise.all([fetchOssUsageData(), fetchDonationData()])
+  }
+
+  async function fetchDonationData() {
     if (!router.query || !router.query.organizationId) return 
-
     const orgId = router.query.organizationId
-
-    try {
-      const orgRes = await getOrganization({ orgId })
-      setOrg(orgRes.organization)
-      setDonation(orgRes.organization.donationAmount || 0)
-      const orgOssUsage = await fetchOrgOssUsage({ orgId })
-      setTopLevelPackages(orgOssUsage.topLevelDependencies)
-      setOrgDepCount(orgOssUsage.totalDependencies)
-    } catch (e) {
-      setTopLevelPackages('N/A')
-      setOrgDepCount('N/A')
-    } finally {
-      setTopLevelPackagesLoading(false)
-      setOrgDepCountLoading(false)
-    }
-
     try {
       const donationInfoRes = await fetchDonationInfo({ orgId })
       if (donationInfoRes && donationInfoRes.success) {
         setDonation(donationInfoRes.donationInfo.amount / 100)
         setTotalContributionsAmount(donationInfoRes.donationInfo.totalDonated / 100)
       }
-    } catch (e) {
+    } catch {
       setDonation(0)
     } finally {
       setTotalContributionsAmountLoading(false)
@@ -84,14 +68,32 @@ const Dashboard = () => {
     }
   }
 
-  async function refreshDashboard () {
-    resetLoaders()
-    await fetchData()
-    await resume()
+  async function fetchOssUsageData() {
+    if (!router.query || !router.query.organizationId) return 
+    const orgId = router.query.organizationId
+    try {
+      const orgRes = await getOrganization({ orgId })
+      setOrg(orgRes.organization)
+      setDonation(orgRes.organization.donationAmount || 0)
+      const orgOssUsage = await fetchOrgOssUsage({ orgId })
+      setTopLevelPackages(orgOssUsage.details.topLevelDependencies)
+      setOrgDepCount(orgOssUsage.details.totalDependencies)
+    } catch (e) {
+      setTopLevelPackages('N/A')
+      setOrgDepCount('N/A')
+    } finally {
+      setTopLevelPackagesLoading(false)
+      setOrgDepCountLoading(false)
+    }
+  }
+
+  async function refreshDonationDashboard () {
+    resetDonationLoaders()
+    await fetchDonationData()
   }
 
   useEffect(() => {
-    fetchData()
+    fetchAllData()
   }, [router.query]) // only run on mount
 
   return (
@@ -103,14 +105,18 @@ const Dashboard = () => {
         gridTemplateColumns={{ lg: 'repeat(4, minmax(16rem, 20rem))' }}
         justifyContent='center'
         gridColumnGap={{ md: '3rem' }}
-        gridRowGap={{ base: '3rem', lg: '1.5rem' }}
-        gridTemplateRows={{ lg: '15rem auto' }}
+        gridRowGap={{ base: '3rem', lg: '1rem' }}
+        gridTemplateRows={{ lg: '13rem auto' }}
       >
         <Box gridRow='1' gridColumn='1 / span 4'>
           <Box padding={['0','0 3rem 0 3rem']}>
-            <Text>Flossbank does x to try and accomplish y, thanks for using Flossbank, and if you're looking to sign
-              up another organization, click here.
+            <Text marginBottom='2rem'>Flossbank distributes {org && org.name}'s contributions either down the entire dependency tree of {org && org.name}'s 
+              dependencies, or across the entire open source ecosystem. To learn more about how Flossbank works, visit 
+              <a href='https://enterprise.flossbank.com/how-it-works'>enterprise.flossbank.com/how-it-works</a>.
             </Text>
+            <Text>Below, you can see how much 
+              {org && org.name} is currently donating, as well as how much they've given in total. This is both a statement, and 
+              commitment by {org && org.name} to Open Source and sustaining Open Source maintainers for all the work they do.</Text>
           </Box>
         </Box>
         <Box gridRow='2' gridColumn='1 / span 4'>
@@ -212,7 +218,7 @@ const Dashboard = () => {
                 <DonationCard
                   donationLoading={donationLoading}
                   hasDonation={!!donation}
-                  refreshDashboard={refreshDashboard}
+                  refreshDashboard={refreshDonationDashboard}
                   donationAmount={donation}
                 />
               </ListItem>
@@ -235,7 +241,7 @@ const Dashboard = () => {
             onClick={() =>
               downloadData('poopy badge', 'flossbank_org_badge.svg')}
           >
-            Download your badge
+            Download support badge
             <Icon marginLeft='1rem' name='download' size='1.75rem' />
           </FBButton>
         </Box>
