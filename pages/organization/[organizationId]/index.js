@@ -48,8 +48,7 @@ const Dashboard = () => {
   }
 
   async function fetchAllData () {
-    await fetchOssUsageData()
-    await fetchDonationData()
+    await Promise.all([fetchOssUsageData(), fetchDonationData()])
   }
 
   async function fetchDonationData() {
@@ -77,8 +76,8 @@ const Dashboard = () => {
       setOrg(orgRes.organization)
       setDonation(orgRes.organization.donationAmount || 0)
       const orgOssUsage = await fetchOrgOssUsage({ orgId })
-      setTopLevelPackages(orgOssUsage.topLevelDependencies)
-      setOrgDepCount(orgOssUsage.totalDependencies)
+      setTopLevelPackages(orgOssUsage.details.topLevelDependencies)
+      setOrgDepCount(orgOssUsage.details.totalDependencies)
     } catch (e) {
       setTopLevelPackages('N/A')
       setOrgDepCount('N/A')
