@@ -21,7 +21,7 @@ export default {
         />
       </g>
     ),
-    viewBox: '0 0 360 360'
+    viewBox: '0 0 290 290'
   },
   bars: {
     path: (
@@ -63,7 +63,7 @@ export default {
         />
       </g>
     ),
-    viewBox: '0 0 360 360'
+    viewBox: '0 0 300 360'
   },
   home: {
     path: (
@@ -302,6 +302,16 @@ export default {
       </g>
     ),
     viewBox: '0 0 57.904 57.905'
+  },
+  equitable: {
+    path: (
+      <g id="Group_1255" data-name="Group 1255" transform="translate(-58.828 85.105) rotate(-90)">
+        <path id="Path_830" data-name="Path 830" d="M98.07,114.828H80.028v-6.014H96.567a1.5,1.5,0,0,1,1.5,1.5Z" transform="translate(-21.986 -43.972)" fill="#529ed6"/>
+        <path id="Path_831" data-name="Path 831" d="M105.588,170.828H80.028V158.8h25.56a1.5,1.5,0,0,1,1.5,1.5v9.021A1.5,1.5,0,0,1,105.588,170.828Z" transform="translate(-21.986 -87.944)" fill="#2b67af"/>
+        <path id="Path_832" data-name="Path 832" d="M56.538,88.9a1.5,1.5,0,0,1-1.5-1.5V60.331a1.5,1.5,0,0,1,3.007,0V87.395a1.5,1.5,0,0,1-1.5,1.5Z" fill="#d7e6f6"/>
+      </g>
+    ),
+    viewBox: '0 0 30.07 30.07'
   },
   givingHand: {
     path: (
