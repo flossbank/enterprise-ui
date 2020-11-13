@@ -106,17 +106,18 @@ const Dashboard = () => {
         gridTemplateColumns={{ lg: 'repeat(4, minmax(16rem, 20rem))' }}
         justifyContent='center'
         gridColumnGap={{ md: '3rem' }}
-        gridRowGap={{ base: '3rem', lg: '1.5rem' }}
-        gridTemplateRows={{ lg: '15rem auto' }}
+        gridRowGap={{ base: '3rem', lg: '1rem' }}
+        gridTemplateRows={{ lg: '13rem auto' }}
       >
         <Box gridRow='1' gridColumn='1 / span 4'>
           <Box padding={['0','0 3rem 0 3rem']}>
-            <Text>Flossbank distributes {org && org.name}'s contributions either down the entire dependency tree of {org && org.name}'s 
+            <Text marginBottom='2rem'>Flossbank distributes {org && org.name}'s contributions either down the entire dependency tree of {org && org.name}'s 
               dependencies, or across the entire open source ecosystem. To learn more about how Flossbank works, visit 
-              <a href='https://enterprise.flossbank.com/how-it-works'>enterprise.flossbank.com/how-it-works</a>. Below, you can see how much 
-              {org && org.name} is currently donating, as well as how much they've given in total. This is both a statement, and 
-              commitment by {org && org.name} to Open Source and sustaining Open Source maintainers for all the work they do.
+              <a href='https://enterprise.flossbank.com/how-it-works'>enterprise.flossbank.com/how-it-works</a>.
             </Text>
+            <Text>Below, you can see how much 
+              {org && org.name} is currently donating, as well as how much they've given in total. This is both a statement, and 
+              commitment by {org && org.name} to Open Source and sustaining Open Source maintainers for all the work they do.</Text>
           </Box>
         </Box>
         <Box gridRow='2' gridColumn='1 / span 4'>
