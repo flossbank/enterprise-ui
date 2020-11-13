@@ -3,12 +3,12 @@ import { List, ListItem, Icon, Box, Text } from '@chakra-ui/core'
 const cardData = [
   {
     heading: 'Fortify your code base',
-    icon: 'stack',
+    icon: 'lock',
     text: 'Your company relies on the maintenance and integrity of Open Source. Make sure the maintainers have the resources needed to not only maintain, but improve the code your company relies on.'
   },
   {
     heading: 'Easy',
-    icon: 'hooray',
+    icon: 'clock',
     text:
       'Set up a monthly donation that can be cancelled at any time in less than 1 minute.'
   },
