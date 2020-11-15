@@ -96,6 +96,14 @@ const Dashboard = () => {
     fetchAllData()
   }, [router.query]) // only run on mount
 
+  function getOrgName() {
+    try {
+      return org.name.toUpperCase()
+    } catch (e) {
+      return ''
+    }
+  }
+
   return (
     <PageWrapper title='Dashboard'>
       <h1 className='sr-only'>Organization dashboard</h1>
@@ -110,13 +118,13 @@ const Dashboard = () => {
       >
         <Box gridRow='1' gridColumn='1 / span 4'>
           <Box padding={['0','0 3rem 0 3rem']}>
-            <Text marginBottom='2rem'>Flossbank distributes {org && org.name}'s contributions either down the entire dependency tree of {org && org.name}'s 
-              dependencies, or across the entire open source ecosystem. To learn more about how Flossbank works, visit 
-              <a href='https://enterprise.flossbank.com/how-it-works'>enterprise.flossbank.com/how-it-works</a>.
+            <Text marginBottom='2rem'>Flossbank distributes {getOrgName()}'s contributions either down the entire dependency tree of {getOrgName()}'s 
+              dependencies, or across the entire open source ecosystem. To learn more about how Flossbank works, 
+              visit <a href='https://enterprise.flossbank.com/how-it-works'>enterprise.flossbank.com/how-it-works</a>.
             </Text>
-            <Text>Below, you can see how much 
-              {org && org.name} is currently donating, as well as how much they've given in total. This is both a statement, and 
-              commitment by {org && org.name} to Open Source and sustaining Open Source maintainers for all the work they do.</Text>
+            <Text>Below, you can see how much {org && org.name} is 
+              currently donating, as well as how much they've given in total. This is both a statement, and 
+              commitment by {getOrgName()} to Open Source and sustaining Open Source maintainers for all the work they do.</Text>
           </Box>
         </Box>
         <Box gridRow='2' gridColumn='1 / span 4'>
@@ -129,7 +137,7 @@ const Dashboard = () => {
             textAlign={{ base: 'center', md: 'left' }}
             marginBottom='1.5rem'
           >
-            {org && org.name}'s impact overview
+            {getOrgName()}'s impact overview
           </Heading>
           <Box>
             <List
@@ -239,7 +247,7 @@ const Dashboard = () => {
             borderRadius='0'
             color='ocean'
             onClick={() =>
-              downloadData('poopy badge', 'flossbank_org_badge.svg')}
+              downloadData('poop', 'flossbank_support_badge.svg')}
           >
             Download support badge
             <Icon marginLeft='1rem' name='download' size='1.75rem' />
