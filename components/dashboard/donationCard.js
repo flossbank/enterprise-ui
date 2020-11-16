@@ -80,7 +80,7 @@ const DonationCard = ({ donationAmount, donationLoading, hasDonation, refreshDas
         isOpen={isOpen}
         size='xl'
         closeOnOverlayClick={false}
-        onClose={handleClose}
+        onClose={onClose}
         aria-live='polite'
         aria-atomic='true'
       >
