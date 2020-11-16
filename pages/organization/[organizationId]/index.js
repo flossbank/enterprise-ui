@@ -10,6 +10,8 @@ import {
   Box,
   Heading,
   List,
+  Link,
+  Image,
   ListItem,
   CircularProgress,
   Icon
@@ -22,7 +24,6 @@ import PageWrapper from '../../../components/common/pageWrapper'
 import Section from '../../../components/common/section'
 import DashboardDataCard from '../../../components/dashboard/dashboardDataCard'
 import DonationCard from '../../../components/dashboard/donationCard'
-import FBButton from '../../../components/common/fbButton'
 import { useRouter } from 'next/router'
 
 const Dashboard = () => {
@@ -74,7 +75,6 @@ const Dashboard = () => {
     try {
       const orgRes = await getOrganization({ orgId })
       setOrg(orgRes.organization)
-      setDonation(orgRes.organization.donationAmount || 0)
       const orgOssUsage = await fetchOrgOssUsage({ orgId })
       setTopLevelPackages(orgOssUsage.details.topLevelDependencies)
       setOrgDepCount(orgOssUsage.details.totalDependencies)
@@ -104,6 +104,19 @@ const Dashboard = () => {
     }
   }
 
+  function getBadgePath() {
+    if (donation >= 10000) {
+      return '/images/badges/platinum.svg'
+    } else if (donation >= 5000) {
+      return '/images/badges/gold.svg'
+    } else if (donation >= 1000) {
+      console.log('halp')
+      return '/images/badges/silver.svg'
+    } else if (donation >= 500) {
+      return '/images/badges/bronze.svg'
+    }
+  }
+
   return (
     <PageWrapper title='Dashboard'>
       <h1 className='sr-only'>Organization dashboard</h1>
@@ -116,7 +129,10 @@ const Dashboard = () => {
         gridRowGap={{ base: '3rem', lg: '1rem' }}
         gridTemplateRows={{ lg: '13rem auto' }}
       >
-        <Box gridRow='1' gridColumn='1 / span 4'>
+        <Box gridRow='1' gridColumn='1' padding='2rem'>
+          <Image height='100%' borderRadius='1rem' src={org.avatarUrl} />
+        </Box>
+        <Box gridRow='1' gridColumn='2 / span 4'>
           <Box padding={['0','0 3rem 0 3rem']}>
             <Text marginBottom='2rem'>Flossbank distributes {getOrgName()}'s contributions either down the entire dependency tree of {getOrgName()}'s 
               dependencies, or across the entire open source ecosystem. To learn more about how Flossbank works, 
@@ -241,17 +257,12 @@ const Dashboard = () => {
           alignSelf='end'
           textAlign={{ base: 'center', md: 'right' }}
         >
-          <FBButton
-            backgroundColor='transparent'
-            fontWeight='600'
-            borderRadius='0'
-            color='ocean'
-            onClick={() =>
-              downloadData('poop', 'flossbank_support_badge.svg')}
-          >
-            Download support badge
-            <Icon marginLeft='1rem' name='download' size='1.75rem' />
-          </FBButton>
+          {donation >= 500 && (
+            <Link href={getBadgePath()} download='flossbank_support_badge.svg' padding='1rem'>
+              Download support badge
+              <Icon marginLeft='1rem' name='download' size='1.75rem' />
+            </Link>
+          )}
         </Box>
       </Section>
     </PageWrapper>

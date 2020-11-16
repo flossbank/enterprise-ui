@@ -8,8 +8,8 @@ export const getOrganization = async ({ orgId }) => {
   return fetchThenJson(`api/organization/get?organizationId=${orgId}`, optionsGetRequest())
 }
 
-export const fetchOrgByName = async ({ name }) => {
-  return fetchThenJson(`api/organization/get-by-name?name=${name}`, optionsGetRequest())
+export const fetchOrgByName = async ({ name, host }) => {
+  return fetchThenJson(`api/organization/get-by-name?name=${name}&host=${host}`, optionsGetRequest())
 }
 
 export const installOrg = async ({ installationId }) => {

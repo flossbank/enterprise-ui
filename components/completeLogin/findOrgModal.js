@@ -50,7 +50,7 @@ const ChooseOrgModal = () => {
     const name = e.target.value.trim().toLowerCase()
     setSearchInvoked(!!name)
     try {
-      const orgRes = await fetchOrgByName({ name })
+      const orgRes = await fetchOrgByName({ name, host: 'GitHub' })
       setOrg(orgRes.organization)
     } catch (e) {} finally {
       setFetchingOrg(false)
