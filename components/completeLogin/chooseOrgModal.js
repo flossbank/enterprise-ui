@@ -26,7 +26,7 @@ const ChooseOrgModal = ({ orgs }) => {
   const router = useRouter()
   const { isOpen, onOpen, onClose } = useDisclosure(true)
   const [_, setCurrentOrgState] = useLocalStorage(localStorageOrgKey, '') // eslint-disable-line
-  const subheadingExistingOrgs = 'Sign in with an existing Flossbank installation or create a new one for a new org?'
+  const subheadingExistingOrgs = "Don't see the organization you're trying to sign in with? Install Flossbank on a new organization using the button below"
 
   const githubInstallLink = 'https://github.com/apps/flossbank/installations/new?redirect_uri=https://enterprise.flossbank.com/complete-install'
 

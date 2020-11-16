@@ -6,6 +6,7 @@ import { useLocalStorage } from '../utils/useLocalStorage'
 import PageWrapper from '../components/common/pageWrapper'
 import Section from '../components/common/section'
 import ChooseOrgModal from '../components/completeLogin/chooseOrgModal'
+import FindOrgModal from '../components/completeLogin/findOrgModal'
 import BouncyLoader from '../components/common/bouncyLoader'
 
 import { localStorageGHStateKey } from '../utils/constants'
@@ -17,6 +18,7 @@ const CompleteLoginPage = () => {
   const [status, setStatus] = useState('Verifying…')
   const [orgs, setOrgs] = useState([])
   const [showChooseModal, setShowChooseModal] = useState(false)
+  const [showFindOrgModal, setShowFindOrgModal] = useState(false)
   const [isLoading, setIsLoading] = useState(false)
   const [subHeader, setSubHeader] = useState('')
   const [loginAttempted, setLoginAttempted] = useState(false)
@@ -33,7 +35,7 @@ const CompleteLoginPage = () => {
       setOrgs(organizations)
       setShowChooseModal(true)
     } else {
-      window.location.href = 'https://github.com/apps/flossbank/installations/new?redirect_uri=https://enterprise.flossbank.com/complete-install'
+      setShowFindOrgModal(true)
     }
   } 
 
@@ -93,6 +95,7 @@ const CompleteLoginPage = () => {
         {isLoading && <BouncyLoader />}
         {subHeader && <Text>{subHeader}</Text>}
         {showChooseModal && orgs.length && <ChooseOrgModal orgs={orgs} />}
+        {showFindOrgModal && <FindOrgModal />}
       </Section>
     </PageWrapper>
   )
