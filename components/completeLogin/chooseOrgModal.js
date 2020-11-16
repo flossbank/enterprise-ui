@@ -28,7 +28,9 @@ const ChooseOrgModal = ({ orgs }) => {
   const [_, setCurrentOrgState] = useLocalStorage(localStorageOrgKey, '') // eslint-disable-line
   const subheadingExistingOrgs = "Don't see the organization you're trying to sign in with? Install Flossbank on a new organization using the button below"
 
-  const githubInstallLink = 'https://github.com/apps/flossbank/installations/new?redirect_uri=https://enterprise.flossbank.com/complete-install'
+  // Unsure if callback_url is correct or is doing anything, in our app settings we have a post installation setup url
+  // which restricts it to enterprise.flossbank.com/complete-install
+  const githubInstallLink = 'https://github.com/apps/flossbank/installations/new?callback_url=https://enterprise.flossbank.com/complete-install'
 
   const goToOrg = ({ id }) => {
     setCurrentOrgState(id)
