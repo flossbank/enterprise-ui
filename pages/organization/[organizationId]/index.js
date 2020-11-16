@@ -8,6 +8,7 @@ import {
 import {
   Text,
   Box,
+  Flex,
   Heading,
   List,
   Link,
@@ -110,7 +111,6 @@ const Dashboard = () => {
     } else if (donation >= 5000) {
       return '/images/badges/gold.svg'
     } else if (donation >= 1000) {
-      console.log('halp')
       return '/images/badges/silver.svg'
     } else if (donation >= 500) {
       return '/images/badges/bronze.svg'
@@ -122,18 +122,19 @@ const Dashboard = () => {
       <h1 className='sr-only'>Organization dashboard</h1>
       <Section
         backgroundColor='lightRock'
+        height='100vh'
         display={{ md: 'grid' }}
-        gridTemplateColumns={{ lg: 'repeat(4, minmax(16rem, 20rem))' }}
+        gridTemplateColumns={{ lg: 'repeat(4, minmax(14rem, 20rem))' }}
         justifyContent='center'
         gridColumnGap={{ md: '3rem' }}
         gridRowGap={{ base: '3rem', lg: '1rem' }}
-        gridTemplateRows={{ lg: '13rem auto' }}
+        gridTemplateRows={{ lg: '13rem 13rem 5rem' }}
       >
-        <Box gridRow='1' gridColumn='1' padding='2rem'>
-          <Image height='100%' borderRadius='1rem' src={org.avatarUrl} />
+        <Box gridRow='1' display={{ base: 'none', lg: 'inline' }} gridColumn='1' padding='2rem'>
+          <Image height='10rem' width='10rem' borderRadius='1rem' src={org.avatarUrl} />
         </Box>
-        <Box gridRow='1' gridColumn='2 / span 4'>
-          <Box padding={['0','0 3rem 0 3rem']}>
+        <Flex flexDirection='column' justifyContent='space-around' gridRow='1' gridColumn={{ base: '1 / span 5', lg: '2 / span 4' }}>
+          <Box padding={{ base: '3rem 0', lg: '0 3rem 0 3rem' }}>
             <Text marginBottom='2rem'>Flossbank distributes {getOrgName()}'s contributions either down the entire dependency tree of {getOrgName()}'s 
               dependencies, or across the entire open source ecosystem. To learn more about how Flossbank works, 
               visit <a href='https://enterprise.flossbank.com/how-it-works'>enterprise.flossbank.com/how-it-works</a>.
@@ -142,7 +143,7 @@ const Dashboard = () => {
               currently donating, as well as how much they've given in total. This is both a statement, and 
               commitment by {getOrgName()} to Open Source and sustaining Open Source maintainers for all the work they do.</Text>
           </Box>
-        </Box>
+        </Flex>
         <Box gridRow='2' gridColumn='1 / span 4'>
           <Heading
             textTransform='uppercase'
