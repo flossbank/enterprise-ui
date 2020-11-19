@@ -5,8 +5,6 @@ import { Heading, Text } from '@chakra-ui/core'
 import { useLocalStorage } from '../utils/useLocalStorage'
 import PageWrapper from '../components/common/pageWrapper'
 import Section from '../components/common/section'
-import ChooseOrgModal from '../components/completeLogin/chooseOrgModal'
-import FindOrgModal from '../components/completeLogin/findOrgModal'
 import BouncyLoader from '../components/common/bouncyLoader'
 
 import { localStorageGHStateKey } from '../utils/constants'
@@ -16,9 +14,6 @@ const CompleteLoginPage = () => {
   const router = useRouter()
   const auth = useAuth()
   const [status, setStatus] = useState('Verifying…')
-  const [orgs, setOrgs] = useState([])
-  const [showChooseModal, setShowChooseModal] = useState(false)
-  const [showFindOrgModal, setShowFindOrgModal] = useState(false)
   const [isLoading, setIsLoading] = useState(false)
   const [subHeader, setSubHeader] = useState('')
   const [loginAttempted, setLoginAttempted] = useState(false)
@@ -30,13 +25,8 @@ const CompleteLoginPage = () => {
     setSubHeader(`It looks like our GitHub communication was lost in translation.`)
   }
 
-  async function redirectUser ({ organizations }) {
-    if (organizations.length >= 1) {
-      setOrgs(organizations)
-      setShowChooseModal(true)
-    } else {
-      setShowFindOrgModal(true)
-    }
+  async function redirectUser () {
+    router.push('/find-organization')
   } 
 
   async function attemptCompleteLogin () {
@@ -57,8 +47,8 @@ const CompleteLoginPage = () => {
       // Before processing GH redirect, we need to make sure the state we passed in
       // is the state returned
       if (state === ghState) {
-        const { organizations } = await auth.completeGHLogin({ code, state })
-        redirectUser({ organizations })
+        await auth.completeGHLogin({ code, state })
+        redirectUser()
       } else {
         showError()
         return
@@ -94,8 +84,6 @@ const CompleteLoginPage = () => {
         </Heading>
         {isLoading && <BouncyLoader />}
         {subHeader && <Text>{subHeader}</Text>}
-        {showChooseModal && orgs.length && <ChooseOrgModal orgs={orgs} />}
-        {showFindOrgModal && <FindOrgModal />}
       </Section>
     </PageWrapper>
   )
