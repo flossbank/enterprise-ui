@@ -13,14 +13,17 @@ import {
   List,
   Link,
   Image,
+  Button,
+  Tooltip,
   ListItem,
   CircularProgress,
   Icon
 } from '@chakra-ui/core'
 
-import { downloadData } from '../../../utils/downloader'
 import { fetchOrgOssUsage } from '../../../client'
 
+import TextLink from '../../../components/common/textLink'
+import Banner from '../../../components/common/banner'
 import PageWrapper from '../../../components/common/pageWrapper'
 import Section from '../../../components/common/section'
 import DashboardDataCard from '../../../components/dashboard/dashboardDataCard'
@@ -29,6 +32,8 @@ import { useRouter } from 'next/router'
 
 const Dashboard = () => {
   const router = useRouter()
+
+  const [showDonationReminderBanner, setShowDonationReminderBanner] = useState(false)
 
   const [topLevelPackagesLoading, setTopLevelPackagesLoading] = useState(true)
   const [topLevelPackages, setTopLevelPackages] = useState(0)
@@ -63,6 +68,7 @@ const Dashboard = () => {
         setTotalContributionsAmount(donationInfoRes.donationInfo.totalDonated / 100)
       }
     } catch {
+      setShowDonationReminderBanner(true)
       setDonation(0)
     } finally {
       setTotalContributionsAmountLoading(false)
@@ -99,7 +105,7 @@ const Dashboard = () => {
 
   function getOrgName() {
     try {
-      return org.name.toUpperCase()
+      return org.name
     } catch (e) {
       return ''
     }
@@ -120,9 +126,18 @@ const Dashboard = () => {
   return (
     <PageWrapper title='Dashboard'>
       <h1 className='sr-only'>Organization dashboard</h1>
+      {showDonationReminderBanner && (
+        <Banner icon='givingHand' onCloseClick={() => setShowDonationReminderBanner(false)}>
+          <Text color='rock'>
+            It looks like this organization isn't currently supporting Open Source. If you're
+            a GitHub Admin of this organization, you'll be able to create a donation 
+            by clicking the "pencil" icon on the monthly donation card.
+          </Text>
+        </Banner>
+      )}
       <Section
         backgroundColor='lightRock'
-        height='100vh'
+        height={{ base: 'auto', lg:'90vh' }}
         display={{ md: 'grid' }}
         gridTemplateColumns={{ lg: 'repeat(4, minmax(14rem, 20rem))' }}
         justifyContent='center'
@@ -136,8 +151,8 @@ const Dashboard = () => {
         <Flex flexDirection='column' justifyContent='space-around' gridRow='1' gridColumn={{ base: '1 / span 5', lg: '2 / span 4' }}>
           <Box padding={{ base: '3rem 0', lg: '0 3rem 0 3rem' }}>
             <Text marginBottom='2rem'>Flossbank distributes {getOrgName()}'s contributions either down the entire dependency tree of {getOrgName()}'s 
-              dependencies, or across the entire open source ecosystem. To learn more about how Flossbank works, 
-              visit <a href='https://enterprise.flossbank.com/how-it-works'>enterprise.flossbank.com/how-it-works</a>.
+              dependencies. To learn more about how Flossbank works, 
+              visit <TextLink text='enterprise.flossbank.com/how-it-works' href='/how-it-works' />.
             </Text>
             <Text>Below, you can see how much {org && org.name} is 
               currently donating, as well as how much they've given in total. This is both a statement, and 
@@ -181,14 +196,24 @@ const Dashboard = () => {
                       {topLevelPackages}
                     </Text>
                   )}
-                  <Heading
+                  <Flex
                     as='h3'
+                    flexDirection='row'
                     fontSize='1rem'
                     fontWeight='normal'
                     id='user-session-count'
                   >
                     Top Level Dependencies
-                  </Heading>
+                    <Tooltip label="We determine top level dependencies each time we distribute organization donations. If it says N/A, then we haven't calculated a dependency tree snapshot yet" 
+                             aria-label="A tooltip explaining what top level dependencies are">
+                      <Icon
+                        name='question'
+                        size={{ base: '1.5rem' }}
+                        marginRight={{ base: 0 }}
+                        marginBottom={{ base: '1.5rem', md: 0 }}
+                      />
+                    </Tooltip>
+                  </Flex>
                 </DashboardDataCard>
               </ListItem>
               <ListItem>
@@ -205,14 +230,24 @@ const Dashboard = () => {
                       {orgDepCount}
                     </Text>
                   )}
-                  <Heading
+                  <Flex
+                    flexDirection='row'
                     as='h3'
                     fontSize='1rem'
                     fontWeight='400'
                     id='user-session-count'
                   >
                     Total Current Package Dependencies
-                  </Heading>
+                    <Tooltip label="We determine total current dependencies each time we distribute organization donations. If it says N/A, then we haven't calculated a dependency tree snapshot yet" 
+                             aria-label="A tooltip explaining what total current dependencies are">
+                      <Icon
+                        name='question'
+                        size={{ base: '1.5rem' }}
+                        marginRight={{ base: 0 }}
+                        marginBottom={{ base: '1.5rem', md: 0 }}
+                      />
+                    </Tooltip>
+                  </Flex>
                 </DashboardDataCard>
               </ListItem>
               <ListItem>
@@ -258,12 +293,12 @@ const Dashboard = () => {
           alignSelf='end'
           textAlign={{ base: 'center', md: 'right' }}
         >
-          {donation >= 500 && (
+          <Button isDisabled={donation >= 500}>
             <Link href={getBadgePath()} download='flossbank_support_badge.svg' padding='1rem'>
               Download support badge
               <Icon marginLeft='1rem' name='download' size='1.75rem' />
             </Link>
-          )}
+          </Button>
         </Box>
       </Section>
     </PageWrapper>
