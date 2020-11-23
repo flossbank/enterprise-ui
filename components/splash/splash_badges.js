@@ -52,7 +52,7 @@ const SplashBadges = () => (
       <UnderlinedHeading text='Flossbank badges' />
       <Subheading>Display your dedication</Subheading>
       <Text marginBottom='1rem'>
-        Flossbank badges are the perfect way to show your continued support of open source authors and maintainers on your website, Glassdoor, and social media. 
+        Flossbank badges are the perfect way to show your continued support of open source authors and maintainers on your website, Glassdoor, and social media. With participation, you are free to use the Flossbank trademarks appropriate for you in any promotional activities or events. 
       </Text>
       <Text marginBottom='1rem'>
         Show stakeholders and employees that you not only care about them but the countless others on which you rely.
