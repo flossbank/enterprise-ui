@@ -150,8 +150,8 @@ const Dashboard = () => {
         </Box>
         <Flex flexDirection='column' justifyContent='space-around' gridRow='1' gridColumn={{ base: '1 / span 5', lg: '2 / span 4' }}>
           <Box padding={{ base: '3rem 0', lg: '0 3rem 0 3rem' }}>
-            <Text marginBottom='2rem'>Flossbank distributes {getOrgName()}'s contributions either down the entire dependency tree of {getOrgName()}'s 
-              dependencies. To learn more about how Flossbank works, 
+            <Text marginBottom='2rem'>Flossbank distributes {getOrgName()}'s contributions down the entire dependency tree of the 
+              dependencies they rely on. To learn more about how Flossbank works, 
               visit <TextLink text='enterprise.flossbank.com/how-it-works' href='/how-it-works' />.
             </Text>
             <Text>Below, you can see how much {org && org.name} is 
