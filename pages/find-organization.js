@@ -101,7 +101,7 @@ const FindOrganizationPage = () => {
             </Text>
           <Flex flexDirection='row' marginBottom='1rem' border='1px solid gray' borderRadius='0.5rem'>
             <Text paddingLeft='1rem' paddingTop='0.5rem' backgroundColor='lightGray'>https://github.com/</Text>
-            <Box borderLeft='1px solid black'>
+            <Box borderLeft='1px solid black' width='100%'>
               <Input
                 id='org-name' 
                 placeholder='flossbank'

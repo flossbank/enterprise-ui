@@ -293,7 +293,7 @@ const Dashboard = () => {
           alignSelf='end'
           textAlign={{ base: 'center', md: 'right' }}
         >
-          <Button isDisabled={donation >= 500}>
+          <Button isDisabled={donation <= 500}>
             <Link href={getBadgePath()} download='flossbank_support_badge.svg' padding='1rem'>
               Download support badge
               <Icon marginLeft='1rem' name='download' size='1.75rem' />
