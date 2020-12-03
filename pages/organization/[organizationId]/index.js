@@ -129,8 +129,8 @@ const Dashboard = () => {
       {showDonationReminderBanner && (
         <Banner icon='givingHand' onCloseClick={() => setShowDonationReminderBanner(false)}>
           <Text color='rock'>
-            It looks like this organization isn't currently supporting Open Source. If you're
-            a GitHub Admin of this organization, you'll be able to create a donation 
+            It looks like this organization isn't currently supporting Open Source through Flossbank. 
+            If you're a GitHub Admin of this organization, you'll be able to create a donation 
             by clicking the "pencil" icon on the monthly donation card.
           </Text>
         </Banner>
@@ -155,7 +155,7 @@ const Dashboard = () => {
               visit <TextLink text='enterprise.flossbank.com/how-it-works' href='/how-it-works' />.
             </Text>
             <Text>Below, you can see how much {org && org.name} is 
-              currently donating, as well as how much they've given in total. This is both a statement, and 
+              currently donating through Flossbank, as well as how much they've given in total. This is both a statement, and 
               commitment by {getOrgName()} to Open Source and sustaining Open Source maintainers for all the work they do.</Text>
           </Box>
         </Flex>

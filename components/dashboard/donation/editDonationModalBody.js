@@ -36,8 +36,8 @@ const EditDonationModalBody = ({ donationAmount, isNewDonor, onClose }) => {
   const elements = useElements()
 
   const handleNewAmount = (amount) => {
-    if (amount < 100) {
-      setAmountError('Donation must be at least $100')
+    if (amount < 10) {
+      setAmountError('Donation must be at least $10')
       return
     }
 
@@ -163,7 +163,7 @@ const EditDonationModalBody = ({ donationAmount, isNewDonor, onClose }) => {
                 color='boulder'
                 marginBottom='1.5rem'
               >
-                Set new monthly contribution amount (<em>$100 USD minimum</em>)
+                Set new monthly contribution amount (<em>$10 USD minimum</em>)
                 <Box
                   display='flex'
                   alignItems='center'
@@ -184,7 +184,7 @@ const EditDonationModalBody = ({ donationAmount, isNewDonor, onClose }) => {
                   </Box>
                   <NumberInput
                     defaultValue={donationAmount}
-                    min={100}
+                    min={10}
                     onChange={handleNewAmount}
                     clampValueOnBlur={false}
                     color='boulder'
