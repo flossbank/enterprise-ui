@@ -14,6 +14,8 @@ import {
   useDisclosure
 } from '@chakra-ui/core'
 
+import { useAuth } from '../../utils/useAuth'
+
 import DashboardDataCard from '../dashboard/dashboardDataCard'
 import UnderlinedHeading from '../common/underlinedHeading'
 
@@ -22,6 +24,8 @@ import StripeWrapper from '../common/stripe/stripeWrapper'
 import DonationInfoModalBody from './donation/donationInfoModalBody'
 
 const DonationCard = ({ donationAmount, donationLoading, hasDonation, refreshDashboard }) => {
+  const user = useAuth().user
+
   const [createNewDonation, setCreateNewDonation] = useState(false)
   const { isOpen, onOpen, onClose } = useDisclosure()
   const finalRef = useRef()
@@ -44,22 +48,24 @@ const DonationCard = ({ donationAmount, donationLoading, hasDonation, refreshDas
             >
               ${donationAmount}
             </Text>
-            <IconButton
-              ref={finalRef}
-              onClick={onOpen}
-              backgroundColor='transparent'
-              fontSize='1.5rem'
-              _hover={{
-                backgroundColor: 'white',
-                color: 'ocean'
-              }}
-              _focus={{
-                outlineColor: 'currentColor !important'
-              }}
-              aria-label='Edit monthly donation'
-              icon='pencil'
-              title='Edit monthly donation'
-            />
+            {user && (
+              <IconButton
+                ref={finalRef}
+                onClick={onOpen}
+                backgroundColor='transparent'
+                fontSize='1.5rem'
+                _hover={{
+                  backgroundColor: 'white',
+                  color: 'ocean'
+                }}
+                _focus={{
+                  outlineColor: 'currentColor !important'
+                }}
+                aria-label='Edit monthly donation'
+                icon='pencil'
+                title='Edit monthly donation'
+              />
+            )}
           </Flex>
         )}
         <UnderlinedHeading

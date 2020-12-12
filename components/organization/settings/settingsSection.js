@@ -1,8 +1,9 @@
 import { useEffect, useState } from 'react'
-import { CircularProgress } from '@chakra-ui/core'
+import { CircularProgress, Text } from '@chakra-ui/core'
 
 import Section from '../../common/section'
 import UnderlinedHeading from '../../common/underlinedHeading'
+import Banner from '../../common/banner'
 
 import BillingInformationSection from './billingInformationSection'
 import { getOrganization } from '../../../client'
@@ -17,9 +18,13 @@ const OrgSettingsSection = () => {
   const [currentOrgId, _] = useLocalStorage(localStorageOrgKey, '') // eslint-disable-line  
 
   async function fetchOrg() {
-    const o = await getOrganization({ orgId: currentOrgId })
-    setOrg(o)
-    setOrgLoading(false)
+    try {
+      const res = await getOrganization({ orgId: currentOrgId })
+      setOrg(res.organization)
+    } catch (e) {}
+    finally {
+      setOrgLoading(false)
+    }
   }
 
   useEffect(() => {
@@ -41,7 +46,16 @@ const OrgSettingsSection = () => {
         marginBottom='3rem'
       />
       {orgLoading && <CircularProgress isIndeterminate color='ocean' />}
-      {org && <BillingInformationSection org={org} />}
+      {/** Only show billing info section if billing info returned from API */}
+      {org && org.billingInfo && <BillingInformationSection org={org} />}
+      {/** Otherwise, notify user they must log in to see org settings */}
+      {!orgLoading && (!org || !org.billingInfo) && (<>
+        <Banner icon='info' onCloseClick={() => {}}>
+          <Text color='rock'>
+            You must be logged in to view organization settings
+          </Text>
+        </Banner>
+      </>)}
     </Section>
   )
 }

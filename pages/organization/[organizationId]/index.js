@@ -22,6 +22,8 @@ import {
 
 import { fetchOrgOssUsage } from '../../../client'
 
+import { useAuth } from '../../../utils/useAuth'
+
 import TextLink from '../../../components/common/textLink'
 import Banner from '../../../components/common/banner'
 import PageWrapper from '../../../components/common/pageWrapper'
@@ -32,6 +34,7 @@ import { useRouter } from 'next/router'
 
 const Dashboard = () => {
   const router = useRouter()
+  const user = useAuth().user
 
   const [showDonationReminderBanner, setShowDonationReminderBanner] = useState(false)
 
@@ -112,6 +115,7 @@ const Dashboard = () => {
   }
 
   function getBadgePath() {
+    if (!user) return
     if (donation >= 10000) {
       return '/images/badges/platinum.svg'
     } else if (donation >= 5000) {
@@ -293,7 +297,7 @@ const Dashboard = () => {
           alignSelf='end'
           textAlign={{ base: 'center', md: 'right' }}
         >
-          <Button isDisabled={donation <= 500}>
+          <Button isDisabled={donation <= 500 || !user}>
             <Link href={getBadgePath()} download='flossbank_support_badge.svg' padding='1rem'>
               Download support badge
               <Icon marginLeft='1rem' name='download' size='1.75rem' />
