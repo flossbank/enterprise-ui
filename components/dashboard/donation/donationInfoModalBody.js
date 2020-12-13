@@ -12,7 +12,7 @@ const DonationInfoModalBody = ({ upgradeToDonor }) => {
       <ModalBody marginBottom='1.5rem'>
         <Text marginBottom='1.5rem'>
           By becoming a monthly contributor and donating at least
-          <strong> $100 a month</strong>, you're supporting the OSS maintainers 
+          <strong> $10 a month</strong>, you're supporting the OSS maintainers 
           of the packages your company relies on, making them not only better maintainer, but 
           more secure.
         </Text>
