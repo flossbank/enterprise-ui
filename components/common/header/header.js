@@ -37,15 +37,8 @@ const Header = () => {
             {!user && (
               <>
                 <TextLink
-                  href='/about'
-                  text='About Us'
-                  color='boulder'
-                  padding='.25em'
-                />
-                <TextLink
-                  display={['none', 'none', 'none', 'inline']}
-                  href='/faq'
-                  text='FAQs'
+                  href='/find-organization'
+                  text='Search Organizations'
                   color='boulder'
                   padding='.25em'
                 />
