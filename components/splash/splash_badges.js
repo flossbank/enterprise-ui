@@ -26,6 +26,8 @@ const SplashBadges = () => (
   <Flex
     as='section'
     height='40rem'
+    maxW={['100rem']} 
+    margin='auto'
     flexDirection='row'
     padding={['3rem', '7rem']}
   >

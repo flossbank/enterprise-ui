@@ -21,7 +21,13 @@ const Header = () => {
   return (
     <>
       <Box as='header' padding={['1rem', '1.5rem', '1.5rem 5rem']}>
-        <Flex alignItems='center' justify='space-between' flexDirection='row'>
+        <Flex 
+          alignItems='center' 
+          margin='auto' 
+          justify='space-between' 
+          maxW={['90rem']} 
+          flexDirection='row'
+        >
           <FBLogo authed={!!user} />
           <Box
             as='nav'
