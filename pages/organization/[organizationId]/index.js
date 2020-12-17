@@ -57,7 +57,7 @@ const Dashboard = () => {
   }
 
   async function fetchAllData () {
-    await Promise.all([fetchOssUsageData(), fetchDonationData()])
+    return Promise.all([fetchOssUsageData(), fetchDonationData()])
   }
 
   async function fetchDonationData () {
@@ -109,6 +109,7 @@ const Dashboard = () => {
     try {
       return org.name
     } catch (e) {
+      console.error(e)
       return ''
     }
   }
