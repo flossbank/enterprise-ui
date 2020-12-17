@@ -44,20 +44,20 @@ export default {
   },
   lock: {
     path: (
-      <g id="Flossbank_Icons_Lock_RGB" data-name="Flossbank Icons_Lock_RGB" transform="translate(-73.74 -46.93)">
-        <path id="Path_1006" data-name="Path 1006" d="M123.69,159.31a12.48,12.48,0,0,1-12.49-12.47h0V109.37A62.46,62.46,0,0,1,217.74,65.14a63.39,63.39,0,0,1,16.31,28.63A12.49,12.49,0,0,1,209.87,100h0a38.21,38.21,0,0,0-9.8-17.22,37.48,37.48,0,0,0-63.88,26.6v37.46a12.48,12.48,0,0,1-12.48,12.48Z" fill="#529ed6"/>
-        <rect id="Rectangle_514" data-name="Rectangle 514" width="199.78" height="162.32" rx="37.46" transform="translate(73.74 134.34)" fill="#2b67af"/>
-        <path id="Path_1007" data-name="Path 1007" d="M173.63,246.72a12.48,12.48,0,0,1-12.48-12.48h0V196.77a12.5,12.5,0,0,1,25,0v37.46a12.49,12.49,0,0,1-12.47,12.49Z" fill="#e0dfff"/>
-        <circle id="Ellipse_121" data-name="Ellipse 121" cx="18.73" cy="18.73" r="18.73" transform="translate(154.9 184.28)" fill="#e0dfff"/>
+      <g id='Flossbank_Icons_Lock_RGB' data-name='Flossbank Icons_Lock_RGB' transform='translate(-73.74 -46.93)'>
+        <path id='Path_1006' data-name='Path 1006' d='M123.69,159.31a12.48,12.48,0,0,1-12.49-12.47h0V109.37A62.46,62.46,0,0,1,217.74,65.14a63.39,63.39,0,0,1,16.31,28.63A12.49,12.49,0,0,1,209.87,100h0a38.21,38.21,0,0,0-9.8-17.22,37.48,37.48,0,0,0-63.88,26.6v37.46a12.48,12.48,0,0,1-12.48,12.48Z' fill='#529ed6' />
+        <rect id='Rectangle_514' data-name='Rectangle 514' width='199.78' height='162.32' rx='37.46' transform='translate(73.74 134.34)' fill='#2b67af' />
+        <path id='Path_1007' data-name='Path 1007' d='M173.63,246.72a12.48,12.48,0,0,1-12.48-12.48h0V196.77a12.5,12.5,0,0,1,25,0v37.46a12.49,12.49,0,0,1-12.47,12.49Z' fill='#e0dfff' />
+        <circle id='Ellipse_121' data-name='Ellipse 121' cx='18.73' cy='18.73' r='18.73' transform='translate(154.9 184.28)' fill='#e0dfff' />
       </g>
     ),
     viewBox: '0 0 199.78 249.73'
   },
   clock: {
     path: (
-      <g id="Flossbank_Icons_Clock_Ten_RGB" data-name="Flossbank Icons_Clock Ten_RGB" transform="translate(-70.12 -57.64)">
-        <circle id="Ellipse_120" data-name="Ellipse 120" cx="123.41" cy="123.41" r="123.41" transform="translate(70.12 57.64)" fill="#529ed6"/>
-        <path id="Path_1005" data-name="Path 1005" d="M205.87,119.35a12.34,12.34,0,1,0-24.68,0v40.33l-13.55-7.83a12.343,12.343,0,0,0-12.34,21.38l32.06,18.51a12.51,12.51,0,0,0,18.51-10.69Z" fill="#2b67af"/>
+      <g id='Flossbank_Icons_Clock_Ten_RGB' data-name='Flossbank Icons_Clock Ten_RGB' transform='translate(-70.12 -57.64)'>
+        <circle id='Ellipse_120' data-name='Ellipse 120' cx='123.41' cy='123.41' r='123.41' transform='translate(70.12 57.64)' fill='#529ed6' />
+        <path id='Path_1005' data-name='Path 1005' d='M205.87,119.35a12.34,12.34,0,1,0-24.68,0v40.33l-13.55-7.83a12.343,12.343,0,0,0-12.34,21.38l32.06,18.51a12.51,12.51,0,0,0,18.51-10.69Z' fill='#2b67af' />
       </g>
     ),
     viewBox: '0 0 246.82 246.82'
@@ -325,10 +325,10 @@ export default {
   },
   equitable: {
     path: (
-      <g id="Group_1255" data-name="Group 1255" transform="translate(-58.828 85.105) rotate(-90)">
-        <path id="Path_830" data-name="Path 830" d="M98.07,114.828H80.028v-6.014H96.567a1.5,1.5,0,0,1,1.5,1.5Z" transform="translate(-21.986 -43.972)" fill="#529ed6"/>
-        <path id="Path_831" data-name="Path 831" d="M105.588,170.828H80.028V158.8h25.56a1.5,1.5,0,0,1,1.5,1.5v9.021A1.5,1.5,0,0,1,105.588,170.828Z" transform="translate(-21.986 -87.944)" fill="#2b67af"/>
-        <path id="Path_832" data-name="Path 832" d="M56.538,88.9a1.5,1.5,0,0,1-1.5-1.5V60.331a1.5,1.5,0,0,1,3.007,0V87.395a1.5,1.5,0,0,1-1.5,1.5Z" fill="#d7e6f6"/>
+      <g id='Group_1255' data-name='Group 1255' transform='translate(-58.828 85.105) rotate(-90)'>
+        <path id='Path_830' data-name='Path 830' d='M98.07,114.828H80.028v-6.014H96.567a1.5,1.5,0,0,1,1.5,1.5Z' transform='translate(-21.986 -43.972)' fill='#529ed6' />
+        <path id='Path_831' data-name='Path 831' d='M105.588,170.828H80.028V158.8h25.56a1.5,1.5,0,0,1,1.5,1.5v9.021A1.5,1.5,0,0,1,105.588,170.828Z' transform='translate(-21.986 -87.944)' fill='#2b67af' />
+        <path id='Path_832' data-name='Path 832' d='M56.538,88.9a1.5,1.5,0,0,1-1.5-1.5V60.331a1.5,1.5,0,0,1,3.007,0V87.395a1.5,1.5,0,0,1-1.5,1.5Z' fill='#d7e6f6' />
       </g>
     ),
     viewBox: '0 0 30.07 30.07'

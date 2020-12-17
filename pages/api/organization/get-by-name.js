@@ -6,7 +6,7 @@ export default async (req, reply) => {
       'x-requested-with': req.headers['x-requested-with'],
       cookie: req.headers.cookie
     }
-    const response = await got(`organization`, {
+    const response = await got('organization', {
       searchParams: {
         name: req.query.name,
         host: req.query.host

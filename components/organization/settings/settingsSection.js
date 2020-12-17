@@ -12,17 +12,16 @@ import { useLocalStorage } from '../../../utils/useLocalStorage'
 import { localStorageOrgKey } from '../../../utils/constants'
 
 const OrgSettingsSection = () => {
-  let [orgLoading, setOrgLoading] = useState(true)
-  let [org, setOrg] = useState(undefined)
+  const [orgLoading, setOrgLoading] = useState(true)
+  const [org, setOrg] = useState(undefined)
 
   const [currentOrgId, _] = useLocalStorage(localStorageOrgKey, '') // eslint-disable-line  
 
-  async function fetchOrg() {
+  async function fetchOrg () {
     try {
       const res = await getOrganization({ orgId: currentOrgId })
       setOrg(res.organization)
-    } catch (e) {}
-    finally {
+    } catch (e) {} finally {
       setOrgLoading(false)
     }
   }
@@ -49,13 +48,15 @@ const OrgSettingsSection = () => {
       {/** Only show billing info section if billing info returned from API */}
       {org && org.billingInfo && <BillingInformationSection org={org} />}
       {/** Otherwise, notify user they must log in to see org settings */}
-      {!orgLoading && (!org || !org.billingInfo) && (<>
-        <Banner icon='info' onCloseClick={() => {}}>
-          <Text color='rock'>
-            You must be logged in to view organization settings
-          </Text>
-        </Banner>
-      </>)}
+      {!orgLoading && (!org || !org.billingInfo) && (
+        <>
+          <Banner icon='info' onCloseClick={() => {}}>
+            <Text color='rock'>
+              You must be logged in to view organization settings
+            </Text>
+          </Banner>
+        </>
+      )}
     </Section>
   )
 }

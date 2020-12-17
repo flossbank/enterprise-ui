@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react'
 import {
   getOrganization,
   fetchDonationInfo,
+  fetchOrgOssUsage
 } from '../../../client'
 
 import {
@@ -19,8 +20,6 @@ import {
   CircularProgress,
   Icon
 } from '@chakra-ui/core'
-
-import { fetchOrgOssUsage } from '../../../client'
 
 import { useAuth } from '../../../utils/useAuth'
 
@@ -46,7 +45,7 @@ const Dashboard = () => {
 
   const [orgDepCountLoading, setOrgDepCountLoading] = useState(true)
   const [orgDepCount, setOrgDepCount] = useState(0)
-  
+
   const [donationLoading, setDonationLoading] = useState(true)
   const [donation, setDonation] = useState(0)
 
@@ -61,8 +60,8 @@ const Dashboard = () => {
     await Promise.all([fetchOssUsageData(), fetchDonationData()])
   }
 
-  async function fetchDonationData() {
-    if (!router.query || !router.query.organizationId) return 
+  async function fetchDonationData () {
+    if (!router.query || !router.query.organizationId) return
     const orgId = router.query.organizationId
     try {
       const donationInfoRes = await fetchDonationInfo({ orgId })
@@ -79,8 +78,8 @@ const Dashboard = () => {
     }
   }
 
-  async function fetchOssUsageData() {
-    if (!router.query || !router.query.organizationId) return 
+  async function fetchOssUsageData () {
+    if (!router.query || !router.query.organizationId) return
     const orgId = router.query.organizationId
     try {
       const orgRes = await getOrganization({ orgId })
@@ -106,7 +105,7 @@ const Dashboard = () => {
     fetchAllData()
   }, [router.query]) // only run on mount
 
-  function getOrgName() {
+  function getOrgName () {
     try {
       return org.name
     } catch (e) {
@@ -114,7 +113,7 @@ const Dashboard = () => {
     }
   }
 
-  function getBadgePath() {
+  function getBadgePath () {
     if (!user) return
     if (donation >= 10000) {
       return '/images/badges/platinum.svg'
@@ -133,15 +132,15 @@ const Dashboard = () => {
       {showDonationReminderBanner && (
         <Banner icon='givingHand' onCloseClick={() => setShowDonationReminderBanner(false)}>
           <Text color='rock'>
-            It looks like this organization isn't currently supporting Open Source through Flossbank. 
-            If you're a GitHub Admin of this organization, you'll be able to create a donation 
+            It looks like this organization isn't currently supporting Open Source through Flossbank.
+            If you're a GitHub Admin of this organization, you'll be able to create a donation
             by clicking the "pencil" icon on the monthly donation card.
           </Text>
         </Banner>
       )}
       <Section
         backgroundColor='lightRock'
-        height={{ base: 'auto', lg:'90vh' }}
+        height={{ base: 'auto', lg: '90vh' }}
         display={{ md: 'grid' }}
         gridTemplateColumns={{ lg: 'repeat(4, minmax(14rem, 20rem))' }}
         justifyContent='center'
@@ -154,13 +153,14 @@ const Dashboard = () => {
         </Box>
         <Flex flexDirection='column' justifyContent='space-around' gridRow='1' gridColumn={{ base: '1 / span 5', lg: '2 / span 4' }}>
           <Box padding={{ base: '3rem 0', lg: '0 3rem 0 3rem' }}>
-            <Text marginBottom='2rem'>Flossbank distributes {getOrgName()}'s contributions down the entire dependency tree of 
-              Ruby and Javascript package dependencies they rely on. To learn more about how Flossbank works, 
+            <Text marginBottom='2rem'>Flossbank distributes {getOrgName()}'s contributions down the entire dependency tree of
+              Ruby and Javascript package dependencies they rely on. To learn more about how Flossbank works,
               visit <TextLink text='enterprise.flossbank.com/how-it-works' href='/how-it-works' />.
             </Text>
-            <Text>Below, you can see how much {org && org.name} is 
-              currently donating through Flossbank, as well as how much they've given in total. This is both a statement, and 
-              commitment by {getOrgName()} to Open Source and sustaining Open Source maintainers for all the work they do.</Text>
+            <Text>Below, you can see how much {org && org.name} is
+              currently donating through Flossbank, as well as how much they've given in total. This is both a statement, and
+              commitment by {getOrgName()} to Open Source and sustaining Open Source maintainers for all the work they do.
+            </Text>
           </Box>
         </Flex>
         <Box gridRow='2' gridColumn='1 / span 4'>
@@ -208,9 +208,11 @@ const Dashboard = () => {
                     id='user-session-count'
                   >
                     Top Level Dependencies
-                    <Tooltip label="We determine top level dependencies each time we distribute organization donations. 
-                      If it says N/A, try refreshing in a few minutes as snapshots can take quite some time." 
-                             aria-label="A tooltip explaining what top level dependencies are">
+                    <Tooltip
+                      label='We determine top level dependencies each time we distribute organization donations.
+                      If it says N/A, try refreshing in a few minutes as snapshots can take quite some time.'
+                      aria-label='A tooltip explaining what top level dependencies are'
+                    >
                       <Icon
                         name='question'
                         size={{ base: '1.5rem' }}
@@ -243,8 +245,8 @@ const Dashboard = () => {
                     id='user-session-count'
                   >
                     Total Current Package Dependencies
-                    <Tooltip label="We determine total current dependencies each time we distribute organization donations. 
-                      If it says N/A, try refreshing in a few minutes as snapshots can take quite some time."
+                    <Tooltip label='We determine total current dependencies each time we distribute organization donations.
+                      If it says N/A, try refreshing in a few minutes as snapshots can take quite some time.'
                     >
                       <Icon
                         name='question'

@@ -1,7 +1,7 @@
 import {
   Box,
   Text,
-  Heading,
+  Heading
 } from '@chakra-ui/core'
 
 import PropTypes from 'prop-types'

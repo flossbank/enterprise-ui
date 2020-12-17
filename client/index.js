@@ -13,7 +13,7 @@ export const fetchOrgByName = async ({ name, host }) => {
 }
 
 export const installOrg = async ({ installationId }) => {
-  return fetchThenJson(`api/organization/github-create`, optionsWithPostBody({ installationId }))
+  return fetchThenJson('api/organization/github-create', optionsWithPostBody({ installationId }))
 }
 
 export const completeGHLogin = async ({ code, state }) => {

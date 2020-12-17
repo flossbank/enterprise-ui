@@ -1,4 +1,4 @@
-import { Box, Text, List, ListItem } from '@chakra-ui/core'
+import { Box, Text } from '@chakra-ui/core'
 
 import Section from '../common/section'
 import UnderlinedHeading from '../common/underlinedHeading'
@@ -44,22 +44,22 @@ const AboutUsSection = () => (
         </Text>
         <Text marginBottom='1rem'>
           Every fortune 500 company utilizes Open Source code, yet less than 1% of fortune 500 companies
-          give back to the authors and maintainers writing the Open Source code. 
+          give back to the authors and maintainers writing the Open Source code.
         </Text>
         <Text marginBottom='1rem'>
           Are we trying to make money? No. Our goal is to normalize giving back to authors and maintainers. That's why
-          we take a meazly 1% of donations to keep the lights on. If, over time this seems like too much, we'll drop the 
+          we take a meazly 1% of donations to keep the lights on. If, over time this seems like too much, we'll drop the
           fee even lower. We want to take just enough to power our servers that distribute and process donations.
         </Text>
         <Text>
-          What's more, we subscribe to the belief that <i>good software can come from anywhere</i>. 
+          What's more, we subscribe to the belief that <i>good software can come from anywhere</i>.
           Right now, most Open Source engineers are capable of working on Open Source because they have another full time job
-          that pays the bills. Because most full time engineering jobs employ both locale and background homogonous groups, 
+          that pays the bills. Because most full time engineering jobs employ both locale and background homogonous groups,
           opportunity is ample for Open Source to become more diverse. A more diverse Open Source contributing pool means more
           diverse software, and because functions are opinions baked into code, the software world is better for it.
         </Text>
         <Text marginBottom='1rem'>
-          At Flossbank's core, we believe that if we can normalize giving back to the authors and maintainers 
+          At Flossbank's core, we believe that if we can normalize giving back to the authors and maintainers
           writing Open Source code, the tech community will be safer, more inclusive, and overall better for it.
         </Text>
         <Text marginBottom='1rem'>

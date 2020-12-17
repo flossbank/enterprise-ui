@@ -1,13 +1,6 @@
 import { useRouter } from 'next/router'
 import { useState } from 'react'
 import {
-  Modal,
-  ModalOverlay,
-  Heading,
-  ModalContent,
-  ModalHeader,
-  ModalCloseButton,
-  useDisclosure,
   CircularProgress,
   Text,
   Box,
@@ -16,7 +9,7 @@ import {
   ListItem,
   Flex,
   Input,
-  Link,
+  Link
 } from '@chakra-ui/core'
 
 import FBButton from '../components/common/fbButton'
@@ -35,7 +28,7 @@ const FindOrganizationPage = () => {
 
   const [fetchingOrg, setFetchingOrg] = useState(false)
   const [org, setOrg] = useState(undefined)
-  const [isLoading, setIsLoading] = useState(false)
+  const [isLoading, setIsLoading] = useState(true)
   const [searchInvoked, setSearchInvoked] = useState(false)
   const [_, setCurrentOrgState] = useLocalStorage(localStorageOrgKey, '') // eslint-disable-line
   const subheadingExistingOrgs = "If Flossbank has already been installed on your organization, find it using the search box below. If it's not found, try installing Flossbank on your organization using the button below."
@@ -59,6 +52,7 @@ const FindOrganizationPage = () => {
       setOrg(orgRes.organization)
     } catch (e) {} finally {
       setFetchingOrg(false)
+      setIsLoading(false)
     }
   }
 
@@ -77,7 +71,6 @@ const FindOrganizationPage = () => {
         gridTemplateRows='1fr'
         gridColumnGap={{ lg: '4rem', xl: '8rem' }}
         padding={{ base: '3rem 1.5rem', lg: '6rem 7.5rem' }}
-        backgroundColor='lightRock'
       >
         <Box
           width={{ base: '60%', md: '40%', lg: '100%' }}
@@ -93,17 +86,17 @@ const FindOrganizationPage = () => {
         <Box gridColumn={{ base: 1, lg: 2 }} maxW={{ base: '80ch', lg: '55ch' }}>
           <UnderlinedHeading
             marginBottom='3rem'
-            text="Enter organization name:"
+            text='Enter organization name:'
             align='left'
           />
           <Text marginBottom='2rem'>
-              {subheadingExistingOrgs}
-            </Text>
+            {subheadingExistingOrgs}
+          </Text>
           <Flex flexDirection='row' marginBottom='1rem' border='1px solid gray' borderRadius='0.5rem'>
             <Text paddingLeft='1rem' paddingTop='0.5rem' backgroundColor='lightGray'>https://github.com/</Text>
             <Box borderLeft='1px solid black' width='100%'>
               <Input
-                id='org-name' 
+                id='org-name'
                 placeholder='flossbank'
                 onChange={setOrgName}
                 type='text'
@@ -123,7 +116,8 @@ const FindOrganizationPage = () => {
                 _hover={{ backgroundColor: 'puddle', cursor: 'pointer' }}
                 onClick={() => goToOrg({ id: org.id })}
                 borderRadius='5px'
-                width='100%'>
+                width='100%'
+              >
                 <Flex flexDirection='row'>
                   <Image width='5rem' height='5rem' borderRadius='1rem' src={org.avatarUrl} />
                   <Flex marginLeft='1rem' flexDirection='column' justifyContent='center'>
@@ -135,8 +129,9 @@ const FindOrganizationPage = () => {
             {!org && searchInvoked && (
               <ListItem
                 borderRadius='5px'
-                width='100%'>
-              <Text textTransform='uppercase' fontWeight='bold'>No org found by that name</Text>
+                width='100%'
+              >
+                <Text textTransform='uppercase' fontWeight='bold'>No org found by that name</Text>
               </ListItem>
             )}
             <Link href={githubInstallLink} width='100%'>

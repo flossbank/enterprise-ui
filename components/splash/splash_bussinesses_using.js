@@ -11,22 +11,22 @@ const logos = [{
 }]
 
 const SplashBussinessesUsing = () => (
-  <Flex 
-    as='section' 
-    flexDirection='column' 
+  <Flex
+    as='section'
+    flexDirection='column'
     justifyContent='center'
     backgroundColor='lightPuddle'
     height='18rem'
-  > 
+  >
     <UnderlinedHeading textAlign='center' text='Participating Companies' />
-    <Flex 
-      flexDirection='row' 
-      padding={['0 3rem', '0 8rem']} 
-      justifyContent='space-around' 
+    <Flex
+      flexDirection='row'
+      padding={['0 3rem', '0 8rem']}
+      justifyContent='space-around'
     >
       {logos.map((item, i) => (
         <Link href={item.url} key={i}>
-          <Image src={`/images/companyLogos/${item.image}`} objectFit='contain' height='4rem' width='14rem'/>
+          <Image src={`/images/companyLogos/${item.image}`} objectFit='contain' height='4rem' width='14rem' />
         </Link>
       ))}
     </Flex>

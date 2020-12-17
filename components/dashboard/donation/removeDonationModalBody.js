@@ -42,7 +42,7 @@ const RemoveDonation = ({ updateDonorStatus, onClose }) => {
     <>
       <ModalBody marginBottom='1.5rem'>
         <Text marginBottom='1.5rem'>
-          Discontinuing your monthly contribution will mean your badge will no longer be valid. 
+          Discontinuing your monthly contribution will mean your badge will no longer be valid.
           Remember to remove it from any social media's or domains you may have placed it.
           You can become a monthly contributor again at any time.
         </Text>

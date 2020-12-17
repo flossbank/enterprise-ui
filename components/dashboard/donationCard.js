@@ -3,7 +3,6 @@ import { useState, useRef } from 'react'
 import {
   Flex,
   IconButton,
-  Icon,
   Text,
   CircularProgress,
   Modal,

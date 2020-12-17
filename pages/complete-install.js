@@ -21,7 +21,7 @@ const CompleteLoginPage = () => {
   function showError () {
     setIsLoading(false)
     setStatus('Installation Failed')
-    setSubHeader(`It looks like our GitHub connection has been lost.`)
+    setSubHeader('It looks like our GitHub connection has been lost.')
   }
 
   async function attemptCompleteInstall () {
@@ -29,11 +29,12 @@ const CompleteLoginPage = () => {
     try {
       const { installation_id: installationId } = router.query
 
-      if (!installationId) // TODO: do something if there's no instalation id
-
-      if (installAttempted) {
-        showError()
-        return
+      // TODO: do something if there's no instalation id
+      if (!installationId) {
+        if (installAttempted) {
+          showError()
+          return
+        }
       }
 
       setInstallAttempted(true)

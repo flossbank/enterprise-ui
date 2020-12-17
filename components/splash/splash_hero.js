@@ -6,10 +6,10 @@ import UnderlinedHeading from '../common/underlinedHeading'
 import Subheading from '../common/subheading'
 
 const SplashHero = () => (
-  <Flex 
-    as='section' 
-    flexDirection='row' 
-    padding={['3rem 3rem', '5rem 8rem 0rem 8rem']} 
+  <Flex
+    as='section'
+    flexDirection='row'
+    padding={['3rem 3rem', '5rem 8rem 0rem 8rem']}
     justifyContent='center'
     backgroundColor='lightRock'
   >
@@ -20,13 +20,12 @@ const SplashHero = () => (
       </Subheading>
       <Text
         id='hero_header'
-        textAlign='center'
         fontSize='1.25rem'
         lineHeight='normal'
         textAlign='left'
         marginBottom={{ base: '1.5rem', md: '.5rem' }}
       >
-        Directly impact your business by supporting the Open Source authors and maintainers serving as the backbone of your code base.  
+        Directly impact your business by supporting the Open Source authors and maintainers serving as the backbone of your code base.
       </Text>
       <LinkBtn
         href='/signup'

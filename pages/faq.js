@@ -1,4 +1,4 @@
-import { Text, Box, Image } from '@chakra-ui/core'
+import { Text } from '@chakra-ui/core'
 
 import PageWrapper from '../components/common/pageWrapper'
 import Section from '../components/common/section'
@@ -53,7 +53,7 @@ const FAQ = () => (
         <Divider />
         <FAQHeading>What data do you collect?</FAQHeading>
         <Text marginBottom='1.5rem'>
-          None. We simply faciliate payments to Open Source maintainers and authors with the underlying 
+          None. We simply faciliate payments to Open Source maintainers and authors with the underlying
           motivation being Open Source development begets technological progress. We don't store anything about
           your organization except your donation info.
         </Text>

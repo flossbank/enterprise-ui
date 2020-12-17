@@ -30,10 +30,8 @@ const Loader = () => (
 export function ProvideAuth ({ children }) {
   const router = useRouter()
   const [rcCaptured, setRcCaptured] = useState(false)
-  const [cachedDest, setCachedDest] = useState(false)
   const auth = useProvideAuth()
   const [isUserAuthed, setIsUserAuthed] = useLocalStorage('flossbank_auth', false)
-  const [_, setFlossbankDest] = useLocalStorage('flossbank_dest', '') // eslint-disable-line
   const [__, setUserReferrer] = useLocalStorage('flossbank_rc', '') // eslint-disable-line
 
   if (router.query.rc && !rcCaptured) {

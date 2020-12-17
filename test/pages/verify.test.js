@@ -1,6 +1,5 @@
-/* global jest, test, beforeAll, afterEach, afterAll, expect, beforeEach */
+/* global test, expect */
 
 test('stub', async () => {
   expect(true).toBeTruthy()
 })
-

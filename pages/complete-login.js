@@ -22,12 +22,12 @@ const CompleteLoginPage = () => {
   function showError () {
     setIsLoading(false)
     setStatus('Authentication Failed')
-    setSubHeader(`It looks like our GitHub communication was lost in translation.`)
+    setSubHeader('It looks like our GitHub communication was lost in translation.')
   }
 
   async function redirectUser () {
     router.push('/find-organization')
-  } 
+  }
 
   async function attemptCompleteLogin () {
     setIsLoading(true)
@@ -62,7 +62,7 @@ const CompleteLoginPage = () => {
 
   useEffect(() => {
     attemptCompleteLogin()
-  }, [router.query]) 
+  }, [router.query])
 
   return (
     <PageWrapper title='Log In'>

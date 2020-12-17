@@ -91,7 +91,7 @@ const EditDonationModalBody = ({ donationAmount, isNewDonor, onClose }) => {
     const { organizationId } = router.query
     await updateDonation({
       amount: newAmount * 100,
-      organizationId, 
+      organizationId,
       globalDonation: false
     })
   }
