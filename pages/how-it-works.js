@@ -59,7 +59,8 @@ const HowItWorks = () => (
           your company to the next level. 
         </Text>
         <Text marginBottom='1rem'>
-          Flossbank distributes the monthly donation down the entire dependency tree of the Open Source packages you rely
+          Flossbank distributes the monthly donation down the entire dependency tree of 
+          Ruby and Javascript (more language support coming soon) Open Source packages you rely
           on, meaning every aspect of the code you rely on is supported with one easy monthly donation. 
         </Text>
         <Text marginBottom='1rem'>
