@@ -24,7 +24,7 @@
     "emotion-theming": "^10.0.27",
     "got": "^11.5.1",
     "isomorphic-fetch": "^2.2.1",
-    "next": "^9.4.4",
+    "next": "^9.5.5",
     "prop-types": "^15.7.2",
     "react": "16.12.0",
     "react-dom": "^16.12.0",
