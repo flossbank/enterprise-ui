@@ -208,7 +208,8 @@ const Dashboard = () => {
                     id='user-session-count'
                   >
                     Top Level Dependencies
-                    <Tooltip label="We determine top level dependencies each time we distribute organization donations. If it says N/A, then we haven't calculated a dependency tree snapshot yet" 
+                    <Tooltip label="We determine top level dependencies each time we distribute organization donations. 
+                      If it says N/A, try refreshing in a few minutes as snapshots can take quite some time." 
                              aria-label="A tooltip explaining what top level dependencies are">
                       <Icon
                         name='question'
@@ -242,8 +243,9 @@ const Dashboard = () => {
                     id='user-session-count'
                   >
                     Total Current Package Dependencies
-                    <Tooltip label="We determine total current dependencies each time we distribute organization donations. If it says N/A, then we haven't calculated a dependency tree snapshot yet" 
-                             aria-label="A tooltip explaining what total current dependencies are">
+                    <Tooltip label="We determine total current dependencies each time we distribute organization donations. 
+                      If it says N/A, try refreshing in a few minutes as snapshots can take quite some time."
+                    >
                       <Icon
                         name='question'
                         size={{ base: '1.5rem' }}

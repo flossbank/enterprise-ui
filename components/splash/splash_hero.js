@@ -10,7 +10,7 @@ const SplashHero = () => (
     as='section' 
     flexDirection='row' 
     padding={['3rem 3rem', '5rem 8rem 0rem 8rem']} 
-    justifyContent='center' 
+    justifyContent='center'
     backgroundColor='lightRock'
   >
     <Flex flexDirection='column' width={['100%', '30rem']} paddingTop={['0', '8rem']}>
