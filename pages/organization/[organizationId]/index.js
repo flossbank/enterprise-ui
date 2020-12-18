@@ -140,6 +140,7 @@ const Dashboard = () => {
         </Banner>
       )}
       <Section
+        minHeight='50rem'
         backgroundColor='lightRock'
         height={{ base: 'auto', lg: '90vh' }}
         display={{ md: 'grid' }}
