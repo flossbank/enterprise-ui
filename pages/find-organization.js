@@ -21,7 +21,7 @@ import WomanWorking from '../components/completeLogin/womanWorking'
 
 import { localStorageOrgKey } from '../utils/constants'
 
-import { fetchOrgByName } from '../client'
+import { fetchOrgsByName } from '../client'
 
 const FindOrganizationPage = () => {
   const router = useRouter()
@@ -47,8 +47,8 @@ const FindOrganizationPage = () => {
     setOrgs([])
     setSearchInvoked(!!name)
     try {
-      const orgRes = await fetchOrgByName({ name, host: 'GitHub' })
-      setOrgs([orgRes.organization]) // TODO replace this when backend returns list
+      const matchingOrgs = await fetchOrgsByName({ name, host: 'GitHub' })
+      setOrgs(matchingOrgs || [])
     } catch (e) {} finally {
       setFetchingOrg(false)
       setIsLoading(false)
