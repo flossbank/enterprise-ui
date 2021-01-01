@@ -17,7 +17,7 @@ export default async (req, reply) => {
     if (headers && headers['set-cookie']) {
       reply.setHeader('set-cookie', headers['set-cookie'])
     }
-    reply.status(response.statusCode).json(response.body)
+    reply.status(response.statusCode).json(response.body.organizations)
   } catch (e) {
     console.error({ message: e.response.body, statusCode: e.response.statusCode })
     reply.status(e.response.statusCode || 500).send(e.response.body)

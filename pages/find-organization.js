@@ -8,30 +8,30 @@ import {
   Image,
   ListItem,
   Flex,
-  Input,
-  Link
+  Input
 } from '@chakra-ui/core'
+import debounce from 'p-debounce'
 
-import FBButton from '../components/common/fbButton'
 import UnderlinedHeading from '../components/common/underlinedHeading'
 import { useLocalStorage } from '../utils/useLocalStorage'
 import PageWrapper from '../components/common/pageWrapper'
+import TextLink from '../components/common/textLink'
 import Section from '../components/common/section'
 import WomanWorking from '../components/completeLogin/womanWorking'
 
 import { localStorageOrgKey } from '../utils/constants'
 
-import { fetchOrgByName } from '../client'
+import { fetchOrgsByName } from '../client'
 
 const FindOrganizationPage = () => {
   const router = useRouter()
 
   const [fetchingOrg, setFetchingOrg] = useState(false)
-  const [org, setOrg] = useState(undefined)
+  const [orgs, setOrgs] = useState([])
   const [isLoading, setIsLoading] = useState(true)
   const [searchInvoked, setSearchInvoked] = useState(false)
   const [_, setCurrentOrgState] = useLocalStorage(localStorageOrgKey, '') // eslint-disable-line
-  const subheadingExistingOrgs = "If Flossbank has already been installed on your organization, find it using the search box below. If it's not found, try installing Flossbank on your organization using the button below."
+  const subheadingExistingOrgs = 'If Flossbank has already been installed on your organization, find it using the search box below.'
 
   // Unsure if callback_url is correct or is doing anything, in our app settings we have a post installation setup url
   // which restricts it to enterprise.flossbank.com/complete-install
@@ -42,19 +42,20 @@ const FindOrganizationPage = () => {
     router.push(`/organization/${id}`)
   }
 
-  const setOrgName = async (e) => {
+  const findOrgDebounced = debounce(async (name) => {
     setFetchingOrg(true)
-    setOrg(undefined)
-    const name = e.target.value.trim().toLowerCase()
+    setOrgs([])
     setSearchInvoked(!!name)
     try {
-      const orgRes = await fetchOrgByName({ name, host: 'GitHub' })
-      setOrg(orgRes.organization)
+      const matchingOrgs = await fetchOrgsByName({ name, host: 'GitHub' })
+      setOrgs(matchingOrgs || [])
     } catch (e) {} finally {
       setFetchingOrg(false)
       setIsLoading(false)
     }
-  }
+  }, 350)
+
+  const findOrg = (e) => findOrgDebounced(e.target.value.trim().toLowerCase())
 
   return (
     <PageWrapper title='Log In'>
@@ -86,20 +87,32 @@ const FindOrganizationPage = () => {
         <Box gridColumn={{ base: 1, lg: 2 }} maxW={{ base: '80ch', lg: '55ch' }}>
           <UnderlinedHeading
             marginBottom='3rem'
-            text='Enter organization name:'
+            text='Find your organization'
             align='left'
           />
-          <Text marginBottom='2rem'>
+          <Text marginBottom='1rem'>
             {subheadingExistingOrgs}
           </Text>
+          <Text marginBottom='1rem'>
+            <TextLink text='Otherwise, click here to install Flossbank on your organization.' href={githubInstallLink} external />
+          </Text>
           <Flex flexDirection='row' marginBottom='1rem' border='1px solid gray' borderRadius='0.5rem'>
-            <Text paddingLeft='1rem' paddingTop='0.5rem' backgroundColor='lightGray'>https://github.com/</Text>
+            <Text
+              paddingLeft='1rem'
+              paddingRight='0.5rem'
+              paddingTop='0.5rem'
+              borderRadius='0.5rem 0 0 0.5rem'
+              backgroundColor='lightGray'
+            >
+              https://github.com/
+            </Text>
             <Box borderLeft='1px solid black' width='100%'>
               <Input
                 id='org-name'
                 placeholder='flossbank'
-                onChange={setOrgName}
+                onChange={findOrg}
                 type='text'
+                borderRadius='0 0.5rem 0.5rem 0'
                 aria-describedby='org-name-label'
                 name='org name'
               />
@@ -111,8 +124,9 @@ const FindOrganizationPage = () => {
                 <CircularProgress isIndeterminate color='ocean' />
               </ListItem>
             )}
-            {org && (
+            {orgs.map(org => (
               <ListItem
+                key={org.id}
                 _hover={{ backgroundColor: 'puddle', cursor: 'pointer' }}
                 onClick={() => goToOrg({ id: org.id })}
                 borderRadius='5px'
@@ -125,8 +139,8 @@ const FindOrganizationPage = () => {
                   </Flex>
                 </Flex>
               </ListItem>
-            )}
-            {!org && searchInvoked && (
+            ))}
+            {!orgs && searchInvoked && (
               <ListItem
                 borderRadius='5px'
                 width='100%'
@@ -134,11 +148,6 @@ const FindOrganizationPage = () => {
                 <Text textTransform='uppercase' fontWeight='bold'>No org found by that name</Text>
               </ListItem>
             )}
-            <Link href={githubInstallLink} width='100%'>
-              <FBButton>
-                Install Flossbank On New Organization
-              </FBButton>
-            </Link>
           </List>
         </Box>
       </Section>
