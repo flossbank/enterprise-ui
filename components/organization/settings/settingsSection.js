@@ -52,7 +52,7 @@ const OrgSettingsSection = () => {
         <>
           <Banner icon='info' onCloseClick={() => {}}>
             <Text color='rock'>
-              You must be logged in to view organization settings
+              You must be logged in and an admin of this organization to view organization settings
             </Text>
           </Banner>
         </>
