@@ -28,6 +28,10 @@ export const donate = async ({ amount, billingToken, organizationId }) => {
   return fetchThenJson('api/organization/create-donation', optionsWithPostBody({ amount, billingToken, organizationId }))
 }
 
+export const updateOrgEmail = async ({ organizationId, billingEmail }) => {
+  return fetchThenJson('api/organization/update', optionsWithPostBody({ billingEmail, organizationId }))
+}
+
 export const updateDonation = async ({ amount, organizationId, globalDonation }) => {
   return fetchThenJson('api/organization/update-donation', optionsWithPutBody({ amount, organizationId, globalDonation }))
 }
