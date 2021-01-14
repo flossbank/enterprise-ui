@@ -108,6 +108,7 @@ const FindOrganizationPage = () => {
             </Text>
             <Box borderLeft='1px solid black' width='100%'>
               <Input
+                autoComplete='off'
                 id='org-name'
                 placeholder='flossbank'
                 onChange={findOrg}
