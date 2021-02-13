@@ -22,6 +22,8 @@ import {
 } from '@chakra-ui/core'
 
 import { useAuth } from '../../../utils/useAuth'
+import { useLocalStorage } from '../../../utils/useLocalStorage'
+import { localStorageOrgReminderToDonateKey } from '../../../utils/constants'
 
 import TextLink from '../../../components/common/textLink'
 import Banner from '../../../components/common/banner'
@@ -34,6 +36,8 @@ import { useRouter } from 'next/router'
 const Dashboard = () => {
   const router = useRouter()
   const user = useAuth().user
+
+  const [orgDonationReminder, setOrgDonationReminder] = useLocalStorage(localStorageOrgReminderToDonateKey, true)
 
   const [showDonationReminderBanner, setShowDonationReminderBanner] = useState(false)
 
@@ -60,6 +64,11 @@ const Dashboard = () => {
     return Promise.all([fetchOssUsageData(), fetchDonationData()])
   }
 
+  function showDonationReminder () {
+    setShowDonationReminderBanner(!!user && orgDonationReminder)
+    setOrgDonationReminder(false)
+  }
+
   async function fetchDonationData () {
     if (!router.query || !router.query.organizationId) return
     const orgId = router.query.organizationId
@@ -68,9 +77,10 @@ const Dashboard = () => {
       if (donationInfoRes && donationInfoRes.success) {
         setDonation(donationInfoRes.donationInfo.amount / 100)
         setTotalContributionsAmount(donationInfoRes.donationInfo.totalDonated / 100)
+        if (donationInfoRes.donationInfo.amount === 0) showDonationReminder()
       }
     } catch {
-      setShowDonationReminderBanner(true)
+      showDonationReminder()
       setDonation(0)
     } finally {
       setTotalContributionsAmountLoading(false)
