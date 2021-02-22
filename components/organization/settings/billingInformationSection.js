@@ -111,6 +111,7 @@ const BillingInformationSection = ({ org }) => {
             : 'Add billing information'}
         </Button>
         <Divider />
+        <Text>Your organization's billing email is where receipts will be sent</Text>
         <Box marginBottom='1.5rem' marginTop='1.5rem'>
           <Input
             placeholder={org.email || 'Billing email'}
