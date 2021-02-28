@@ -5,15 +5,18 @@ import {
   Checkbox,
   useToast
 } from '@chakra-ui/core'
+import { useState } from 'react'
 
 import SettingsCard from './settingsCard'
 import { updatePublicallyGive } from '../../../client/index'
 
 const PublicallyGiveSection = ({ org }) => {
   const toast = useToast()
+  const [isPublicallyGiving, setIsPublicallyGiving] = useState(org.publicallyGive)
 
   const updateOrgPublicallyGive = async (e) => {
     const publicallyGive = e.target.checked
+    setIsPublicallyGiving(publicallyGive)
     try {
       await updatePublicallyGive({ organizationId: org.id, publicallyGive })
       toast({
@@ -26,7 +29,7 @@ const PublicallyGiveSection = ({ org }) => {
     } catch (e) {
       toast({
         title: 'Uh oh.',
-        description: 'Organization failed to update. Please contact us.',
+        description: 'Organization failed to update, you may not have permissions to do so. Please contact us.',
         status: 'error',
         duration: 4000,
         isClosable: true
@@ -43,7 +46,7 @@ const PublicallyGiveSection = ({ org }) => {
             as the originator, increasing your brand awareness across the Open Source ecosystem.
           </Text>
           <Flex flexDirection='row' marginTop='1rem'>
-            <Checkbox marginRight='1rem' value={org.publicallyGive} onChange={updateOrgPublicallyGive} />
+            <Checkbox marginRight='1rem' isChecked={isPublicallyGiving} onChange={updateOrgPublicallyGive} />
             <Text>Show our logo on package pages that we give to</Text>
           </Flex>
         </Box>

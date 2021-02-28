@@ -6,6 +6,7 @@ import UnderlinedHeading from '../../common/underlinedHeading'
 import Banner from '../../common/banner'
 
 import BillingInformationSection from './billingInformationSection'
+import DescriptionSection from './descriptionSection'
 import PublicallyGiveSection from './publicallyGiveSection'
 import { getOrganization } from '../../../client'
 
@@ -47,6 +48,7 @@ const OrgSettingsSection = () => {
       />
       {orgLoading && <CircularProgress isIndeterminate color='ocean' />}
       {!orgLoading && org && <PublicallyGiveSection org={org} />}
+      {!orgLoading && org && <DescriptionSection org={org} />}
       {/** Only show billing info section if billing info returned from API */}
       {org && org.billingInfo && <BillingInformationSection org={org} />}
       {/** Otherwise, notify user they must log in to see org settings */}
