@@ -51,6 +51,7 @@ const BillingInformationSection = ({ org }) => {
   }
 
   const updateBillingEmail = async () => {
+    if (!e) return
     try {
       await updateOrgEmail({
         organizationId: org.id.toString(),

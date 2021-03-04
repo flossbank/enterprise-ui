@@ -36,6 +36,10 @@ export const updatePublicallyGive = async ({ organizationId, publicallyGive }) =
   return fetchThenJson('api/organization/update', optionsWithPostBody({ publicallyGive, organizationId }))
 }
 
+export const updateDescription = async ({ organizationId, description }) => {
+  return fetchThenJson('api/organization/update', optionsWithPostBody({ description, organizationId }))
+}
+
 export const getOrgDonationLedger = async ({ orgId }) => {
   return fetchThenJson(`api/organization/get-donation-ledger?organizationId=${orgId}`, optionsGetRequest())
 }

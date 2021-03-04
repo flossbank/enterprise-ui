@@ -165,14 +165,15 @@ const Dashboard = () => {
         </Box>
         <Flex flexDirection='column' justifyContent='space-around' gridRow='1' gridColumn={{ base: '1 / span 5', lg: '2 / span 4' }}>
           <Box padding={{ base: '3rem 0', lg: '0 3rem 0 3rem' }}>
-            <Text marginBottom='2rem'>Flossbank distributes {getOrgName()}'s contributions down the entire dependency tree of
+            <Text>Flossbank distributes {getOrgName()}'s contributions down the entire dependency tree of
               Ruby and Javascript package dependencies they rely on. To learn more about how Flossbank works,
               visit <TextLink text='enterprise.flossbank.com/how-it-works' href='/how-it-works' />.
             </Text>
-            <Text>Below, you can see how much {org && org.name} is
-              currently donating through Flossbank, as well as how much they've given in total. This is both a statement, and
-              commitment by {getOrgName()} to Open Source and sustaining Open Source maintainers for all the work they do.
-            </Text>
+            {org && org.description && (
+              <Box marginTop='2rem' whiteSpace='pre-line' maxHeight='6rem' overflow='scroll'>
+                <Text>{org.description}</Text>
+              </Box>
+            )}
           </Box>
         </Flex>
         <Box gridRow='2' gridColumn='1 / span 4'>
