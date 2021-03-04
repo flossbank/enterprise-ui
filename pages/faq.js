@@ -20,10 +20,16 @@ const FAQ = () => (
     >
       <UnderlinedHeading as='h1' text='FAQs' align='center' />
       <Card shadowSz='lg' maxW='60rem'>
+        <FAQHeading>Bugs or feature requests?</FAQHeading>
+        <Text marginBottom='1.5rem'>
+          Please visit <TextLink external href='https://github.com/flossbank/enterprise-ui/issues' text='our GitHub' /> page
+          and file a bug or feature request!
+        </Text>
+        <Divider />
         <FAQHeading>Who does my donation go to?</FAQHeading>
         <Text marginBottom='1.5rem'>
           Your donation is distributed to each package your organization uses. The list is retrieved fresh from
-          your GitHub each month, meaning your donation is never going to packages you've stopped using.
+          your GitHub each month, meaning your donation is never going to packages your organization has stopped using.
         </Text>
         <Divider />
         <FAQHeading>What do the recipients do with our donation?</FAQHeading>
@@ -41,16 +47,6 @@ const FAQ = () => (
           and yet you display your badge, doing more damage to your brand than good.
         </Text>
         <Divider />
-        <FAQHeading>
-          How do you know if I donate 1% of our profits?
-        </FAQHeading>
-        <Text marginBottom='1.5rem'>
-          We trust you! That's right, the relationship is built on trust, just like Open Source is built on trust
-          and integrity. Donating the 1% of profits badge does mean more upkeep for your donation, as you'll have to
-          manually adjust your donation amount anually. Don't let this disaude you from purchasing the most prestigious
-          badge though.
-        </Text>
-        <Divider />
         <FAQHeading>What data do you collect?</FAQHeading>
         <Text marginBottom='1.5rem'>
           None. We simply faciliate payments to Open Source maintainers and authors with the underlying
@@ -62,7 +58,7 @@ const FAQ = () => (
         <Text marginBottom='1.5rem'>
           No, maintaing Open Source software is a job enough, and by not demanding more deliverables the code
           you depend on will actually be better off. You wouldn't ask your lead data science engineer to write a blog
-          post because they have more important priorities. For the same reason, we don't allow asking or expecting
+          post because they have more important priorities. For the same reason, we don't facilitate asking or expecting
           Open Source maintainers to do anything more than to continue building.
         </Text>
         <Divider />
