@@ -38,7 +38,7 @@ const BillingInfo = ({ last4CardDigits }) => (
 
 const BillingInformationSection = ({ org }) => {
   const [last4CardDigits, setLast4CardDigits] = useState(
-    org && org.billingInfo.last4
+    org && org.billingInfo && org.billingInfo.last4
   )
   const [e, setE] = useState('')
   const [successMessage, setSuccessMessage] = useState('')
