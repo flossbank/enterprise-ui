@@ -21,7 +21,10 @@ const OrgSettingsSection = () => {
   async function fetchOrg () {
     try {
       const res = await getOrganization({ orgId: currentOrgId })
-      setOrg(res.organization)
+      setOrg({
+        id: currentOrgId,
+        ...res.organization
+      })
     } catch (e) {} finally {
       setOrgLoading(false)
     }
@@ -30,6 +33,7 @@ const OrgSettingsSection = () => {
   useEffect(() => {
     fetchOrg()
   }, [])
+
   return (
     <Section
       display='flex'
