@@ -1,9 +1,8 @@
 import { useEffect, useState } from 'react'
-import { CircularProgress, Text } from '@chakra-ui/core'
+import { CircularProgress } from '@chakra-ui/core'
 
 import Section from '../../common/section'
 import UnderlinedHeading from '../../common/underlinedHeading'
-import Banner from '../../common/banner'
 
 import BillingInformationSection from './billingInformationSection'
 import DescriptionSection from './descriptionSection'
@@ -50,17 +49,7 @@ const OrgSettingsSection = () => {
       {!orgLoading && org && <PublicallyGiveSection org={org} />}
       {!orgLoading && org && <DescriptionSection org={org} />}
       {/** Only show billing info section if billing info returned from API */}
-      {org && org.billingInfo && <BillingInformationSection org={org} />}
-      {/** Otherwise, notify user they must log in to see org settings */}
-      {!orgLoading && (!org || !org.billingInfo) && (
-        <>
-          <Banner icon='info' onCloseClick={() => {}}>
-            <Text color='rock'>
-              You must be logged in and an admin of this organization to view organization settings
-            </Text>
-          </Banner>
-        </>
-      )}
+      {!orgLoading && org && <BillingInformationSection org={org} />}
     </Section>
   )
 }
