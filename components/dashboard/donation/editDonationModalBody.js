@@ -8,6 +8,8 @@ import {
   Box,
   Icon,
   Heading,
+  Alert,
+  AlertIcon,
   Text,
   NumberInput,
   NumberInputField,
@@ -205,6 +207,16 @@ const EditDonationModalBody = ({ donationAmount, isNewDonor, onClose }) => {
                   <ErrorMessage msg={amountError} marginTop='1rem' />
                 )}
               </Box>
+              <Alert
+                status='info'
+                backgroundColor='puddle'
+                color='ocean'
+                fontWeight='500'
+                marginBottom='1.5rem'
+              >
+                <AlertIcon color='ocean' />
+                <Text>You must be a <b>PUBLIC</b> member of your GitHub organization to edit a donation on it's behalf.</Text>
+              </Alert>
               {isNewDonor && <BillingForm />}
               {!isNewDonor && (
                 <Box marginBottom='1.5rem'>

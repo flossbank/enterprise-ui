@@ -1,5 +1,11 @@
 import { useEffect, useState } from 'react'
-import { Box } from '@chakra-ui/core'
+import {
+  Box,
+  Alert,
+  AlertIcon,
+  Text,
+  CircularProgress
+} from '@chakra-ui/core'
 import PaginationList from 'react-pagination-list'
 
 import Section from '../common/section'
@@ -35,6 +41,7 @@ const OrgSettingsSection = () => {
       justifyItems='center'
       flexDirection='column'
       alignItems='center'
+      minHeight='90vh'
       padding={{ base: '3rem 1.5rem', lg: '4rem 7.5rem' }}
       backgroundColor='lightRock'
     >
@@ -44,7 +51,20 @@ const OrgSettingsSection = () => {
         align='center'
         marginBottom='3rem'
       />
-      {!ledgerLoading && (
+      {ledgerLoading && <CircularProgress isIndeterminate color='ocean' />}
+      {!ledgerLoading && !ledger && (
+        <Alert
+          status='info'
+          backgroundColor='puddle'
+          color='ocean'
+          fontWeight='500'
+          marginBottom='1.5rem'
+        >
+          <AlertIcon color='ocean' />
+          <Text>It looks like we don't currently have a donation ledger for this organization. Please check back at a later time.</Text>
+        </Alert>
+      )}
+      {!ledgerLoading && ledger && (
         <Box width='100%' padding='0 10% 0 10%' margin='auto'>
           <PaginationList
             data={ledger.sort((a, b) => b.totalPaid - a.totalPaid)}
