@@ -82,7 +82,7 @@ const EditDonationModalBody = ({ donationAmount, isNewDonor, onClose }) => {
         case 401:
           throw new Error('Looks like you aren\'t an organization Admin according to GitHub. You must be an admin of this organization to edit it\'s monthly contribution')
         default:
-          throw new Error('Donation failed')
+          throw new Error('Donation failed, make sure your organization has a billing email in your organization settings page.')
       }
     }
   }

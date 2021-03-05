@@ -54,7 +54,7 @@ const BillingInformationSection = ({ org }) => {
     if (!e) return
     try {
       await updateOrgEmail({
-        organizationId: org.id.toString(),
+        organizationId: org.id,
         billingEmail: e
       })
       setSuccessMessage('Billing email updated successfully')
