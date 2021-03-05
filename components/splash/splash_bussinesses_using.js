@@ -6,6 +6,10 @@ const logos = [{
   url: 'https://everbluetraining.com'
 },
 {
+  image: 'coil-logo-black.png',
+  url: 'https://coil.com'
+},
+{
   image: 'the_teacher_fund_logo.png',
   url: 'https://theteacherfund.com'
 }]
