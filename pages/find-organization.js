@@ -58,7 +58,7 @@ const FindOrganizationPage = () => {
   const findOrg = (e) => findOrgDebounced(e.target.value.trim().toLowerCase())
 
   return (
-    <PageWrapper title='Log In'>
+    <PageWrapper title='Search'>
       <Section
         backgroundColor='lightRock'
         minHeight='85vh'

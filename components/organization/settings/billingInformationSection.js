@@ -59,7 +59,8 @@ const BillingInformationSection = ({ org }) => {
       })
       setSuccessMessage('Billing email updated successfully')
     } catch (e) {
-      setErrorMessage(e.message)
+      const err = await e.json()
+      setErrorMessage(err.message)
     }
   }
 

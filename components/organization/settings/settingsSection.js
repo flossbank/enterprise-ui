@@ -37,6 +37,7 @@ const OrgSettingsSection = () => {
   return (
     <Section
       display='flex'
+      minHeight='90vh'
       justifyItems='center'
       flexDirection='column'
       alignItems='center'
