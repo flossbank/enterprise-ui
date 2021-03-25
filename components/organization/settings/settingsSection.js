@@ -34,6 +34,13 @@ const OrgSettingsSection = () => {
     fetchOrg()
   }, [])
 
+  function getTitle () {
+    if (org) {
+      return `${org.name} Settings`
+    }
+    return 'Settings'
+  }
+
   return (
     <Section
       display='flex'
@@ -46,7 +53,7 @@ const OrgSettingsSection = () => {
     >
       <UnderlinedHeading
         as='h1'
-        text='Settings'
+        text={getTitle()}
         align='center'
         marginBottom='3rem'
       />
