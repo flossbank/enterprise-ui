@@ -14,12 +14,11 @@ import {
   MenuItem
 } from '@chakra-ui/core'
 
-import { useLocalStorage } from '../../../utils/useLocalStorage'
-import { localStorageOrgKey } from '../../../utils/constants'
+import { useAuth } from '../../../utils/useAuth'
 
 const AuthNav = ({ user, onLogout }) => {
   const router = useRouter()
-  const [currentOrgId, _] = useLocalStorage(localStorageOrgKey, '') // eslint-disable-line
+  const { org: currentOrg } = useAuth()
 
   const [isExpanded, setIsExpanded] = useState(false)
   const { colors } = useTheme()
@@ -87,20 +86,38 @@ const AuthNav = ({ user, onLogout }) => {
             />
           </MenuButton>
           <MenuList backgroundColor='lightRock'>
-            <MenuItem
-              _focus={itemFocusStyles}
-              _active={itemActiveStyles}
-              onClick={() => handleNav(`/organization/${currentOrgId}`)}
-            >
-              <Link href={`/organization/${currentOrgId}`}>
-                <a>
-                  <Box as='span' display='flex' alignItems='center'>
-                    <Icon name='home' marginRight='.5rem' />
-                    <span>Dashboard</span>
-                  </Box>
-                </a>
-              </Link>
-            </MenuItem>
+            {currentOrg && (
+              <>
+                <MenuItem
+                  _focus={itemFocusStyles}
+                  _active={itemActiveStyles}
+                  onClick={() => handleNav(`/organization/${currentOrg.id}`)}
+                >
+                  <Link href={`/organization/${currentOrg.id}`}>
+                    <a>
+                      <Box as='span' display='flex' alignItems='center'>
+                        <Icon name='home' marginRight='.5rem' />
+                        <span>{currentOrg.name} Dashboard</span>
+                      </Box>
+                    </a>
+                  </Link>
+                </MenuItem>
+                <MenuItem
+                  _focus={itemFocusStyles}
+                  _active={itemActiveStyles}
+                  onClick={() => handleNav(`/organization/${currentOrg.id}/settings`)}
+                >
+                  <Link href={`/organization/${currentOrg.id}/settings`}>
+                    <a>
+                      <Box as='span' display='flex' alignItems='center'>
+                        <Icon name='settings' marginRight='.5rem' />
+                        <span>{currentOrg.name} Settings</span>
+                      </Box>
+                    </a>
+                  </Link>
+                </MenuItem>
+              </>
+            )}
             <MenuItem
               _focus={itemFocusStyles}
               _active={itemActiveStyles}
@@ -139,20 +156,6 @@ const AuthNav = ({ user, onLogout }) => {
                   <Box as='span' display='flex' alignItems='center'>
                     <Icon name='info' marginRight='.5rem' />
                     <span>How it works</span>
-                  </Box>
-                </a>
-              </Link>
-            </MenuItem>
-            <MenuItem
-              _focus={itemFocusStyles}
-              _active={itemActiveStyles}
-              onClick={() => handleNav(`/organization/${currentOrgId}/settings`)}
-            >
-              <Link href={`/organization/${currentOrgId}/settings`}>
-                <a>
-                  <Box as='span' display='flex' alignItems='center'>
-                    <Icon name='settings' marginRight='.5rem' />
-                    <span>Settings</span>
                   </Box>
                 </a>
               </Link>

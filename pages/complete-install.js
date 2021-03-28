@@ -16,7 +16,7 @@ const CompleteLoginPage = () => {
   const [isLoading, setIsLoading] = useState(false)
   const [subHeader, setSubHeader] = useState('')
   const [installAttempted, setInstallAttempted] = useState(false)
-  const [_, setCurrentOrgState] = useLocalStorage(localStorageOrgKey, '') // eslint-disable-line
+  const [_, setCurrentOrg] = useLocalStorage(localStorageOrgKey, '') // eslint-disable-line
 
   function showError () {
     setIsLoading(false)
@@ -39,7 +39,7 @@ const CompleteLoginPage = () => {
 
       setInstallAttempted(true)
       const { organization } = await installOrg({ installationId })
-      setCurrentOrgState(organization.id)
+      setCurrentOrg(organization)
       router.push(`/organization/${organization.id}`)
     } catch (e) {
       showError()

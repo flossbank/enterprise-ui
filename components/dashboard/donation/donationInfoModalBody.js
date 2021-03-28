@@ -3,9 +3,7 @@ import {
   Icon,
   Text,
   ModalFooter,
-  ModalBody,
-  Alert,
-  AlertIcon
+  ModalBody
 } from '@chakra-ui/core'
 
 import FBButton from '../../common/fbButton'
@@ -27,16 +25,6 @@ const DonationInfoModalBody = ({ upgradeToDonor }) => {
         <Text marginBottom='1.5rem'>
           Monthly donations are split up amongst the package dependencies we detect in your GitHub repositories.
         </Text>
-        <Alert
-          status='info'
-          backgroundColor='puddle'
-          color='ocean'
-          fontWeight='500'
-          marginBottom='1.5rem'
-        >
-          <AlertIcon color='ocean' />
-          <Text>You must be a <b>PUBLIC</b> member of your GitHub organization to make a donation on it's behalf.</Text>
-        </Alert>
       </ModalBody>
       <ModalFooter display='flex' flexDirection='column' alignItems='center'>
         <FBButton

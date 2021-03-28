@@ -41,6 +41,7 @@ const BillingInformationSection = ({ org }) => {
     org && org.billingInfo && org.billingInfo.last4
   )
   const [e, setE] = useState('')
+  const [updatingEmail, setUpdatingEmail] = useState(false)
   const [successMessage, setSuccessMessage] = useState('')
   const [errorMessage, setErrorMessage] = useState('')
   const { isOpen, onOpen, onClose } = useDisclosure()
@@ -52,6 +53,7 @@ const BillingInformationSection = ({ org }) => {
 
   const updateBillingEmail = async () => {
     if (!e) return
+    setUpdatingEmail(true)
     try {
       await updateOrgEmail({
         organizationId: org.id,
@@ -61,6 +63,8 @@ const BillingInformationSection = ({ org }) => {
     } catch (e) {
       const err = await e.json()
       setErrorMessage(err.message)
+    } finally {
+      setUpdatingEmail(false)
     }
   }
 
@@ -124,6 +128,7 @@ const BillingInformationSection = ({ org }) => {
         <Button
           backgroundColor='puddle'
           color='ocean'
+          isLoading={updatingEmail}
           className='u-box-shadow'
           borderRadius='5px'
           padding='1rem'
