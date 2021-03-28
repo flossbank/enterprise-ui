@@ -78,10 +78,7 @@ function useProvideAuth () {
 
   const getOrg = async ({ orgId, force }) => {
     // If requested org has same ID as cached org, return cached org
-    console.log('here getting', orgId)
-    console.log('set one', org && org.id)
     if (org && !force && orgId === org.id) {
-      console.log('returning cache?')
       return {
         organization: org,
         isOrgAdmin: isUserOrgAdmin
