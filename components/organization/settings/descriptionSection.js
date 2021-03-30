@@ -17,6 +17,7 @@ import { updateDescription as updateOrgDescription } from '../../../client/index
 
 const DescriptionSection = ({ org }) => {
   const [oldDesc, setOldDesc] = useState(org.description)
+  const [descUpdating, setDescUpdating] = useState(false)
   const [desc, setDesc] = useState(org.description)
   const [error, setError] = useState('')
   const toast = useToast()
@@ -27,6 +28,7 @@ const DescriptionSection = ({ org }) => {
       setError('Maximum description length is 1024 characters')
       return
     }
+    setDescUpdating(true)
     try {
       await updateOrgDescription({ organizationId: org.id, description: desc })
       setOldDesc(desc)
@@ -46,6 +48,8 @@ const DescriptionSection = ({ org }) => {
         duration: 4000,
         isClosable: true
       })
+    } finally {
+      setDescUpdating(false)
     }
   }
 
@@ -83,6 +87,7 @@ const DescriptionSection = ({ org }) => {
           borderRadius='5px'
           padding='1rem'
           height='auto'
+          isLoading={descUpdating}
           lineHeight='1.2'
           transition='all 300ms ease-in-out'
           _hover={{
