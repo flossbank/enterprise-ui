@@ -1,12 +1,6 @@
 import { useState, useEffect } from 'react'
 
 import {
-  getOrganization,
-  fetchDonationInfo,
-  fetchOrgOssUsage
-} from '../../../client'
-
-import {
   Text,
   Box,
   Flex,
@@ -20,6 +14,12 @@ import {
   CircularProgress,
   Icon
 } from '@chakra-ui/core'
+import { useRouter } from 'next/router'
+
+import {
+  fetchDonationInfo,
+  fetchOrgOssUsage
+} from '../../../client'
 
 import { useAuth } from '../../../utils/useAuth'
 import { useLocalStorage } from '../../../utils/useLocalStorage'
@@ -31,11 +31,11 @@ import PageWrapper from '../../../components/common/pageWrapper'
 import Section from '../../../components/common/section'
 import DashboardDataCard from '../../../components/dashboard/dashboardDataCard'
 import DonationCard from '../../../components/dashboard/donationCard'
-import { useRouter } from 'next/router'
 
 const Dashboard = () => {
   const router = useRouter()
-  const user = useAuth().user
+  const { user, getOrg } = useAuth()
+  const [org, setOrg] = useState()
 
   const [orgDonationReminder, setOrgDonationReminder] = useLocalStorage(localStorageOrgReminderToDonateKey, true)
 
@@ -53,7 +53,7 @@ const Dashboard = () => {
   const [donationLoading, setDonationLoading] = useState(true)
   const [donation, setDonation] = useState(0)
 
-  const [org, setOrg] = useState({})
+  const [isOrgAdmin, setIsOrgAdmin] = useState(false)
 
   function resetDonationLoaders () {
     setDonationLoading(true)
@@ -61,11 +61,12 @@ const Dashboard = () => {
   }
 
   async function fetchAllData () {
+    await fetchIsOrgAdmin()
     return Promise.all([fetchOssUsageData(), fetchDonationData()])
   }
 
   function showDonationReminder () {
-    setShowDonationReminderBanner(!!user && orgDonationReminder)
+    setShowDonationReminderBanner(!!user && !donation && !donationLoading && orgDonationReminder && isOrgAdmin)
     setOrgDonationReminder(false)
   }
 
@@ -92,8 +93,6 @@ const Dashboard = () => {
     if (!router.query || !router.query.organizationId) return
     const orgId = router.query.organizationId
     try {
-      const orgRes = await getOrganization({ orgId })
-      setOrg(orgRes.organization)
       const orgOssUsage = await fetchOrgOssUsage({ orgId })
       setTopLevelPackages(orgOssUsage.details.topLevelDependencies)
       setOrgDepCount(orgOssUsage.details.totalDependencies)
@@ -106,6 +105,18 @@ const Dashboard = () => {
     }
   }
 
+  async function fetchIsOrgAdmin () {
+    if (!router.query || !router.query.organizationId) return
+    const orgId = router.query.organizationId
+    try {
+      const { isOrgAdmin, organization } = await getOrg({ orgId })
+      setOrg(organization)
+      setIsOrgAdmin(isOrgAdmin)
+    } catch (e) {
+      // TODO handle this error
+    }
+  }
+
   async function refreshDonationDashboard () {
     resetDonationLoaders()
     await fetchDonationData()
@@ -115,9 +126,9 @@ const Dashboard = () => {
     fetchAllData()
   }, [router.query]) // only run on mount
 
-  function getOrgName () {
+  function getOrgNamePossessive () {
     try {
-      return org.name
+      if (org) return `${org.name}'s`
     } catch (e) {
       console.error(e)
       return ''
@@ -125,7 +136,7 @@ const Dashboard = () => {
   }
 
   function getBadgePath () {
-    if (!user) return
+    if (!user || !isOrgAdmin) return
     if (donation >= 10000) {
       return '/images/badges/platinum.svg'
     } else if (donation >= 5000) {
@@ -161,11 +172,11 @@ const Dashboard = () => {
         gridTemplateRows={{ lg: '13rem 13rem 5rem' }}
       >
         <Box gridRow='1' display={{ base: 'none', lg: 'inline' }} gridColumn='1' padding='2rem'>
-          <Image height='10rem' width='10rem' borderRadius='1rem' src={org.avatarUrl} />
+          {org && <Image height='10rem' width='10rem' borderRadius='1rem' src={org.avatarUrl} />}
         </Box>
         <Flex flexDirection='column' justifyContent='space-around' gridRow='1' gridColumn={{ base: '1 / span 5', lg: '2 / span 4' }}>
           <Box padding={{ base: '3rem 0', lg: '0 3rem 0 3rem' }}>
-            <Text>Flossbank distributes {getOrgName()}'s contributions down the entire dependency tree of
+            <Text>Flossbank distributes {getOrgNamePossessive()} contributions down the entire dependency tree of
               Ruby and Javascript package dependencies they rely on. To learn more about how Flossbank works,
               visit <TextLink text='enterprise.flossbank.com/how-it-works' href='/how-it-works' />.
             </Text>
@@ -186,7 +197,7 @@ const Dashboard = () => {
             textAlign={{ base: 'center', md: 'left' }}
             marginBottom='1.5rem'
           >
-            {getOrgName()}'s impact overview
+            {getOrgNamePossessive()} impact overview
           </Heading>
           <Box>
             <List
@@ -299,6 +310,7 @@ const Dashboard = () => {
                 <DonationCard
                   donationLoading={donationLoading}
                   hasDonation={!!donation}
+                  canEdit={!!isOrgAdmin}
                   refreshDashboard={refreshDonationDashboard}
                   donationAmount={donation}
                 />
@@ -314,7 +326,7 @@ const Dashboard = () => {
           alignSelf='end'
           textAlign={{ base: 'center', md: 'right' }}
         >
-          <Button isDisabled={donation <= 500 || !user}>
+          <Button isDisabled={donation < 500 || !user}>
             <Link href={getBadgePath()} download='flossbank_support_badge.svg' padding='1rem'>
               Download support badge
               <Icon marginLeft='1rem' name='download' size='1.75rem' />

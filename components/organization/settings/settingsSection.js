@@ -1,31 +1,36 @@
 import { useEffect, useState } from 'react'
-import { CircularProgress } from '@chakra-ui/core'
+import { CircularProgress, Text } from '@chakra-ui/core'
+import { useRouter } from 'next/router'
 
 import Section from '../../common/section'
+import Card from '../../common/card'
 import UnderlinedHeading from '../../common/underlinedHeading'
 
 import BillingInformationSection from './billingInformationSection'
 import DescriptionSection from './descriptionSection'
 import PublicallyGiveSection from './publicallyGiveSection'
-import { getOrganization } from '../../../client'
 
-import { useLocalStorage } from '../../../utils/useLocalStorage'
-import { localStorageOrgKey } from '../../../utils/constants'
+import { useAuth } from '../../../utils/useAuth'
 
 const OrgSettingsSection = () => {
   const [orgLoading, setOrgLoading] = useState(true)
-  const [org, setOrg] = useState(undefined)
-
-  const [currentOrgId, _] = useLocalStorage(localStorageOrgKey, '') // eslint-disable-line  
+  const [allowedToView, setAllowedToView] = useState(true)
+  const { org: currentOrg, getOrg } = useAuth()
+  const router = useRouter()
 
   async function fetchOrg () {
+    if (!router.query || !router.query.organizationId) return
+    const orgId = router.query.organizationId
     try {
-      const res = await getOrganization({ orgId: currentOrgId })
-      setOrg({
-        id: currentOrgId,
-        ...res.organization
-      })
-    } catch (e) {} finally {
+      const { isOrgAdmin } = await getOrg({ orgId })
+      if (!isOrgAdmin) {
+        setAllowedToView(false)
+      }
+    } catch (e) {
+      if (e.status === 401) {
+        setAllowedToView(false)
+      }
+    } finally {
       setOrgLoading(false)
     }
   }
@@ -35,8 +40,8 @@ const OrgSettingsSection = () => {
   }, [])
 
   function getTitle () {
-    if (org) {
-      return `${org.name} Settings`
+    if (currentOrg) {
+      return `${currentOrg.name} Settings`
     }
     return 'Settings'
   }
@@ -58,10 +63,15 @@ const OrgSettingsSection = () => {
         marginBottom='3rem'
       />
       {orgLoading && <CircularProgress isIndeterminate color='ocean' />}
-      {!orgLoading && org && <PublicallyGiveSection org={org} />}
-      {!orgLoading && org && <DescriptionSection org={org} />}
+      {!orgLoading && !allowedToView && (
+        <Card shadowSz='lg' w='100%' maxW='50rem' marginBottom='3rem'>
+          <Text>You don't have permissions to view this organizations settings</Text>
+        </Card>
+      )}
+      {!orgLoading && allowedToView && currentOrg && <PublicallyGiveSection org={currentOrg} />}
+      {!orgLoading && allowedToView && currentOrg && <DescriptionSection org={currentOrg} />}
       {/** Only show billing info section if billing info returned from API */}
-      {!orgLoading && org && <BillingInformationSection org={org} />}
+      {!orgLoading && allowedToView && currentOrg && <BillingInformationSection org={currentOrg} />}
     </Section>
   )
 }

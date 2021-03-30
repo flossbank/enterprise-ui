@@ -11,6 +11,7 @@ const authContext = createContext()
 
 const Loader = () => (
   <Flex
+    as='section'
     height='100vh'
     bg='rgba(255, 255, 255, .15)'
     color='boulder'
@@ -32,7 +33,7 @@ export function ProvideAuth ({ children }) {
   const [rcCaptured, setRcCaptured] = useState(false)
   const auth = useProvideAuth()
   const [isUserAuthed, setIsUserAuthed] = useLocalStorage('flossbank_auth', false)
-  const [__, setUserReferrer] = useLocalStorage('flossbank_rc', '') // eslint-disable-line
+  const [_, setUserReferrer] = useLocalStorage('flossbank_rc', '') // eslint-disable-line
 
   if (router.query.rc && !rcCaptured) {
     setRcCaptured(true)
@@ -64,10 +65,37 @@ export const useAuth = () => {
 function useProvideAuth () {
   const [user, setUser] = useState(null)
   const [_, setAuthedFlag] = useLocalStorage('flossbank_auth', false) // eslint-disable-line
+  const [org, setOrg] = useState(null)
+  const [isUserOrgAdmin, setIsUserOrgAdmin] = useState(false)
 
   const setSessionUser = (u) => {
     setUser(u || null)
     setAuthedFlag(!!u)
+  }
+
+  const setSessionOrg = (o) => {
+    setOrg(o || null)
+  }
+
+  const getOrg = async ({ orgId, force }) => {
+    // If requested org has same ID as cached org, return cached org
+    if (org && !force && orgId === org.id) {
+      return {
+        organization: org,
+        isOrgAdmin: isUserOrgAdmin
+      }
+    }
+    const { organization } = await api.getOrganization({ orgId })
+    const { isOrgAdmin } = await api.isUserAllowedToViewOrgSettings({ orgId })
+    // If the user is an admin of the org, persist this org
+    if (isOrgAdmin) {
+      setIsUserOrgAdmin(true)
+      setSessionOrg(organization)
+    }
+    return {
+      organization,
+      isOrgAdmin
+    }
   }
 
   const completeGHLogin = async ({ state, code }) => {
@@ -88,8 +116,11 @@ function useProvideAuth () {
 
   return {
     resume,
+    getOrg,
     completeGHLogin,
+    logout,
     user,
-    logout
+    org,
+    isOrgAdmin: isUserOrgAdmin
   }
 }

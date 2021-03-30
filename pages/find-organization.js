@@ -13,13 +13,10 @@ import {
 import debounce from 'p-debounce'
 
 import UnderlinedHeading from '../components/common/underlinedHeading'
-import { useLocalStorage } from '../utils/useLocalStorage'
 import PageWrapper from '../components/common/pageWrapper'
 import TextLink from '../components/common/textLink'
 import Section from '../components/common/section'
 import WomanWorking from '../components/completeLogin/womanWorking'
-
-import { localStorageOrgKey } from '../utils/constants'
 
 import { fetchOrgsByName } from '../client'
 
@@ -30,7 +27,6 @@ const FindOrganizationPage = () => {
   const [orgs, setOrgs] = useState([])
   const [isLoading, setIsLoading] = useState(true)
   const [searchInvoked, setSearchInvoked] = useState(false)
-  const [_, setCurrentOrgState] = useLocalStorage(localStorageOrgKey, '') // eslint-disable-line
   const subheadingExistingOrgs = 'If Flossbank has already been installed on your organization, find it using the search box below.'
 
   // Unsure if callback_url is correct or is doing anything, in our app settings we have a post installation setup url
@@ -38,7 +34,6 @@ const FindOrganizationPage = () => {
   const githubInstallLink = 'https://github.com/apps/flossbank/installations/new?callback_url=https://enterprise.flossbank.com/complete-install'
 
   const goToOrg = ({ id }) => {
-    setCurrentOrgState(id)
     router.push(`/organization/${id}`)
   }
 

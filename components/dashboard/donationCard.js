@@ -22,7 +22,7 @@ import EditDonationModalBody from './donation/editDonationModalBody'
 import StripeWrapper from '../common/stripe/stripeWrapper'
 import DonationInfoModalBody from './donation/donationInfoModalBody'
 
-const DonationCard = ({ donationAmount, donationLoading, hasDonation, refreshDashboard }) => {
+const DonationCard = ({ donationAmount, donationLoading, hasDonation, refreshDashboard, canEdit }) => {
   const user = useAuth().user
 
   const [createNewDonation, setCreateNewDonation] = useState(false)
@@ -47,7 +47,7 @@ const DonationCard = ({ donationAmount, donationLoading, hasDonation, refreshDas
             >
               ${donationAmount}
             </Text>
-            {user && (
+            {user && canEdit && (
               <IconButton
                 ref={finalRef}
                 onClick={onOpen}

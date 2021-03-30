@@ -16,6 +16,7 @@ import SettingsCard from './settingsCard'
 import { updateDescription as updateOrgDescription } from '../../../client/index'
 
 const DescriptionSection = ({ org }) => {
+  const [oldDesc, setOldDesc] = useState(org.description)
   const [desc, setDesc] = useState(org.description)
   const [error, setError] = useState('')
   const toast = useToast()
@@ -28,6 +29,7 @@ const DescriptionSection = ({ org }) => {
     }
     try {
       await updateOrgDescription({ organizationId: org.id, description: desc })
+      setOldDesc(desc)
       toast({
         title: 'Success',
         description: 'Organization description updated.',
@@ -36,6 +38,7 @@ const DescriptionSection = ({ org }) => {
         isClosable: true
       })
     } catch (e) {
+      setDesc(oldDesc)
       toast({
         title: 'Uh oh.',
         description: 'Organization failed to update, you may not have permissions to do so. Please contact us.',
