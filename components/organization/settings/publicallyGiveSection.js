@@ -15,10 +15,10 @@ const PublicallyGiveSection = ({ org }) => {
   const [isPublicallyGiving, setIsPublicallyGiving] = useState(org.publicallyGive)
 
   const updateOrgPublicallyGive = async (e) => {
-    const publicallyGive = e.target.checked
-    setIsPublicallyGiving(publicallyGive)
+    const publicallyGiveNewValue = e.target.checked
+    setIsPublicallyGiving(publicallyGiveNewValue)
     try {
-      await updatePublicallyGive({ organizationId: org.id, publicallyGive })
+      await updatePublicallyGive({ organizationId: org.id, publicallyGive: publicallyGiveNewValue })
       toast({
         title: 'Success',
         description: 'Organization publically giving updated.',
@@ -27,6 +27,7 @@ const PublicallyGiveSection = ({ org }) => {
         isClosable: true
       })
     } catch (e) {
+      setIsPublicallyGiving(!publicallyGiveNewValue)
       toast({
         title: 'Uh oh.',
         description: 'Organization failed to update, you may not have permissions to do so. Please contact us.',

@@ -8,8 +8,6 @@ import {
   Box,
   Icon,
   Heading,
-  Alert,
-  AlertIcon,
   Text,
   NumberInput,
   NumberInputField,
@@ -82,7 +80,7 @@ const EditDonationModalBody = ({ donationAmount, isNewDonor, onClose }) => {
         case 409:
           return updateDonationLocal()
         case 401:
-          throw new Error('Looks like you aren\'t a public organization Admin according to GitHub. You must be a public admin of this organization to edit it\'s monthly contribution')
+          throw new Error('Looks like you aren\'t an organization Admin according to GitHub. You must be an admin of this organization to edit it\'s monthly contribution')
         default:
           throw new Error('Donation failed, make sure your organization has a billing email in your organization settings page.')
       }
@@ -207,16 +205,6 @@ const EditDonationModalBody = ({ donationAmount, isNewDonor, onClose }) => {
                   <ErrorMessage msg={amountError} marginTop='1rem' />
                 )}
               </Box>
-              <Alert
-                status='info'
-                backgroundColor='puddle'
-                color='ocean'
-                fontWeight='500'
-                marginBottom='1.5rem'
-              >
-                <AlertIcon color='ocean' />
-                <Text>You must be a <b>PUBLIC</b> member of your GitHub organization to edit a donation on it's behalf.</Text>
-              </Alert>
               {isNewDonor && <BillingForm />}
               {!isNewDonor && (
                 <Box marginBottom='1.5rem'>

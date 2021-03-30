@@ -12,19 +12,17 @@ import Section from '../common/section'
 import UnderlinedHeading from '../common/underlinedHeading'
 import { getOrgDonationLedger } from '../../client'
 
-import { useLocalStorage } from '../../utils/useLocalStorage'
-import { localStorageOrgKey } from '../../utils/constants'
+import { useAuth } from '../../utils/useAuth'
 import TextLink from '../common/textLink'
 
 const OrgSettingsSection = () => {
   const [ledgerLoading, setLedgerLoading] = useState(true)
   const [ledger, setLedger] = useState(undefined)
-
-  const [currentOrgId, _] = useLocalStorage(localStorageOrgKey, '') // eslint-disable-line  
+  const { org: currentOrg } = useAuth()
 
   async function fetchLedger () {
     try {
-      const res = await getOrgDonationLedger({ orgId: currentOrgId })
+      const res = await getOrgDonationLedger({ orgId: currentOrg.id })
       setLedger(res.ledger)
     } catch (e) {} finally {
       setLedgerLoading(false)

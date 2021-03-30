@@ -5,8 +5,7 @@ import { Heading, Text } from '@chakra-ui/core'
 import PageWrapper from '../components/common/pageWrapper'
 import Section from '../components/common/section'
 import BouncyLoader from '../components/common/bouncyLoader'
-import { useLocalStorage } from '../utils/useLocalStorage'
-import { localStorageOrgKey } from '../utils/constants'
+import { useAuth } from '../utils/useAuth'
 
 import { installOrg } from '../client/index'
 
@@ -16,7 +15,7 @@ const CompleteLoginPage = () => {
   const [isLoading, setIsLoading] = useState(false)
   const [subHeader, setSubHeader] = useState('')
   const [installAttempted, setInstallAttempted] = useState(false)
-  const [_, setCurrentOrgState] = useLocalStorage(localStorageOrgKey, '') // eslint-disable-line
+  const { getOrg } = useAuth()
 
   function showError () {
     setIsLoading(false)
@@ -39,7 +38,7 @@ const CompleteLoginPage = () => {
 
       setInstallAttempted(true)
       const { organization } = await installOrg({ installationId })
-      setCurrentOrgState(organization.id)
+      await getOrg({ orgId: organization.id })
       router.push(`/organization/${organization.id}`)
     } catch (e) {
       showError()

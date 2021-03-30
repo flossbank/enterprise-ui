@@ -8,6 +8,10 @@ export const getOrganization = async ({ orgId }) => {
   return fetchThenJson(`api/organization/get?organizationId=${orgId}`, optionsGetRequest())
 }
 
+export const isUserAllowedToViewOrgSettings = async ({ orgId }) => {
+  return fetchThenJson(`api/user/is-github-organization-admin?organizationId=${orgId}`, optionsGetRequest())
+}
+
 export const fetchOrgsByName = async ({ name, host }) => {
   return fetchThenJson(`api/organization/get-by-name?name=${name}&host=${host}`, optionsGetRequest())
 }

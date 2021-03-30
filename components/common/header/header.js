@@ -28,7 +28,7 @@ const Header = () => {
           maxW={['90rem']}
           flexDirection='row'
         >
-          <FBLogo authed={!!user} />
+          <FBLogo />
           <Box
             as='nav'
             display='flex'
