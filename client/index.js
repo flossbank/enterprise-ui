@@ -36,6 +36,10 @@ export const updateOrgEmail = async ({ organizationId, billingEmail }) => {
   return fetchThenJson('api/organization/update', optionsWithPostBody({ billingEmail, organizationId }))
 }
 
+export const updateOrgBillingInfo = async ({ billingToken, organizationId }) => {
+  return fetchThenJson('api/organization/update', optionsWithPostBody({ billingToken, organizationId }))
+}
+
 export const updatePublicallyGive = async ({ organizationId, publicallyGive }) => {
   return fetchThenJson('api/organization/update', optionsWithPostBody({ publicallyGive, organizationId }))
 }

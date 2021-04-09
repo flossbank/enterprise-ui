@@ -1,26 +1,29 @@
 import { useState } from 'react'
 import { CardElement, useElements, useStripe } from '@stripe/react-stripe-js'
 
-import { Box, ModalBody, ModalFooter, Icon } from '@chakra-ui/core'
+import {
+  Box,
+  ModalBody,
+  ModalFooter,
+  Icon,
+  useToast
+} from '@chakra-ui/core'
 
 import BillingForm from '../../dashboard/billingForm'
 import FBButton from '../../common/fbButton'
 import ErrorMessage from '../../common/errorMessage'
+import { updateOrgBillingInfo } from '../../../client'
 
-const UpdateBilling = ({ updateBillingInfo, onClose }) => {
+const UpdateBilling = ({ updateBillingInfo, onClose, org }) => {
   const [submitLoading, setSubmitLoading] = useState(false)
   const stripe = useStripe()
   const elements = useElements()
+  const toast = useToast()
   const [cardError, setCardError] = useState('')
   const [submitError, setSubmitError] = useState(""); // eslint-disable-line
 
   const handleSaveBilling = async () => {
     setSubmitLoading(true)
-    // prevent quick button flash from isLoading event when there is a known error with the card
-    if (cardError) {
-      setSubmitLoading(false)
-      return
-    }
 
     let token
 
@@ -28,7 +31,6 @@ const UpdateBilling = ({ updateBillingInfo, onClose }) => {
       const cardElement = elements.getElement(CardElement)
       const res = await stripe.createToken(cardElement)
       token = res.token
-      updateBillingInfo(token.card.last4)
     } catch (e) {
       setSubmitError(e.message)
       setSubmitLoading(false)
@@ -40,7 +42,29 @@ const UpdateBilling = ({ updateBillingInfo, onClose }) => {
       setSubmitLoading(false)
     }
 
-    // TODO: handle updating billing info; call onClose at the end of success
+    try {
+      await updateOrgBillingInfo({ organizationId: org.id, billingToken: token.id })
+      toast({
+        title: 'Success',
+        description: 'Organization billing info updated.',
+        status: 'success',
+        duration: 4000,
+        isClosable: true
+      })
+      updateBillingInfo(token.card.last4)
+      onClose()
+    } catch (e) {
+      setCardError(e.message)
+      toast({
+        title: 'Uh oh.',
+        description: 'Organization failed to update, you may not have permissions to do so. Please try again or contact us.',
+        status: 'error',
+        duration: 4000,
+        isClosable: true
+      })
+    } finally {
+      setSubmitLoading(false)
+    }
   }
 
   return (

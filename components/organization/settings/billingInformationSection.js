@@ -47,8 +47,8 @@ const BillingInformationSection = ({ org }) => {
   const { isOpen, onOpen, onClose } = useDisclosure()
   const finalRef = useRef()
 
-  const handleUpdateBillingInfo = (billingInfo) => {
-    setLast4CardDigits(billingInfo.last4)
+  const handleUpdateBillingInfo = (last4) => {
+    setLast4CardDigits(last4)
   }
 
   const updateBillingEmail = async () => {
@@ -185,7 +185,8 @@ const BillingInformationSection = ({ org }) => {
           <StripeWrapper>
             <UpdateBilling
               onClose={onClose}
-              UpdateBilling={handleUpdateBillingInfo}
+              org={org}
+              updateBillingInfo={handleUpdateBillingInfo}
             />
           </StripeWrapper>
         </ModalContent>
