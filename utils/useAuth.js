@@ -87,15 +87,22 @@ function useProvideAuth () {
         isOrgAdmin: isUserOrgAdmin
       }
     }
-    const { isOrgAdmin } = await api.isUserAllowedToViewOrgSettings({ orgId })
+    let isAdmin = false
+    // Throw this into a try catch because if the user is unauthed, this will 401, but
+    // we still want to return successfully with the org we retrieved even if this call
+    // 401's
+    try {
+      const { isOrgAdmin } = await api.isUserAllowedToViewOrgSettings({ orgId })
+      isAdmin = isOrgAdmin
+    } catch (e) {}
     // If the user is an admin of the org, persist this org
-    if (isOrgAdmin) {
+    if (isAdmin) {
       setIsUserOrgAdmin(true)
       setSessionOrg(organization)
     }
     return {
       organization,
-      isOrgAdmin
+      isOrgAdmin: isAdmin
     }
   }
 

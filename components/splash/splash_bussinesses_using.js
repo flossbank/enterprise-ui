@@ -10,6 +10,10 @@ const logos = [{
   url: 'https://coil.com'
 },
 {
+  image: 'octobox-logo-black.png',
+  url: 'https://octobox.io'
+},
+{
   image: 'the_teacher_fund_logo.png',
   url: 'https://theteacherfund.com'
 }]
