@@ -77,14 +77,12 @@ const Dashboard = () => {
       const donationInfoRes = await fetchDonationInfo({ orgId })
       if (donationInfoRes && donationInfoRes.success) {
         setDonation(donationInfoRes.donationInfo.amount / 100)
-        setTotalContributionsAmount(donationInfoRes.donationInfo.totalDonated / 100)
         if (donationInfoRes.donationInfo.amount === 0) showDonationReminder()
       }
     } catch {
       showDonationReminder()
       setDonation(0)
     } finally {
-      setTotalContributionsAmountLoading(false)
       setDonationLoading(false)
     }
   }
@@ -111,9 +109,13 @@ const Dashboard = () => {
     try {
       const { isOrgAdmin, organization } = await getOrg({ orgId })
       setOrg(organization)
+      // convert total donated from millicents to dollars
+      setTotalContributionsAmount(organization.totalDonated / 100 / 1000)
       setIsOrgAdmin(isOrgAdmin)
     } catch (e) {
       // TODO handle this error
+    } finally {
+      setTotalContributionsAmountLoading(false)
     }
   }
 
