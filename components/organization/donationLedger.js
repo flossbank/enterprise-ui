@@ -22,9 +22,12 @@ const OrgSettingsSection = () => {
 
   async function fetchLedger () {
     try {
+      console.log('here', currentOrg)
       const res = await getOrgDonationLedger({ orgId: currentOrg.id })
       setLedger(res.ledger)
-    } catch (e) {} finally {
+    } catch (e) {
+      console.log('wtf', e)
+    } finally {
       setLedgerLoading(false)
     }
   }

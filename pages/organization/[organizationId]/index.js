@@ -110,7 +110,7 @@ const Dashboard = () => {
       const { isOrgAdmin, organization } = await getOrg({ orgId })
       setOrg(organization)
       // convert total donated from millicents to dollars
-      setTotalContributionsAmount(organization.totalDonated / 100 / 1000)
+      setTotalContributionsAmount((organization.totalDonated || 0) / 100 / 1000)
       setIsOrgAdmin(isOrgAdmin)
     } catch (e) {
       // TODO handle this error
