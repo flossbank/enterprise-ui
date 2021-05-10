@@ -7,6 +7,7 @@ import {
   CircularProgress
 } from '@chakra-ui/core'
 import PaginationList from 'react-pagination-list'
+import { useRouter } from 'next/router'
 
 import Section from '../common/section'
 import UnderlinedHeading from '../common/underlinedHeading'
@@ -16,13 +17,16 @@ import { useAuth } from '../../utils/useAuth'
 import TextLink from '../common/textLink'
 
 const OrgSettingsSection = () => {
+  const router = useRouter()
+  const { getOrg } = useAuth()
   const [ledgerLoading, setLedgerLoading] = useState(true)
   const [ledger, setLedger] = useState(undefined)
-  const { org: currentOrg } = useAuth()
 
   async function fetchLedger () {
+    if (!router.query || !router.query.organizationId) return
     try {
-      const res = await getOrgDonationLedger({ orgId: currentOrg.id })
+      const { organization } = await getOrg({ orgId: router.query.organizationId })
+      const res = await getOrgDonationLedger({ orgId: organization.id })
       setLedger(res.ledger)
     } catch (e) {
     } finally {
