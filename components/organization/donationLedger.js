@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import {
   Box,
   Alert,
@@ -19,13 +19,25 @@ import TextLink from '../common/textLink'
 const OrgSettingsSection = () => {
   const router = useRouter()
   const { getOrg } = useAuth()
+  // const [localOrg, setLocalOrg] = useState()
   const [ledgerLoading, setLedgerLoading] = useState(true)
   const [ledger, setLedger] = useState(undefined)
+
+  function getOrgNamePossessive () {
+    // try {
+    // if (localOrg) return `${localOrg.name}'s`
+    return ''
+    // } catch (e) {
+    //   console.error(e)
+    //   return ''
+    // }
+  }
 
   async function fetchLedger () {
     if (!router.query || !router.query.organizationId) return
     try {
       const { organization } = await getOrg({ orgId: router.query.organizationId })
+      // setLocalOrg(organization)
       const res = await getOrgDonationLedger({ orgId: organization.id })
       setLedger(res.ledger)
     } catch (e) {
@@ -36,7 +48,7 @@ const OrgSettingsSection = () => {
 
   useEffect(() => {
     fetchLedger()
-  }, [])
+  }, [router.query])
 
   return (
     <Section
@@ -50,7 +62,7 @@ const OrgSettingsSection = () => {
     >
       <UnderlinedHeading
         as='h1'
-        text='Donation Ledger'
+        text={`${getOrgNamePossessive()} Donation Ledger`}
         align='center'
         marginBottom='3rem'
       />
@@ -73,14 +85,14 @@ const OrgSettingsSection = () => {
             data={ledger.sort((a, b) => b.totalPaid - a.totalPaid)}
             pageSize={20}
             renderItem={(item, key) => (
-              <>
-                <TextLink key={key} text={`${item.registry.toUpperCase()} ${item.name}: $${(item.totalPaid / 100000).toFixed(2)}`} external href={`https://maintainer.flossbank.com/package/${item.id}`} />
+              <React.Fragment key={key}>
+                <TextLink text={`${item.registry.toUpperCase()} ${item.name}: $${(item.totalPaid / 100000).toFixed(2)}`} external href={`https://maintainer.flossbank.com/package/${item.id}`} />
                 <Box
                   as='hr'
                   borderColor='white'
                   margin='0.5rem'
                 />
-              </>
+              </React.Fragment>
             )}
           />
         </Box>
