@@ -116,20 +116,6 @@ const AuthNav = ({ user, onLogout }) => {
                     </a>
                   </Link>
                 </MenuItem>
-                <MenuItem
-                  _focus={itemFocusStyles}
-                  _active={itemActiveStyles}
-                  onClick={() => handleNav(`/organization/${currentOrg.id}/ledger`)}
-                >
-                  <Link href={`/organization/${currentOrg.id}/ledger`}>
-                    <a>
-                      <Box as='span' display='flex' alignItems='center'>
-                        <Icon name='settings' marginRight='.5rem' />
-                        <span>{currentOrg.name} Ledger</span>
-                      </Box>
-                    </a>
-                  </Link>
-                </MenuItem>
               </>
             )}
             <MenuItem

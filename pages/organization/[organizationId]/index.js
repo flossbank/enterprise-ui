@@ -131,6 +131,7 @@ const Dashboard = () => {
   function getOrgNamePossessive () {
     try {
       if (org) return `${org.name}'s`
+      return ''
     } catch (e) {
       console.error(e)
       return ''
@@ -183,9 +184,15 @@ const Dashboard = () => {
               visit <TextLink text='enterprise.flossbank.com/how-it-works' href='/how-it-works' />.
             </Text>
             {org && org.description && (
-              <Box marginTop='2rem' whiteSpace='pre-line' maxHeight='6rem' overflow='scroll'>
+              <Box marginTop='2rem' whiteSpace='pre-line' marginBottom='2rem' maxHeight='6rem' overflow='scroll'>
                 <Text>{org.description}</Text>
               </Box>
+            )}
+            {org && org.publicallyGive && (
+              <TextLink
+                href={`/organization/${router.query.organizationId}/ledger`}
+                text={`Click here to view ${getOrgNamePossessive()} giving ledger.`}
+              />
             )}
           </Box>
         </Flex>
