@@ -14,7 +14,10 @@ import {
   CircularProgress
 } from '@chakra-ui/react'
 import { useRouter } from 'next/router'
-import { QuestionIcon } from '@chakra-ui/icons'
+import {
+  QuestionIcon,
+  DownloadIcon
+} from '@chakra-ui/icons'
 
 import {
   fetchDonationInfo,
@@ -31,7 +34,6 @@ import PageWrapper from '../../../components/common/pageWrapper'
 import Section from '../../../components/common/section'
 import DashboardDataCard from '../../../components/dashboard/dashboardDataCard'
 import DonationCard from '../../../components/dashboard/donationCard'
-import Icons from '../../../public/icons'
 
 const Dashboard = () => {
   const router = useRouter()
@@ -252,6 +254,7 @@ const Dashboard = () => {
                       <QuestionIcon
                         w={{ base: '1.5rem' }}
                         h={{ base: '1.5rem' }}
+                        marginLeft='1rem'
                         marginRight={{ base: 0 }}
                         marginBottom={{ base: '1.5rem', md: 0 }}
                       />
@@ -341,7 +344,7 @@ const Dashboard = () => {
           <Button isDisabled={donation < 500 || !user}>
             <Link href={getBadgePath()} download='flossbank_support_badge.svg' padding='1rem'>
               Download support badge
-              <Icons.Download marginLeft='1rem' name='download' size='1.75rem' />
+              <DownloadIcon marginLeft='1rem' w='1.75rem' h='1.75rem' />
             </Link>
           </Button>
         </Box>

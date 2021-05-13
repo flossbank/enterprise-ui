@@ -9,14 +9,14 @@ import {
 } from '@chakra-ui/react'
 
 import {
-  CheckIcon
+  CheckIcon,
+  CloseIcon
 } from '@chakra-ui/icons'
 
 import BillingForm from '../../dashboard/billingForm'
 import FBButton from '../../common/fbButton'
 import ErrorMessage from '../../common/errorMessage'
 import { updateOrgBillingInfo } from '../../../client'
-import Icons from '../../../public/icons'
 
 const UpdateBilling = ({ updateBillingInfo, onClose, org }) => {
   const [submitLoading, setSubmitLoading] = useState(false)
@@ -86,7 +86,7 @@ const UpdateBilling = ({ updateBillingInfo, onClose, org }) => {
           fontWeight='600'
         >
           <Box as='span' display='flex' alignItems='center'>
-            <Icons.Close fontSize='1rem' marginRight='1rem' />
+            <CloseIcon fontSize='1rem' marginRight='1rem' />
             Cancel
           </Box>
         </FBButton>

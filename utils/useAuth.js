@@ -74,7 +74,6 @@ function useProvideAuth () {
   }
 
   const setSessionOrg = (o) => {
-    console.log('wtf', o)
     setOrg(o || null)
   }
 
