@@ -2,7 +2,7 @@ import {
   Box,
   Text,
   Heading
-} from '@chakra-ui/core'
+} from '@chakra-ui/react'
 
 import PropTypes from 'prop-types'
 

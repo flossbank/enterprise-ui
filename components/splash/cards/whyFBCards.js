@@ -1,25 +1,26 @@
-import { List, ListItem, Icon, Box, Text } from '@chakra-ui/core'
+import { List, ListItem, Box, Text } from '@chakra-ui/react'
+import Icons from '../../../public/icons'
 
 const cardData = [
   {
     heading: 'Fortify your code base',
-    icon: 'lock',
+    icon: <Icons.Lock w='1.5rem' h='1.5rem' margin='0rem 0 1rem 0' />,
     text: 'Your company relies on the maintenance and integrity of Open Source. Make sure the maintainers have the resources needed to not only maintain, but improve the code your company relies on.'
   },
   {
     heading: 'Easy',
-    icon: 'clock',
+    icon: <Icons.Clock w='1.5rem' h='1.5rem' margin='0rem 0 1rem 0' />,
     text:
       'Set up a monthly donation that can be cancelled at any time in less than 1 minute.'
   },
   {
     heading: 'Build your brand',
-    icon: 'duotoneStar',
+    icon: <Icons.DuotoneStar w='1.5rem' h='1.5rem' margin='0rem 0 1rem 0' />,
     text: 'Based on your donation amount, you will receive a Flossbank badge to show that you value the work open source maintainers provide.'
   },
   {
     heading: 'Equitable',
-    icon: 'equitable',
+    icon: <Icons.Equitable w='1.5rem' h='1.5rem' margin='0rem 0 1rem 0' />,
     text: 'Flossbank compensates every open source dependency you have, not just those with name recognition.'
   }
 ]
@@ -31,7 +32,7 @@ const Card = ({ icon, text, heading }) => (
     fontSize='0.875rem'
     lineHeight='1.3'
   >
-    <Icon name={icon} size='1.5rem' margin='0rem 0 1rem 0' />
+    {icon}
     <Box
       as='h3'
       marginBottom='1rem'

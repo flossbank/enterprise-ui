@@ -1,8 +1,8 @@
 import {
   Flex,
-  Icon,
   CloseButton
-} from '@chakra-ui/core'
+} from '@chakra-ui/react'
+import Icons from '../../public/icons'
 
 const Banner = ({ icon, children, onCloseClick }) => {
   return (
@@ -20,12 +20,14 @@ const Banner = ({ icon, children, onCloseClick }) => {
       borderColor='ocean'
       borderBottom='1px'
     >
-      <Icon
-        name={icon}
-        size={{ base: '2rem', md: '3rem' }}
-        marginRight={{ base: 0, md: '1.5rem' }}
-        marginBottom={{ base: '1.5rem', md: 0 }}
-      />
+      {icon === 'givingHand' && (
+        <Icons.GivingHand
+          w={{ base: '2rem', md: '3rem' }}
+          h={{ base: '2rem', md: '3rem' }}
+          marginRight={{ base: 0, md: '1.5rem' }}
+          marginBottom={{ base: '1.5rem', md: 0 }}
+        />
+      )}
       {children}
       <CloseButton
         onClick={onCloseClick}

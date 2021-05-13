@@ -1,6 +1,6 @@
 import { useRouter } from 'next/router'
 import { useState, useEffect } from 'react'
-import { Heading, Text } from '@chakra-ui/core'
+import { Heading, Text } from '@chakra-ui/react'
 
 import { useLocalStorage } from '../utils/useLocalStorage'
 import PageWrapper from '../components/common/pageWrapper'

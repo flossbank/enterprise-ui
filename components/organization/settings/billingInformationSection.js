@@ -15,7 +15,7 @@ import {
   ModalHeader,
   ModalCloseButton,
   useDisclosure
-} from '@chakra-ui/core'
+} from '@chakra-ui/react'
 
 import Divider from '../../common/divider'
 import StripeWrapper from '../../common/stripe/stripeWrapper'

@@ -1,5 +1,7 @@
-export default {
-  pencil: {
+import { createIcon } from '@chakra-ui/react'
+
+const Icons = {
+  Pencil: {
     path: (
       <g>
         <path fill='currentColor' d='M46.16 257.76v55.78h55.77l164.58-164.58-55.78-55.77L46.16 257.76z' />
@@ -8,7 +10,7 @@ export default {
     ),
     viewBox: '0 0 360 360'
   },
-  duotoneStar: {
+  DuotoneStar: {
     path: (
       <g>
         <path
@@ -23,7 +25,7 @@ export default {
     ),
     viewBox: '0 0 290 290'
   },
-  bars: {
+  Bars: {
     path: (
       <g>
         <path
@@ -42,7 +44,7 @@ export default {
     ),
     viewBox: '0 0 360 360'
   },
-  lock: {
+  Lock: {
     path: (
       <g id='Flossbank_Icons_Lock_RGB' data-name='Flossbank Icons_Lock_RGB' transform='translate(-73.74 -46.93)'>
         <path id='Path_1006' data-name='Path 1006' d='M123.69,159.31a12.48,12.48,0,0,1-12.49-12.47h0V109.37A62.46,62.46,0,0,1,217.74,65.14a63.39,63.39,0,0,1,16.31,28.63A12.49,12.49,0,0,1,209.87,100h0a38.21,38.21,0,0,0-9.8-17.22,37.48,37.48,0,0,0-63.88,26.6v37.46a12.48,12.48,0,0,1-12.48,12.48Z' fill='#529ed6' />
@@ -53,7 +55,7 @@ export default {
     ),
     viewBox: '0 0 199.78 249.73'
   },
-  clock: {
+  Clock: {
     path: (
       <g id='Flossbank_Icons_Clock_Ten_RGB' data-name='Flossbank Icons_Clock Ten_RGB' transform='translate(-70.12 -57.64)'>
         <circle id='Ellipse_120' data-name='Ellipse 120' cx='123.41' cy='123.41' r='123.41' transform='translate(70.12 57.64)' fill='#529ed6' />
@@ -62,7 +64,7 @@ export default {
     ),
     viewBox: '0 0 246.82 246.82'
   },
-  hooray: {
+  Hooray: {
     path: (
       <g>
         <path
@@ -85,7 +87,7 @@ export default {
     ),
     viewBox: '0 0 300 360'
   },
-  home: {
+  Home: {
     path: (
       <g>
         <path
@@ -98,7 +100,7 @@ export default {
     ),
     viewBox: '0 0 37.633 37.633'
   },
-  smile: {
+  Smile: {
     path: (
       <g>
         <path
@@ -113,7 +115,7 @@ export default {
     ),
     viewBox: '0 0 360 360'
   },
-  bullseye: {
+  Bullseye: {
     path: (
       <g data-name='Group 1049'>
         <path
@@ -140,7 +142,7 @@ export default {
     ),
     viewBox: '0 0 17.556 17.556'
   },
-  heart: {
+  Heart: {
     path: (
       <g data-name='Group 1065'>
         <g data-name='Group 1064'>
@@ -154,7 +156,7 @@ export default {
     ),
     viewBox: '0 0 18.603 16.35'
   },
-  cycle: {
+  Cycle: {
     path: (
       <g data-name='Group 1047'>
         <path
@@ -181,7 +183,7 @@ export default {
     ),
     viewBox: '0 0 17.936 17.936'
   },
-  stack: {
+  Stack: {
     path: (
       <g data-name='Group 1048'>
         <path
@@ -203,7 +205,7 @@ export default {
     ),
     viewBox: '0 0 17.346 17.684'
   },
-  terminal: {
+  Terminal: {
     path: (
       <g data-name='Group 1056'>
         <path
@@ -253,7 +255,7 @@ export default {
     ),
     viewBox: '0 0 57.904 46.387'
   },
-  calendar: {
+  Calendar: {
     path: (
       <g data-name='Group 1051' transform='translate(-55.049 -55.059)'>
         <path
@@ -323,7 +325,7 @@ export default {
     ),
     viewBox: '0 0 57.904 57.905'
   },
-  equitable: {
+  Equitable: {
     path: (
       <g id='Group_1255' data-name='Group 1255' transform='translate(-58.828 85.105) rotate(-90)'>
         <path id='Path_830' data-name='Path 830' d='M98.07,114.828H80.028v-6.014H96.567a1.5,1.5,0,0,1,1.5,1.5Z' transform='translate(-21.986 -43.972)' fill='#529ed6' />
@@ -333,7 +335,7 @@ export default {
     ),
     viewBox: '0 0 30.07 30.07'
   },
-  givingHand: {
+  GivingHand: {
     path: (
       <g data-name='Group 730'>
         <g data-name='Group 728'>
@@ -361,7 +363,7 @@ export default {
     ),
     viewBox: '0 0 57.332 55.256'
   },
-  megaphone: {
+  Megaphone: {
     path: (
       <g data-name='Group 736'>
         <g data-name='Group 733'>
@@ -386,7 +388,7 @@ export default {
     ),
     viewBox: '0 0 59 59.003'
   },
-  pieChart: {
+  PieChart: {
     path: (
       <g data-name='Group 731'>
         <path
@@ -408,7 +410,7 @@ export default {
     ),
     viewBox: '0 0 58.919 58.929'
   },
-  fbLogoLetters: {
+  FbLogoLetters: {
     path: (
       <svg
         version='1.0'
@@ -428,40 +430,16 @@ export default {
       </svg>
     ),
     viewBox: '0 0 35 43'
-  },
-  stepperComplete: {
-    path: (
-      <>
-        <circle cx='18' cy='18' r='18' fill='#2b67af' />
-        <polygon
-          points='5.5 11.9993304 14 3.49933039 12.5 2 5.5 8.99933039 1.5 4.9968652 0 6.49933039'
-          transform='translate(11 11)'
-          fill='#fff'
-        />
-      </>
-    ),
-    viewBox: '0 0 37 37'
-  },
-  stepperInProgress: {
-    path: (
-      <>
-        <circle cx='21' cy='21' r='21' fill='#fff' />
-        <circle cx='21' cy='21' r='10' fill='#2B67AF' />
-      </>
-    ),
-    viewBox: '0 0 45 45'
-  },
-  stepperNotStarted: {
-    path: (
-      <circle
-        cx='14'
-        cy='14'
-        r='12'
-        fill='#EBF3FB'
-        stroke='#bdc1c5'
-        strokeWidth='4'
-      />
-    ),
-    viewBox: '0 0 29 29'
   }
 }
+
+export default Object.keys(Icons).reduce((exported, iconName) => {
+  return {
+    ...exported,
+    [iconName]: createIcon({
+      displayName: iconName,
+      viewBox: Icons[iconName].viewBox,
+      path: Icons[iconName].path
+    })
+  }
+}, {})

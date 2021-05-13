@@ -4,7 +4,7 @@ import {
   Box,
   Checkbox,
   useToast
-} from '@chakra-ui/core'
+} from '@chakra-ui/react'
 import { useState } from 'react'
 
 import SettingsCard from './settingsCard'

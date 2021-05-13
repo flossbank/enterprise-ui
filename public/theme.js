@@ -1,5 +1,6 @@
 // From https://chakra-ui.com/theme. we want to extend default theme but add colors + icons
-import { theme } from '@chakra-ui/core'
+import { extendTheme, theme } from '@chakra-ui/react'
+import { createBreakpoints } from '@chakra-ui/theme-tools'
 import CustomIcons from './icons'
 
 const fontStack = `"Helvetica Neue", Helvetica, Frutiger, "Frutiger Linotype",
@@ -7,15 +8,15 @@ const fontStack = `"Helvetica Neue", Helvetica, Frutiger, "Frutiger Linotype",
     "DejaVu Sans Condensed", "Liberation Sans", "Nimbus Sans L", Tahoma, Geneva,
     Arial, sans-serif`
 
-const breakpoints = ['30em', '48em', '62em', '80em']
-// aliases
-breakpoints.sm = breakpoints[0]
-breakpoints.md = breakpoints[1]
-breakpoints.lg = breakpoints[2]
-breakpoints.xl = breakpoints[3]
+const breakpoints = createBreakpoints({
+  sm: '30em',
+  md: '48em',
+  lg: '62em',
+  xl: '80em'
+})
 
-export default {
-  ...theme,
+export default extendTheme({
+  breakpoints,
   fonts: {
     body: fontStack,
     heading: fontStack,
@@ -35,4 +36,4 @@ export default {
     ...theme.icons,
     ...CustomIcons
   }
-}
+})
