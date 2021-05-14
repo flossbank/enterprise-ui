@@ -1,4 +1,4 @@
-import { Flex, Image, Link } from '@chakra-ui/core'
+import { Flex, Image, Link } from '@chakra-ui/react'
 import UnderlinedHeading from '../common/underlinedHeading'
 
 const logos = [{

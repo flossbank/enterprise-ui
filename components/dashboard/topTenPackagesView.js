@@ -1,4 +1,4 @@
-import { Text, Heading, Icon, Flex } from '@chakra-ui/core'
+import { Text, Heading, Flex } from '@chakra-ui/react'
 
 import {
   BarChart,
@@ -11,11 +11,12 @@ import {
   ResponsiveContainer
 } from 'recharts'
 
+import Icons from '../../public/icons'
 import DashboardDataCard from './dashboardDataCard'
 
 const TopTenPlaceholder = () => (
   <>
-    <Icon name='bars' size='15rem' marginBottom='3rem' />
+    <Icons.Bars w='15rem' h='15rem' marginBottom='3rem' />
     <Text>
       Once you've installed <strong>Flossbank</strong> and start installing Open
       Source packages, you'll be able to see data about the top ten packages you

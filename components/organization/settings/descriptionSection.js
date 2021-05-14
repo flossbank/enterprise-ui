@@ -10,7 +10,7 @@ import {
   CloseButton,
   AlertTitle,
   useToast
-} from '@chakra-ui/core'
+} from '@chakra-ui/react'
 
 import SettingsCard from './settingsCard'
 import { updateDescription as updateOrgDescription } from '../../../client/index'

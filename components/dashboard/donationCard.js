@@ -11,9 +11,10 @@ import {
   ModalHeader,
   ModalCloseButton,
   useDisclosure
-} from '@chakra-ui/core'
+} from '@chakra-ui/react'
 
 import { useAuth } from '../../utils/useAuth'
+import Icons from '../../public/icons'
 
 import DashboardDataCard from '../dashboard/dashboardDataCard'
 import UnderlinedHeading from '../common/underlinedHeading'
@@ -61,7 +62,7 @@ const DonationCard = ({ donationAmount, donationLoading, hasDonation, refreshDas
                   outlineColor: 'currentColor !important'
                 }}
                 aria-label='Edit monthly donation'
-                icon='pencil'
+                icon={<Icons.Pencil />}
                 title='Edit monthly donation'
               />
             )}

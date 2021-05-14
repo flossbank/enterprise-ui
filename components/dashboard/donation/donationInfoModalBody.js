@@ -1,10 +1,10 @@
 import {
   Box,
-  Icon,
   Text,
   ModalFooter,
   ModalBody
-} from '@chakra-ui/core'
+} from '@chakra-ui/react'
+import { CheckIcon } from '@chakra-ui/icons'
 
 import FBButton from '../../common/fbButton'
 
@@ -34,7 +34,7 @@ const DonationInfoModalBody = ({ upgradeToDonor }) => {
           margin='0 0 1.5rem 0'
         >
           <Box as='span' display='flex' alignItems='center'>
-            <Icon name='check' fontSize='1rem' marginRight='1rem' />
+            <CheckIcon fontSize='1rem' marginRight='1rem' />
             Become a monthly supporter
           </Box>
         </FBButton>

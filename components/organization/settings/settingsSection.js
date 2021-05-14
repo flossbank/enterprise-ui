@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { CircularProgress, Text } from '@chakra-ui/core'
+import { CircularProgress, Text } from '@chakra-ui/react'
 import { useRouter } from 'next/router'
 
 import Section from '../../common/section'

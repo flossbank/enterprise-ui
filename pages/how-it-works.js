@@ -1,4 +1,4 @@
-import { Text, Box, List, ListItem } from '@chakra-ui/core'
+import { Text, Box, List, ListItem } from '@chakra-ui/react'
 
 import PageWrapper from '../components/common/pageWrapper'
 import Section from '../components/common/section'

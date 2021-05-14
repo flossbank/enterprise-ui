@@ -1,4 +1,4 @@
-import { Flex, Text, Image } from '@chakra-ui/core'
+import { Flex, Text, Image } from '@chakra-ui/react'
 import UnderlinedHeading from '../common/underlinedHeading'
 import Subheading from '../common/subheading'
 import LinkBtn from '../common/linkBtn'

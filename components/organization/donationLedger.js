@@ -5,10 +5,11 @@ import {
   AlertIcon,
   Text,
   CircularProgress
-} from '@chakra-ui/core'
+} from '@chakra-ui/react'
 import PaginationList from 'react-pagination-list'
 import { useRouter } from 'next/router'
 
+import BackButton from '../common/backButton'
 import Section from '../common/section'
 import UnderlinedHeading from '../common/underlinedHeading'
 import { getOrgDonationLedger } from '../../client'
@@ -19,25 +20,25 @@ import TextLink from '../common/textLink'
 const OrgSettingsSection = () => {
   const router = useRouter()
   const { getOrg } = useAuth()
-  // const [localOrg, setLocalOrg] = useState()
+  const [localOrg, setLocalOrg] = useState()
   const [ledgerLoading, setLedgerLoading] = useState(true)
   const [ledger, setLedger] = useState(undefined)
 
   function getOrgNamePossessive () {
-    // try {
-    // if (localOrg) return `${localOrg.name}'s`
-    return ''
-    // } catch (e) {
-    //   console.error(e)
-    //   return ''
-    // }
+    try {
+      if (localOrg) return `${localOrg.name}'s`
+      return ''
+    } catch (e) {
+      console.error(e)
+      return ''
+    }
   }
 
   async function fetchLedger () {
     if (!router.query || !router.query.organizationId) return
     try {
       const { organization } = await getOrg({ orgId: router.query.organizationId })
-      // setLocalOrg(organization)
+      setLocalOrg(organization)
       const res = await getOrgDonationLedger({ orgId: organization.id })
       setLedger(res.ledger)
     } catch (e) {
@@ -60,6 +61,7 @@ const OrgSettingsSection = () => {
       padding={{ base: '3rem 1.5rem', lg: '4rem 7.5rem' }}
       backgroundColor='lightRock'
     >
+      <BackButton destination={`/organization/${localOrg?.id}`} />
       <UnderlinedHeading
         as='h1'
         text={`${getOrgNamePossessive()} Donation Ledger`}

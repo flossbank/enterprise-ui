@@ -5,9 +5,13 @@ import {
   Box,
   ModalBody,
   ModalFooter,
-  Icon,
   useToast
-} from '@chakra-ui/core'
+} from '@chakra-ui/react'
+
+import {
+  CheckIcon,
+  CloseIcon
+} from '@chakra-ui/icons'
 
 import BillingForm from '../../dashboard/billingForm'
 import FBButton from '../../common/fbButton'
@@ -82,7 +86,7 @@ const UpdateBilling = ({ updateBillingInfo, onClose, org }) => {
           fontWeight='600'
         >
           <Box as='span' display='flex' alignItems='center'>
-            <Icon name='close' fontSize='1rem' marginRight='1rem' />
+            <CloseIcon fontSize='1rem' marginRight='1rem' />
             Cancel
           </Box>
         </FBButton>
@@ -94,7 +98,7 @@ const UpdateBilling = ({ updateBillingInfo, onClose, org }) => {
           fontWeight='600'
         >
           <Box as='span' display='flex' alignItems='center'>
-            <Icon name='check' fontSize='1rem' marginRight='1rem' />
+            <CheckIcon fontSize='1rem' marginRight='1rem' />
             Save billing information
           </Box>
         </FBButton>

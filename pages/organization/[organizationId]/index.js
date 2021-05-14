@@ -11,10 +11,13 @@ import {
   Button,
   Tooltip,
   ListItem,
-  CircularProgress,
-  Icon
-} from '@chakra-ui/core'
+  CircularProgress
+} from '@chakra-ui/react'
 import { useRouter } from 'next/router'
+import {
+  QuestionIcon,
+  DownloadIcon
+} from '@chakra-ui/icons'
 
 import {
   fetchDonationInfo,
@@ -248,9 +251,10 @@ const Dashboard = () => {
                       If it says N/A, try refreshing in a few minutes as snapshots can take quite some time.'
                       aria-label='A tooltip explaining what top level dependencies are'
                     >
-                      <Icon
-                        name='question'
-                        size={{ base: '1.5rem' }}
+                      <QuestionIcon
+                        w={{ base: '1.5rem' }}
+                        h={{ base: '1.5rem' }}
+                        marginLeft='1rem'
                         marginRight={{ base: 0 }}
                         marginBottom={{ base: '1.5rem', md: 0 }}
                       />
@@ -283,9 +287,9 @@ const Dashboard = () => {
                     <Tooltip label='We determine total current dependencies each time we distribute organization donations.
                       If it says N/A, try refreshing in a few minutes as snapshots can take quite some time.'
                     >
-                      <Icon
-                        name='question'
-                        size={{ base: '1.5rem' }}
+                      <QuestionIcon
+                        w={{ base: '1.5rem' }}
+                        h={{ base: '1.5rem' }}
                         marginRight={{ base: 0 }}
                         marginBottom={{ base: '1.5rem', md: 0 }}
                       />
@@ -340,7 +344,7 @@ const Dashboard = () => {
           <Button isDisabled={donation < 500 || !user}>
             <Link href={getBadgePath()} download='flossbank_support_badge.svg' padding='1rem'>
               Download support badge
-              <Icon marginLeft='1rem' name='download' size='1.75rem' />
+              <DownloadIcon marginLeft='1rem' w='1.75rem' h='1.75rem' />
             </Link>
           </Button>
         </Box>

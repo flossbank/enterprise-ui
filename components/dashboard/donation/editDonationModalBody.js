@@ -6,18 +6,21 @@ import { updateDonation, donate } from '../../../client'
 
 import {
   Box,
-  Icon,
   Heading,
   Text,
   NumberInput,
   NumberInputField,
   ModalFooter,
   ModalBody
-} from '@chakra-ui/core'
+} from '@chakra-ui/react'
+import {
+  CheckIcon
+} from '@chakra-ui/icons'
 
 import BillingForm from '../billingForm'
 import RemoveDonation from './removeDonationModalBody'
 
+import Icons from '../../../public/icons'
 import FBButton from '../../common/fbButton'
 import ErrorMessage from '../../common/errorMessage'
 
@@ -216,7 +219,7 @@ const EditDonationModalBody = ({ donationAmount, isNewDonor, onClose }) => {
                     padding='.5rem .5rem .5rem 0'
                   >
                     <Box as='span' display='flex' alignItems='center'>
-                      <Icon name='delete' fontSize='1rem' marginRight='1rem' />
+                      <Icons.Delete fontSize='1rem' marginRight='1rem' />
                       Discontinue monthly contribution
                     </Box>
                   </FBButton>
@@ -234,7 +237,7 @@ const EditDonationModalBody = ({ donationAmount, isNewDonor, onClose }) => {
               fontWeight='600'
             >
               <Box as='span' display='flex' alignItems='center'>
-                <Icon name='close' fontSize='1rem' marginRight='1rem' />
+                <Icons.Close fontSize='1rem' marginRight='1rem' />
                 Cancel
               </Box>
             </FBButton>
@@ -246,7 +249,7 @@ const EditDonationModalBody = ({ donationAmount, isNewDonor, onClose }) => {
               fontWeight='600'
             >
               <Box as='span' display='flex' alignItems='center'>
-                <Icon name='check' fontSize='1rem' marginRight='1rem' />
+                <CheckIcon fontSize='1rem' marginRight='1rem' />
                 Save changes
               </Box>
             </FBButton>

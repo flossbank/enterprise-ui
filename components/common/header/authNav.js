@@ -7,13 +7,16 @@ import {
   useTheme,
   Box,
   Button,
-  Icon,
   Menu,
   MenuButton,
   MenuList,
   MenuItem
-} from '@chakra-ui/core'
+} from '@chakra-ui/react'
+import {
+  ChevronDownIcon, ChevronUpIcon, InfoIcon, QuestionIcon, SearchIcon, SettingsIcon, UnlockIcon
+} from '@chakra-ui/icons'
 
+import Icons from '../../../public/icons'
 import { useAuth } from '../../../utils/useAuth'
 
 const AuthNav = ({ user, onLogout }) => {
@@ -79,11 +82,17 @@ const AuthNav = ({ user, onLogout }) => {
             >
               {user.email.charAt(0)}
             </Box>
-            <Icon
-              name={isExpanded ? 'chevron-up' : 'chevron-down'}
-              marginLeft='.5rem'
-              size='1.5rem'
-            />
+            {isExpanded ? (
+              <ChevronUpIcon
+                marginLeft='.5rem'
+                size='1.5rem'
+              />
+            ) : (
+              <ChevronDownIcon
+                marginLeft='.5rem'
+                size='1.5rem'
+              />
+            )}
           </MenuButton>
           <MenuList backgroundColor='lightRock'>
             {currentOrg && (
@@ -96,7 +105,7 @@ const AuthNav = ({ user, onLogout }) => {
                   <Link href={`/organization/${currentOrg.id}`}>
                     <a>
                       <Box as='span' display='flex' alignItems='center'>
-                        <Icon name='home' marginRight='.5rem' />
+                        <Icons.Home marginRight='.5rem' />
                         <span>{currentOrg.name} Dashboard</span>
                       </Box>
                     </a>
@@ -110,7 +119,7 @@ const AuthNav = ({ user, onLogout }) => {
                   <Link href={`/organization/${currentOrg.id}/settings`}>
                     <a>
                       <Box as='span' display='flex' alignItems='center'>
-                        <Icon name='settings' marginRight='.5rem' />
+                        <SettingsIcon marginRight='.5rem' />
                         <span>{currentOrg.name} Settings</span>
                       </Box>
                     </a>
@@ -126,7 +135,7 @@ const AuthNav = ({ user, onLogout }) => {
               <Link href='/find-organization'>
                 <a>
                   <Box as='span' display='flex' alignItems='center'>
-                    <Icon name='search' marginRight='.5rem' />
+                    <SearchIcon marginRight='.5rem' />
                     <span>Search organizations</span>
                   </Box>
                 </a>
@@ -140,7 +149,7 @@ const AuthNav = ({ user, onLogout }) => {
               <Link href='/faq'>
                 <a>
                   <Box as='span' display='flex' alignItems='center'>
-                    <Icon name='question' marginRight='.5rem' />
+                    <QuestionIcon marginRight='.5rem' />
                     <span>FAQ</span>
                   </Box>
                 </a>
@@ -154,7 +163,7 @@ const AuthNav = ({ user, onLogout }) => {
               <Link href='/how-it-works'>
                 <a>
                   <Box as='span' display='flex' alignItems='center'>
-                    <Icon name='info' marginRight='.5rem' />
+                    <InfoIcon marginRight='.5rem' />
                     <span>How it works</span>
                   </Box>
                 </a>
@@ -168,7 +177,7 @@ const AuthNav = ({ user, onLogout }) => {
               <Link href='/'>
                 <a>
                   <Box as='span' display='flex' alignItems='center'>
-                    <Icon name='unlock' marginRight='.5rem' />
+                    <UnlockIcon marginRight='.5rem' />
                     <span>Log out</span>
                   </Box>
                 </a>

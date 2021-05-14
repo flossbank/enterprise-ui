@@ -15,13 +15,14 @@
     }
   },
   "dependencies": {
-    "@chakra-ui/core": "^0.8.0",
-    "@emotion/core": "^10.0.28",
-    "@emotion/styled": "^10.0.27",
+    "@chakra-ui/icons": "^1.0.13",
+    "@chakra-ui/react": "^1.0.0",
+    "@emotion/react": "^11.0.0",
+    "@emotion/styled": "^11.0.0",
     "@stripe/react-stripe-js": "^1.1.2",
     "@stripe/stripe-js": "^1.7.0",
     "b36": "^1.0.0",
-    "emotion-theming": "^10.0.27",
+    "framer-motion": "^4.1.16",
     "got": "^11.5.1",
     "isomorphic-fetch": "^2.2.1",
     "next": "^9.5.5",
