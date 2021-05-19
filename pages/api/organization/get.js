@@ -7,6 +7,9 @@ export default async (req, reply) => {
       cookie: req.headers.cookie
     }
     const response = await got(`organization/${req.query.organizationId}`, {
+      searchParams: {
+        noAuth: req.query.noAuth
+      },
       headers: reqHeaders
     })
     const headers = response.headers

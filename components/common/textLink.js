@@ -7,24 +7,26 @@ import styles from './textLink.module.scss'
 // destructuring children so if someone passes children (which we don't want), it doesn't funk things up
 const TextLink = ({ href, text, children, external, ...props }) => (
   <>
-    {!external ? (
-      <Link href={href}>
-        <ChakraLink href={href} className={styles.link} {...props}>
+    {!external
+      ? (
+        <Link href={href}>
+          <ChakraLink href={href} className={styles.link} {...props}>
+            {text}
+          </ChakraLink>
+        </Link>
+        )
+      : (
+        <ChakraLink
+          href={href}
+          target='_blank'
+          rel='noopener noreferrer'
+          className={styles.link}
+          {...props}
+        >
           {text}
+          <span className='sr-only'> (opens in new window)</span>
         </ChakraLink>
-      </Link>
-    ) : (
-      <ChakraLink
-        href={href}
-        target='_blank'
-        rel='noopener noreferrer'
-        className={styles.link}
-        {...props}
-      >
-        {text}
-        <span className='sr-only'> (opens in new window)</span>
-      </ChakraLink>
-    )}
+        )}
   </>
 )
 
