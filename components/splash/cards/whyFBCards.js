@@ -37,7 +37,6 @@ const Card = ({ icon, text, heading }) => (
       as='h3'
       marginBottom='1rem'
       align='left'
-      lineGap='1'
       fontSize='24px'
       letterSpacing='1px'
       textTransform='none'

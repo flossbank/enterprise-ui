@@ -77,8 +77,8 @@ function useProvideAuth () {
     setOrg(o || null)
   }
 
-  const getOrg = async ({ orgId, force }) => {
-    const { organization } = await api.getOrganization({ orgId })
+  const getOrg = async ({ orgId, noAuth, force }) => {
+    const { organization } = await api.getOrganization({ orgId, noAuth })
     // If requested org has same ID as cached org, return cached isOrgAdmin check
     if (org && !force && orgId === org.id) {
       setSessionOrg(organization)

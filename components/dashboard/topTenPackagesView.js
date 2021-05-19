@@ -70,11 +70,9 @@ const TopTenPackagesView = ({ topTenPackages }) => (
       alignItems='center'
       flexDirection='column'
     >
-      {topTenPackages.length ? (
-        <TopTenChart topTenPackages={topTenPackages} />
-      ) : (
-        <TopTenPlaceholder />
-      )}
+      {topTenPackages.length
+        ? <TopTenChart topTenPackages={topTenPackages} />
+        : <TopTenPlaceholder />}
     </DashboardDataCard>
   </>
 )

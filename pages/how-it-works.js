@@ -55,7 +55,7 @@ const HowItWorks = () => (
         </Text>
         <Text marginBottom='1rem'>
           <b>That's why at Flossbank we recommend donating one full engineers salary back to the Open Source code
-          you as a company rely on
+            you as a company rely on
           </b>. This ensures the code is not only well maintained, but will continue improving
           in the background. Not only that, but enable the birth of the next 10 Open Source packages that could take
           your company to the next level.

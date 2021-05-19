@@ -104,20 +104,22 @@ const DonationCard = ({ donationAmount, donationLoading, hasDonation, refreshDas
             />
           </ModalHeader>
           <ModalCloseButton />
-          {(hasDonation || createNewDonation) ? (
-            <StripeWrapper>
-              <EditDonationModalBody
-                donationAmount={donationAmount}
-                isNewDonor={!hasDonation}
+          {(hasDonation || createNewDonation)
+            ? (
+              <StripeWrapper>
+                <EditDonationModalBody
+                  donationAmount={donationAmount}
+                  isNewDonor={!hasDonation}
+                  onClose={handleClose}
+                />
+              </StripeWrapper>
+              )
+            : (
+              <DonationInfoModalBody
+                upgradeToDonor={() => setCreateNewDonation(true)}
                 onClose={handleClose}
               />
-            </StripeWrapper>
-          ) : (
-            <DonationInfoModalBody
-              upgradeToDonor={() => setCreateNewDonation(true)}
-              onClose={handleClose}
-            />
-          )}
+              )}
         </ModalContent>
       </Modal>
     </>

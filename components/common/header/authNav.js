@@ -82,17 +82,19 @@ const AuthNav = ({ user, onLogout }) => {
             >
               {user.email.charAt(0)}
             </Box>
-            {isExpanded ? (
-              <ChevronUpIcon
-                marginLeft='.5rem'
-                size='1.5rem'
-              />
-            ) : (
-              <ChevronDownIcon
-                marginLeft='.5rem'
-                size='1.5rem'
-              />
-            )}
+            {isExpanded
+              ? (
+                <ChevronUpIcon
+                  marginLeft='.5rem'
+                  size='1.5rem'
+                />
+                )
+              : (
+                <ChevronDownIcon
+                  marginLeft='.5rem'
+                  size='1.5rem'
+                />
+                )}
           </MenuButton>
           <MenuList backgroundColor='lightRock'>
             {currentOrg && (

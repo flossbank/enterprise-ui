@@ -4,8 +4,8 @@ export const fetchOrgOssUsage = async ({ orgId }) => {
   return fetchThenJson(`api/organization/get-oss-usage?organizationId=${orgId}`, optionsGetRequest())
 }
 
-export const getOrganization = async ({ orgId }) => {
-  return fetchThenJson(`api/organization/get?organizationId=${orgId}`, optionsGetRequest())
+export const getOrganization = async ({ orgId, noAuth = false }) => {
+  return fetchThenJson(`api/organization/get?organizationId=${orgId}&noAuth=${noAuth}`, optionsGetRequest())
 }
 
 export const isUserAllowedToViewOrgSettings = async ({ orgId }) => {
@@ -48,8 +48,17 @@ export const updateDescription = async ({ organizationId, description }) => {
   return fetchThenJson('api/organization/update', optionsWithPostBody({ description, organizationId }))
 }
 
-export const getOrgDonationLedger = async ({ orgId }) => {
-  return fetchThenJson(`api/organization/get-donation-ledger?organizationId=${orgId}`, optionsGetRequest())
+export const getOrgDonationLedger = async ({ orgId, limit, offset }) => {
+  let url = `api/organization/get-donation-ledger?organizationId=${orgId}`
+
+  if (limit) {
+    url += `&limit=${limit}`
+  }
+  if (offset) {
+    url += `&offset=${offset}`
+  }
+
+  return fetchThenJson(url, optionsGetRequest())
 }
 
 export const updateDonation = async ({ amount, organizationId, globalDonation }) => {

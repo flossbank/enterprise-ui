@@ -8,7 +8,9 @@ export default async (req, reply) => {
     }
     const response = await got('organization/get-donation-ledger', {
       searchParams: {
-        organizationId: req.query.organizationId
+        organizationId: req.query.organizationId,
+        limit: req.query.limit,
+        offset: req.query.offset
       },
       headers: reqHeaders
     })

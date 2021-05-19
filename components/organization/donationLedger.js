@@ -1,54 +1,76 @@
-import React, { useEffect, useState } from 'react'
-import {
-  Box,
-  Alert,
-  AlertIcon,
-  Text,
-  CircularProgress
-} from '@chakra-ui/react'
-import PaginationList from 'react-pagination-list'
+import React, { useEffect, useRef, useState } from 'react'
+import { Box } from '@chakra-ui/react'
 import { useRouter } from 'next/router'
 
 import BackButton from '../common/backButton'
 import Section from '../common/section'
 import UnderlinedHeading from '../common/underlinedHeading'
+import PaginatedTable from './PaginatedTable'
 import { getOrgDonationLedger } from '../../client'
 
 import { useAuth } from '../../utils/useAuth'
 import TextLink from '../common/textLink'
 
-const OrgSettingsSection = () => {
+const ledgerColumns = [
+  {
+    displayName: 'Registry',
+    fieldName: 'registry'
+  },
+  {
+    displayName: 'Name',
+    fieldName: 'name'
+  },
+  {
+    displayName: 'Total Donated',
+    fieldName: 'totalPaid',
+    isNumeric: true
+  }
+]
+
+const OrgDonationLedger = () => {
   const router = useRouter()
   const { getOrg } = useAuth()
-  const [localOrg, setLocalOrg] = useState()
-  const [ledgerLoading, setLedgerLoading] = useState(true)
-  const [ledger, setLedger] = useState(undefined)
+  const [localOrg, setLocalOrg] = useState({})
+  const topOfLedger = useRef(null)
 
-  function getOrgNamePossessive () {
-    try {
-      if (localOrg) return `${localOrg.name}'s`
-      return ''
-    } catch (e) {
-      console.error(e)
-      return ''
-    }
+  const getOrgNamePossessive = () => localOrg.name ? `${localOrg.name}'s` : ''
+
+  const handlePageChange = () => {
+    topOfLedger.current?.scrollIntoView()
   }
 
-  async function fetchLedger () {
-    if (!router.query || !router.query.organizationId) return
+  async function fetchLedger ({ limit, offset }) {
+    const orgId = localOrg.id || router?.query?.organizationId
+
+    if (!orgId) return
     try {
-      const { organization } = await getOrg({ orgId: router.query.organizationId })
-      setLocalOrg(organization)
-      const res = await getOrgDonationLedger({ orgId: organization.id })
-      setLedger(res.ledger)
+      const res = await getOrgDonationLedger({ orgId, limit, offset })
+
+      if (!res || !res.ledger) return
+
+      return {
+        rows: res.ledger
+          .map(({ name, registry, totalPaid, id }) => ({
+            id,
+            name: (
+              <TextLink text={name} external href={`https://maintainer.flossbank.com/package/${id}`} />
+            ),
+            registry: registry.toUpperCase(),
+            totalPaid: `$${(totalPaid / 100000).toFixed(2)}`
+          }))
+      }
     } catch (e) {
-    } finally {
-      setLedgerLoading(false)
+      console.error(e)
     }
   }
 
   useEffect(() => {
-    fetchLedger()
+    (async () => {
+      if (!router.query || !router.query.organizationId) return
+
+      const { organization } = await getOrg({ orgId: router.query.organizationId, noAuth: true })
+      setLocalOrg(organization)
+    })()
   }, [router.query])
 
   return (
@@ -62,45 +84,27 @@ const OrgSettingsSection = () => {
       backgroundColor='lightRock'
     >
       <BackButton destination={`/organization/${localOrg?.id}`} />
-      <UnderlinedHeading
-        as='h1'
-        text={`${getOrgNamePossessive()} Donation Ledger`}
-        align='center'
-        marginBottom='3rem'
-      />
-      {ledgerLoading && <CircularProgress isIndeterminate color='ocean' />}
-      {!ledgerLoading && !ledger && (
-        <Alert
-          status='info'
-          backgroundColor='puddle'
-          color='ocean'
-          fontWeight='500'
-          marginBottom='1.5rem'
-        >
-          <AlertIcon color='ocean' />
-          <Text>It looks like we don't currently have a donation ledger for this organization. Please check back at a later time.</Text>
-        </Alert>
-      )}
-      {!ledgerLoading && ledger && (
+      <Box ref={topOfLedger}>
+        <UnderlinedHeading
+          as='h1'
+          text={`${getOrgNamePossessive()} Donation Ledger`}
+          align='center'
+          marginBottom='3rem'
+        />
+      </Box>
+      {router?.query?.organizationId &&
         <Box width='100%' padding='0 10% 0 10%' margin='auto'>
-          <PaginationList
-            data={ledger.sort((a, b) => b.totalPaid - a.totalPaid)}
+          <PaginatedTable
+            getData={fetchLedger}
+            columns={ledgerColumns}
             pageSize={20}
-            renderItem={(item, key) => (
-              <React.Fragment key={key}>
-                <TextLink text={`${item.registry.toUpperCase()} ${item.name}: $${(item.totalPaid / 100000).toFixed(2)}`} external href={`https://maintainer.flossbank.com/package/${item.id}`} />
-                <Box
-                  as='hr'
-                  borderColor='white'
-                  margin='0.5rem'
-                />
-              </React.Fragment>
-            )}
+            onNext={handlePageChange}
+            onPrev={handlePageChange}
+            errorText="It looks like we don't currently have a donation ledger for this organization. Please check back at a later time."
           />
-        </Box>
-      )}
+        </Box>}
     </Section>
   )
 }
 
-export default OrgSettingsSection
+export default OrgDonationLedger

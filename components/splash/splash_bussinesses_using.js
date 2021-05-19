@@ -33,7 +33,7 @@ const SplashBussinessesUsing = () => (
       justifyContent='space-around'
     >
       {logos.map((item, i) => (
-        <Link href={item.url} target='_blank' key={i}>
+        <Link href={item.url} target='_blank' rel='noopener noreferrer' key={i}>
           <Image src={`/images/companyLogos/${item.image}`} objectFit='contain' height='4rem' width='14rem' />
         </Link>
       ))}
