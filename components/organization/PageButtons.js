@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types'
-import { useEffect, useRef, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { Button, Box } from '@chakra-ui/react'
 import { ArrowForwardIcon, ArrowBackIcon } from '@chakra-ui/icons'
 
@@ -175,18 +175,18 @@ const PageButtons = ({ totalPages, currentPageIdx, pageLoading, onClick }) => {
     if (totalPages > jump) {
       if (countJump.current * jump < totalPages && !flagEnd) {
         pageButtons.push((
-          <>
+          <React.Fragment key='wrap_jump_next'>
             {jumpNextBtn}
             {lastPageBtn}
-          </>
+          </React.Fragment>
         ))
       }
       if (countJump.current > 1 || flagEnd) {
         pageButtons.unshift((
-          <>
+          <React.Fragment key='wrap_jump_prev'>
             {firstPageBtn}
             {jumpPrevBtn}
-          </>
+          </React.Fragment>
         ))
       }
     }

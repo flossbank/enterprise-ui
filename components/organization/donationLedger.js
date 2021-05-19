@@ -108,8 +108,7 @@ const OrgDonationLedger = () => {
             getRowCount={fetchLedgerSize}
             columns={ledgerColumns}
             pageSize={20}
-            onNext={handlePageChange}
-            onPrev={handlePageChange}
+            onPageChange={handlePageChange}
             errorText="It looks like we don't currently have a donation ledger for this organization. Please check back at a later time."
           />
         </Box>}
