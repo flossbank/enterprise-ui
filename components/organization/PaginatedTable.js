@@ -11,47 +11,46 @@ import {
   Alert,
   AlertIcon,
   Text,
-  Button,
   Box
 } from '@chakra-ui/react'
-import {
-  ArrowForwardIcon,
-  ArrowBackIcon
-} from '@chakra-ui/icons'
+import PageButtons from './PageButtons'
 
 import PropTypes from 'prop-types'
 import { useEffect, useState, useRef } from 'react'
 
 const PaginatedTable = (props) => {
-  const { columns, pageSize, getData, errorText } = props
+  const { columns, pageSize, getData, getRowCount, errorText } = props
 
-  const [currentPageNumber, setCurrentPageNumber] = useState(0)
-  const [lastPage, setLastPage] = useState(false)
+  const [currentPageIdx, setCurrentPageIdx] = useState(0)
   const [error, setError] = useState(null)
   const [data, setData] = useState([])
+  const [rowCount, setRowCount] = useState(0)
   const [loading, setLoading] = useState(true)
   const [pageLoading, setPageLoading] = useState(false)
 
   const cache = useRef([])
 
-  const handleChangePage = (direction) => {
-    if (direction === 'back') {
-      setCurrentPageNumber(currentPageNumber ? currentPageNumber - 1 : 0)
-      if (props.onPrev) props.onPrev()
-    } else {
-      setCurrentPageNumber(currentPageNumber + 1)
-      if (props.onNext) props.onNext()
-    }
+  const handleChangePage = (newPageNumber) => {
+    // page numbers are 1-indexed; page indices are 0-indexed
+    setCurrentPageIdx(newPageNumber - 1)
+    if (props.onPageChange) props.onPageChange()
   }
+
+  useEffect(() => {
+    (async () => {
+      const rc = await getRowCount()
+      setRowCount(rc)
+    })()
+  }, [])
 
   useEffect(() => {
     const getRows = async () => {
       const limit = pageSize
-      const offset = pageSize * currentPageNumber
+      const offset = pageSize * currentPageIdx
 
       try {
-        if (cache.current[currentPageNumber]) {
-          setData(cache.current[currentPageNumber])
+        if (cache.current[currentPageIdx]) {
+          setData(cache.current[currentPageIdx])
           return
         }
 
@@ -59,12 +58,8 @@ const PaginatedTable = (props) => {
 
         const data = await getData({ limit, offset })
         if (data && data.rows) {
-          cache.current[currentPageNumber] = data.rows
+          cache.current[currentPageIdx] = data.rows
           setData(data.rows)
-
-          if (data.rows.length < pageSize) {
-            setLastPage(currentPageNumber)
-          }
         } else {
           setError(new Error('no rows in returned data'))
         }
@@ -78,7 +73,7 @@ const PaginatedTable = (props) => {
     }
 
     getRows()
-  }, [currentPageNumber, pageSize])
+  }, [currentPageIdx, pageSize])
 
   if (error) {
     return (
@@ -125,55 +120,12 @@ const PaginatedTable = (props) => {
           ))}
         </Tbody>
       </Table>
-      <Box textAlign='center' paddingTop='1rem'>
-        <Button
-          backgroundColor='lightRock'
-          disabled={!currentPageNumber}
-          className='u-box-shadow'
-          isLoading={pageLoading}
-          borderRadius='5px'
-          padding='1rem'
-          marginRight='1rem'
-          height='auto'
-          lineHeight='1.2'
-          transition='all 300ms ease-in-out'
-          _hover={{
-            backgroundColor: 'rock',
-            color: 'white',
-            transform: 'translateY(1px)'
-          }}
-          _active={{
-            backgroundColor: 'boulder',
-            color: 'white'
-          }}
-          onClick={() => handleChangePage('back')}
-        >
-          <ArrowBackIcon />
-        </Button>
-        <Button
-          backgroundColor='lightRock'
-          className='u-box-shadow'
-          disabled={lastPage === currentPageNumber}
-          isLoading={pageLoading}
-          borderRadius='5px'
-          padding='1rem'
-          height='auto'
-          lineHeight='1.2'
-          transition='all 300ms ease-in-out'
-          _hover={{
-            backgroundColor: 'rock',
-            color: 'white',
-            transform: 'translateY(1px)'
-          }}
-          _active={{
-            backgroundColor: 'boulder',
-            color: 'white'
-          }}
-          onClick={() => handleChangePage('forward')}
-        >
-          <ArrowForwardIcon />
-        </Button>
-      </Box>
+      <PageButtons
+        totalPages={Math.ceil(rowCount / pageSize)}
+        currentPageIdx={currentPageIdx}
+        pageLoading={pageLoading}
+        onClick={handleChangePage}
+      />
     </>
   )
 }
@@ -189,9 +141,12 @@ PaginatedTable.propTypes = {
   // a function that takes { limit, offset } as input and returns { rows }
   // where are u typescript
   getData: PropTypes.func.isRequired,
+
+  // a function that takes no input and returns a number
+  getRowCount: PropTypes.func.isRequired,
+
   errorText: PropTypes.string.isRequired,
-  onNext: PropTypes.func,
-  onPrev: PropTypes.func
+  onPageChange: PropTypes.func
 }
 
 export default PaginatedTable

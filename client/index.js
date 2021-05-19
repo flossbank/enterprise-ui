@@ -48,7 +48,7 @@ export const updateDescription = async ({ organizationId, description }) => {
   return fetchThenJson('api/organization/update', optionsWithPostBody({ description, organizationId }))
 }
 
-export const getOrgDonationLedger = async ({ orgId, limit, offset }) => {
+export const getOrgDonationLedger = async ({ orgId, limit, offset, sizeRequest }) => {
   let url = `api/organization/get-donation-ledger?organizationId=${orgId}`
 
   if (limit) {
@@ -56,6 +56,9 @@ export const getOrgDonationLedger = async ({ orgId, limit, offset }) => {
   }
   if (offset) {
     url += `&offset=${offset}`
+  }
+  if (sizeRequest) {
+    url += '&sizeRequest=true'
   }
 
   return fetchThenJson(url, optionsGetRequest())

@@ -41,8 +41,8 @@ const OrgDonationLedger = () => {
 
   async function fetchLedger ({ limit, offset }) {
     const orgId = localOrg.id || router?.query?.organizationId
-
     if (!orgId) return
+
     try {
       const res = await getOrgDonationLedger({ orgId, limit, offset })
 
@@ -62,6 +62,15 @@ const OrgDonationLedger = () => {
     } catch (e) {
       console.error(e)
     }
+  }
+
+  async function fetchLedgerSize () {
+    const orgId = localOrg.id || router?.query?.organizationId
+    if (!orgId) return
+
+    const res = await getOrgDonationLedger({ orgId, sizeRequest: true })
+
+    return res && res.ledgerSize
   }
 
   useEffect(() => {
@@ -96,6 +105,7 @@ const OrgDonationLedger = () => {
         <Box width='100%' padding='0 10% 0 10%' margin='auto'>
           <PaginatedTable
             getData={fetchLedger}
+            getRowCount={fetchLedgerSize}
             columns={ledgerColumns}
             pageSize={20}
             onNext={handlePageChange}

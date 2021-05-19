@@ -10,7 +10,8 @@ export default async (req, reply) => {
       searchParams: {
         organizationId: req.query.organizationId,
         limit: req.query.limit,
-        offset: req.query.offset
+        offset: req.query.offset,
+        sizeRequest: req.query.sizeRequest
       },
       headers: reqHeaders
     })
