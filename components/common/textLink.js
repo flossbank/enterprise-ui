@@ -14,7 +14,7 @@ const TextLink = ({ href, text, children, external, ...props }) => (
             {text}
           </ChakraLink>
         </Link>
-        )
+      )
       : (
         <ChakraLink
           href={href}
@@ -26,7 +26,7 @@ const TextLink = ({ href, text, children, external, ...props }) => (
           {text}
           <span className='sr-only'> (opens in new window)</span>
         </ChakraLink>
-        )}
+      )}
   </>
 )
 

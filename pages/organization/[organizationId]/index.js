@@ -60,7 +60,6 @@ const Dashboard = () => {
 
   function resetDonationLoaders () {
     setDonationLoading(true)
-    setTotalContributionsAmountLoading(true)
   }
 
   async function fetchAllData () {

@@ -113,13 +113,13 @@ const DonationCard = ({ donationAmount, donationLoading, hasDonation, refreshDas
                   onClose={handleClose}
                 />
               </StripeWrapper>
-              )
+            )
             : (
               <DonationInfoModalBody
                 upgradeToDonor={() => setCreateNewDonation(true)}
                 onClose={handleClose}
               />
-              )}
+            )}
         </ModalContent>
       </Modal>
     </>

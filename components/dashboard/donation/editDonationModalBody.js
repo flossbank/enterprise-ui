@@ -14,13 +14,14 @@ import {
   ModalBody
 } from '@chakra-ui/react'
 import {
-  CheckIcon
+  CheckIcon,
+  DeleteIcon,
+  CloseIcon
 } from '@chakra-ui/icons'
 
 import BillingForm from '../billingForm'
 import RemoveDonation from './removeDonationModalBody'
 
-import Icons from '../../../public/icons'
 import FBButton from '../../common/fbButton'
 import ErrorMessage from '../../common/errorMessage'
 
@@ -219,7 +220,7 @@ const EditDonationModalBody = ({ donationAmount, isNewDonor, onClose }) => {
                     padding='.5rem .5rem .5rem 0'
                   >
                     <Box as='span' display='flex' alignItems='center'>
-                      <Icons.Delete fontSize='1rem' marginRight='1rem' />
+                      <DeleteIcon fontSize='1rem' marginRight='1rem' />
                       Discontinue monthly contribution
                     </Box>
                   </FBButton>
@@ -237,7 +238,7 @@ const EditDonationModalBody = ({ donationAmount, isNewDonor, onClose }) => {
               fontWeight='600'
             >
               <Box as='span' display='flex' alignItems='center'>
-                <Icons.Close fontSize='1rem' marginRight='1rem' />
+                <CloseIcon fontSize='1rem' marginRight='1rem' />
                 Cancel
               </Box>
             </FBButton>

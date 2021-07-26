@@ -146,7 +146,7 @@ const PageButtons = ({ totalPages, currentPageIdx, pageLoading, onClick }) => {
           title='Jump Next'
         >...
         </Button>
-        )
+      )
       : null
 
     const jumpPrevBtn = (

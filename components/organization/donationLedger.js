@@ -35,9 +35,7 @@ const OrgDonationLedger = () => {
 
   const getOrgNamePossessive = () => localOrg.name ? `${localOrg.name}'s` : ''
 
-  const handlePageChange = () => {
-    topOfLedger.current?.scrollIntoView()
-  }
+  const handlePageChange = () => topOfLedger.current?.scrollIntoView()
 
   async function fetchLedger ({ limit, offset }) {
     const orgId = localOrg.id || router?.query?.organizationId
