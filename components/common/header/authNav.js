@@ -88,13 +88,13 @@ const AuthNav = ({ user, onLogout }) => {
                   marginLeft='.5rem'
                   size='1.5rem'
                 />
-              )
+                )
               : (
                 <ChevronDownIcon
                   marginLeft='.5rem'
                   size='1.5rem'
                 />
-              )}
+                )}
           </MenuButton>
           <MenuList backgroundColor='lightRock'>
             {currentOrg && (

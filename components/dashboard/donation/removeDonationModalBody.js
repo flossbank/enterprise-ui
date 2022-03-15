@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { useRouter } from 'next/router'
 import { Box, Text, ModalFooter, ModalBody } from '@chakra-ui/react'
 
-import Icons from '../../../public/icons'
+import { DeleteIcon, CloseIcon } from '@chakra-ui/icons'
 import FBButton from '../../common/fbButton'
 import ErrorMessage from '../../common/errorMessage'
 
@@ -70,7 +70,7 @@ const RemoveDonation = ({ updateDonorStatus, onClose }) => {
           margin='0 1.5rem 0 0'
         >
           <Box as='span' display='flex' alignItems='center'>
-            <Icons.Close fontSize='1rem' marginRight='1rem' />
+            <CloseIcon fontSize='1rem' marginRight='1rem' />
             Keep contributing
           </Box>
         </FBButton>
@@ -84,7 +84,7 @@ const RemoveDonation = ({ updateDonorStatus, onClose }) => {
           fontWeight='600'
         >
           <Box as='span' display='flex' alignItems='center'>
-            <Icons.Delete fontSize='1rem' marginRight='1rem' />
+            <DeleteIcon w='1.5rem' h='1.5rem' marginRight='1rem' />
             Discontinue contributing
           </Box>
         </FBButton>
