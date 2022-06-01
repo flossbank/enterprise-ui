@@ -18,18 +18,6 @@ const loggedOutLinks = [
   {
     url: '/how-it-works',
     text: 'How It Works'
-  },
-  {
-    url: '/contact',
-    text: 'Contact Us'
-  },
-  {
-    url: '/login',
-    text: 'Log In'
-  },
-  {
-    url: '/signup',
-    text: 'Sign Up'
   }
 ]
 
